@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MonolithDefinesDto {
 
-@JsonKey(name: 'defines_path') String get definesPath;@JsonKey(name: 'generate') MonolithDefinesGenerateDto get generate;@JsonKey(name: 'flavors') Map<String, Map<String, String>> get flavors;
+@JsonKey(name: 'output_path') String get outputPath;@JsonKey(name: 'generate') MonolithDefinesGenerateDto get generate;@JsonKey(name: 'flavors') Map<String, Map<String, String>> get flavors;
 /// Create a copy of MonolithDefinesDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $MonolithDefinesDtoCopyWith<MonolithDefinesDto> get copyWith => _$MonolithDefine
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithDefinesDto&&(identical(other.definesPath, definesPath) || other.definesPath == definesPath)&&(identical(other.generate, generate) || other.generate == generate)&&const DeepCollectionEquality().equals(other.flavors, flavors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithDefinesDto&&(identical(other.outputPath, outputPath) || other.outputPath == outputPath)&&(identical(other.generate, generate) || other.generate == generate)&&const DeepCollectionEquality().equals(other.flavors, flavors));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,definesPath,generate,const DeepCollectionEquality().hash(flavors));
+int get hashCode => Object.hash(runtimeType,outputPath,generate,const DeepCollectionEquality().hash(flavors));
 
 @override
 String toString() {
-  return 'MonolithDefinesDto(definesPath: $definesPath, generate: $generate, flavors: $flavors)';
+  return 'MonolithDefinesDto(outputPath: $outputPath, generate: $generate, flavors: $flavors)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $MonolithDefinesDtoCopyWith<$Res>  {
   factory $MonolithDefinesDtoCopyWith(MonolithDefinesDto value, $Res Function(MonolithDefinesDto) _then) = _$MonolithDefinesDtoCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'defines_path') String definesPath,@JsonKey(name: 'generate') MonolithDefinesGenerateDto generate,@JsonKey(name: 'flavors') Map<String, Map<String, String>> flavors
+@JsonKey(name: 'output_path') String outputPath,@JsonKey(name: 'generate') MonolithDefinesGenerateDto generate,@JsonKey(name: 'flavors') Map<String, Map<String, String>> flavors
 });
 
 
@@ -66,9 +66,9 @@ class _$MonolithDefinesDtoCopyWithImpl<$Res>
 
 /// Create a copy of MonolithDefinesDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? definesPath = null,Object? generate = null,Object? flavors = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? outputPath = null,Object? generate = null,Object? flavors = null,}) {
   return _then(_self.copyWith(
-definesPath: null == definesPath ? _self.definesPath : definesPath // ignore: cast_nullable_to_non_nullable
+outputPath: null == outputPath ? _self.outputPath : outputPath // ignore: cast_nullable_to_non_nullable
 as String,generate: null == generate ? _self.generate : generate // ignore: cast_nullable_to_non_nullable
 as MonolithDefinesGenerateDto,flavors: null == flavors ? _self.flavors : flavors // ignore: cast_nullable_to_non_nullable
 as Map<String, Map<String, String>>,
@@ -91,10 +91,10 @@ $MonolithDefinesGenerateDtoCopyWith<$Res> get generate {
 @JsonSerializable()
 
 class _MonolithDefinesDto implements MonolithDefinesDto {
-  const _MonolithDefinesDto({@JsonKey(name: 'defines_path') required this.definesPath, @JsonKey(name: 'generate') required this.generate, @JsonKey(name: 'flavors') required final  Map<String, Map<String, String>> flavors}): _flavors = flavors;
+  const _MonolithDefinesDto({@JsonKey(name: 'output_path') required this.outputPath, @JsonKey(name: 'generate') required this.generate, @JsonKey(name: 'flavors') required final  Map<String, Map<String, String>> flavors}): _flavors = flavors;
   factory _MonolithDefinesDto.fromJson(Map<String, dynamic> json) => _$MonolithDefinesDtoFromJson(json);
 
-@override@JsonKey(name: 'defines_path') final  String definesPath;
+@override@JsonKey(name: 'output_path') final  String outputPath;
 @override@JsonKey(name: 'generate') final  MonolithDefinesGenerateDto generate;
  final  Map<String, Map<String, String>> _flavors;
 @override@JsonKey(name: 'flavors') Map<String, Map<String, String>> get flavors {
@@ -117,16 +117,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithDefinesDto&&(identical(other.definesPath, definesPath) || other.definesPath == definesPath)&&(identical(other.generate, generate) || other.generate == generate)&&const DeepCollectionEquality().equals(other._flavors, _flavors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithDefinesDto&&(identical(other.outputPath, outputPath) || other.outputPath == outputPath)&&(identical(other.generate, generate) || other.generate == generate)&&const DeepCollectionEquality().equals(other._flavors, _flavors));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,definesPath,generate,const DeepCollectionEquality().hash(_flavors));
+int get hashCode => Object.hash(runtimeType,outputPath,generate,const DeepCollectionEquality().hash(_flavors));
 
 @override
 String toString() {
-  return 'MonolithDefinesDto(definesPath: $definesPath, generate: $generate, flavors: $flavors)';
+  return 'MonolithDefinesDto(outputPath: $outputPath, generate: $generate, flavors: $flavors)';
 }
 
 
@@ -137,7 +137,7 @@ abstract mixin class _$MonolithDefinesDtoCopyWith<$Res> implements $MonolithDefi
   factory _$MonolithDefinesDtoCopyWith(_MonolithDefinesDto value, $Res Function(_MonolithDefinesDto) _then) = __$MonolithDefinesDtoCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'defines_path') String definesPath,@JsonKey(name: 'generate') MonolithDefinesGenerateDto generate,@JsonKey(name: 'flavors') Map<String, Map<String, String>> flavors
+@JsonKey(name: 'output_path') String outputPath,@JsonKey(name: 'generate') MonolithDefinesGenerateDto generate,@JsonKey(name: 'flavors') Map<String, Map<String, String>> flavors
 });
 
 
@@ -154,9 +154,9 @@ class __$MonolithDefinesDtoCopyWithImpl<$Res>
 
 /// Create a copy of MonolithDefinesDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? definesPath = null,Object? generate = null,Object? flavors = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? outputPath = null,Object? generate = null,Object? flavors = null,}) {
   return _then(_MonolithDefinesDto(
-definesPath: null == definesPath ? _self.definesPath : definesPath // ignore: cast_nullable_to_non_nullable
+outputPath: null == outputPath ? _self.outputPath : outputPath // ignore: cast_nullable_to_non_nullable
 as String,generate: null == generate ? _self.generate : generate // ignore: cast_nullable_to_non_nullable
 as MonolithDefinesGenerateDto,flavors: null == flavors ? _self._flavors : flavors // ignore: cast_nullable_to_non_nullable
 as Map<String, Map<String, String>>,

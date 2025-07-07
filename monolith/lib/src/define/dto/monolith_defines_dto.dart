@@ -9,7 +9,7 @@ part 'monolith_defines_dto.g.dart';
 @freezed
 abstract class MonolithDefinesDto with _$MonolithDefinesDto {
   const factory MonolithDefinesDto({
-    @JsonKey(name: 'defines_path') required String definesPath,
+    @JsonKey(name: 'output_path') required String outputPath,
     @JsonKey(name: 'generate') required MonolithDefinesGenerateDto generate,
     @JsonKey(name: 'flavors') required Map<String, Map<String, String>> flavors,
   }) = _MonolithDefinesDto;

@@ -8,7 +8,7 @@ import 'package:path/path.dart' as p;
 
 extension MonolithDefinesExtension on Monolith {
   MonolithDefinesDto _parseConfiguration() {
-    final defines = configurations['defines'];
+    final defines = configurations['define'];
     return MonolithDefinesDto.fromJson(defines as Map<String, dynamic>);
   }
 
@@ -19,7 +19,7 @@ extension MonolithDefinesExtension on Monolith {
 
     final packageName = require(generate.packageName);
     final helperPath = generate.helperPath;
-    final definesPath = defines.definesPath;
+    final outputPath = defines.outputPath;
     final flavors = defines.flavors;
     final testFlavor = generate.testFlavor;
     const mustache = definesClassTemplateMustache;
@@ -29,7 +29,7 @@ extension MonolithDefinesExtension on Monolith {
     for (final flavor in flavors.entries) {
       final flavorName = flavor.key;
       final keyValues = flavor.value;
-      final jsonFile = file(p.join(definesPath, '$flavorName.json'));
+      final jsonFile = file(p.join(outputPath, '$flavorName.json'));
 
       jsonFile.writeAsStringSync(jsonEncode(keyValues));
       generator.addAll(keyValues.keys);
@@ -39,7 +39,7 @@ extension MonolithDefinesExtension on Monolith {
     generator.generate(
       dartFile,
       definesMustache: mustache,
-      pathToTestDefineJson: p.join(definesPath, '$testFlavor.json'),
+      pathToTestDefineJson: p.join(outputPath, '$testFlavor.json'),
     );
 
     await project.exec(
