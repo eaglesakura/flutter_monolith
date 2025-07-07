@@ -2,18 +2,18 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'monolith_secret_dto.freezed.dart';
-part 'monolith_secret_dto.g.dart';
+part 'monolith_install_dto.freezed.dart';
+part 'monolith_install_dto.g.dart';
 
 @freezed
-abstract class MonolithSecretDto with _$MonolithSecretDto {
-  const factory MonolithSecretDto({
+abstract class MonolithInstallDto with _$MonolithInstallDto {
+  const factory MonolithInstallDto({
     @JsonKey(name: 'path') String? path,
     @JsonKey(name: 'base64_file') String? base64File,
     @JsonKey(name: 'text_file') String? textFile,
     @JsonKey(name: 'properties') Map<String, String>? properties,
-  }) = _MonolithSecretDto;
+  }) = _MonolithInstallDto;
 
-  factory MonolithSecretDto.fromJson(Map<String, dynamic> json) =>
-      _$MonolithSecretDtoFromJson(json);
+  factory MonolithInstallDto.fromJson(Map<String, dynamic> json) =>
+      _$MonolithInstallDtoFromJson(json);
 }
