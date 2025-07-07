@@ -8,9 +8,8 @@ part 'monolith_defines_generate_dto.g.dart';
 @freezed
 abstract class MonolithDefinesGenerateDto with _$MonolithDefinesGenerateDto {
   const factory MonolithDefinesGenerateDto({
+    @JsonKey(name: 'package_name') required String packageName,
     @JsonKey(name: 'helper_path') required String helperPath,
-    @JsonKey(name: 'defines_path') required String definesPath,
-    @JsonKey(name: 'root_file') @Default('monolith.yaml') String rootFile,
     @JsonKey(name: 'test_flavor') @Default('test') String testFlavor,
   }) = _MonolithDefinesGenerateDto;
 

@@ -17,10 +17,10 @@ extension MonolithDefinesExtension on Monolith {
     final defines = _parseConfiguration();
     final generate = defines.generate;
 
+    final packageName = require(generate.packageName);
     final helperPath = generate.helperPath;
-    final definesPath = generate.definesPath;
+    final definesPath = defines.definesPath;
     final flavors = defines.flavors;
-    final rootFile = generate.rootFile;
     final testFlavor = generate.testFlavor;
     const mustache = definesClassTemplateMustache;
 
@@ -35,11 +35,10 @@ extension MonolithDefinesExtension on Monolith {
       generator.addAll(keyValues.keys);
     }
 
-    final dartFile = file(helperPath);
+    final dartFile = packageName.file(helperPath);
     generator.generate(
       dartFile,
       definesMustache: mustache,
-      rootFileName: rootFile,
       pathToTestDefineJson: p.join(definesPath, '$testFlavor.json'),
     );
 

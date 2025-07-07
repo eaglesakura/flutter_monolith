@@ -16,9 +16,6 @@ class DefinesGenerator {
   void generate(
     File outputDartFile, {
 
-    /// Root key file name
-    required String rootFileName,
-
     /// template
     required String definesMustache,
 
@@ -27,7 +24,6 @@ class DefinesGenerator {
   }) {
     final mustacheValues = {
       'relativePathToTestDefinesJson': pathToTestDefineJson,
-      'rootFileName': rootFileName,
       ..._compileMustacheValues(),
     };
 

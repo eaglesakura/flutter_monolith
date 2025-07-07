@@ -8,6 +8,7 @@ part of 'monolith_defines_dto.dart';
 
 _MonolithDefinesDto _$MonolithDefinesDtoFromJson(Map<String, dynamic> json) =>
     _MonolithDefinesDto(
+      definesPath: json['defines_path'] as String,
       generate: MonolithDefinesGenerateDto.fromJson(
         json['generate'] as Map<String, dynamic>,
       ),
@@ -18,6 +19,7 @@ _MonolithDefinesDto _$MonolithDefinesDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MonolithDefinesDtoToJson(_MonolithDefinesDto instance) =>
     <String, dynamic>{
+      'defines_path': instance.definesPath,
       'generate': instance.generate,
       'flavors': instance.flavors,
     };

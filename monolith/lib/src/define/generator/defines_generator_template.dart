@@ -21,9 +21,9 @@ final class Defines {
   static Directory _getWorkspace() {
     var result = Directory.current;
 
-    /// '{{rootFileName}}'が存在するディレクトリまで遡る)
+    /// '{{relativePathToTestDefinesJson}}'が存在するディレクトリまで遡る)
     while (true) {
-      final rootFile = File('${result.path}/{{rootFileName}}');
+      final rootFile = File('${result.path}/{{{relativePathToTestDefinesJson}}}');
       if (rootFile.existsSync()) {
         return result;
       }

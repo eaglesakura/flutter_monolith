@@ -9,17 +9,15 @@ part of 'monolith_defines_generate_dto.dart';
 _MonolithDefinesGenerateDto _$MonolithDefinesGenerateDtoFromJson(
   Map<String, dynamic> json,
 ) => _MonolithDefinesGenerateDto(
+  packageName: json['package_name'] as String,
   helperPath: json['helper_path'] as String,
-  definesPath: json['defines_path'] as String,
-  rootFile: json['root_file'] as String? ?? 'monolith.yaml',
   testFlavor: json['test_flavor'] as String? ?? 'test',
 );
 
 Map<String, dynamic> _$MonolithDefinesGenerateDtoToJson(
   _MonolithDefinesGenerateDto instance,
 ) => <String, dynamic>{
+  'package_name': instance.packageName,
   'helper_path': instance.helperPath,
-  'defines_path': instance.definesPath,
-  'root_file': instance.rootFile,
   'test_flavor': instance.testFlavor,
 };
