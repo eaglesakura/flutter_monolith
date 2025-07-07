@@ -13,7 +13,7 @@ extension MonolithDefinesExtension on Monolith {
   }
 
   /// dart-define用のJSONファイルと、アクセス補助用のクラスを生成する.
-  Future<void> generateDefines() async {
+  Future<void> generateDefine() async {
     final defines = _parseConfiguration();
     final generate = defines.generate;
 
