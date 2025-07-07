@@ -14,7 +14,7 @@ extension DartPackageRunnerXcodegenExtensions on DartPackageRunner {
   }
 
   /// xcodegenを実行する.
-  Future<void> xcodegen() async {
+  Future<void> runXcodegen() async {
     final dto = _parseConfiguration();
     final env = dto.env ?? {};
     final touchFiles = dto.touchFiles ?? [];

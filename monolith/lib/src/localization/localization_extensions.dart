@@ -135,8 +135,7 @@ extension MonolithLocalizationExtensions on Monolith {
         final dartFile = runner.file(moduleHelperPath);
         await stringsMixInGenerator.generate(
           dartFile,
-          l10nStringsMixinMustache:
-              options.stringsMixinTemplate ?? l10nStringsMixinMustache,
+          l10nStringsMixinMustache: l10nStringsMixinMustache,
           className: moduleHelperClassName,
           localizedTexts: [
             ...table.localizedTexts.where((e) => e.packageName == runner.name),
@@ -160,7 +159,7 @@ extension MonolithLocalizationExtensions on Monolith {
     await L10nHelperGenerator().generate(
       dartFile,
       className: l10nHelperClassName,
-      appDelegateMustache: options.l10nHelperTemplate ?? l10nHelperMustache,
+      appDelegateMustache: l10nHelperMustache,
       importL10nDartPath: 'l10n.dart',
       localizedTexts: table.localizedTexts,
     );

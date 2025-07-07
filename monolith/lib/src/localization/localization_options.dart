@@ -19,13 +19,5 @@ abstract class LocalizationOptions with _$LocalizationOptions {
     /// ローカライゼーションテキストを生成するファクトリ.
     /// nullの場合はデフォルトのファクトリを使用する.
     LocalizedTextFactory? localizedTextFactory,
-
-    /// ローカライゼーションヘルパーのテンプレート.
-    /// nullの場合はデフォルトのテンプレートを使用する.
-    String? stringsMixinTemplate,
-
-    /// L10nアクセステンプレート.
-    /// nullの場合はデフォルトのテンプレートを使用する.
-    String? l10nHelperTemplate,
   }) = _LocalizationOptions;
 }

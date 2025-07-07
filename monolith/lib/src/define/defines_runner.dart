@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:monolith/src/define/defines_options.dart';
 import 'package:monolith/src/define/dto/monolith_defines_dto.dart';
 import 'package:monolith/src/define/generator/defines_generator.dart';
 import 'package:monolith/src/define/generator/defines_generator_template.dart';
@@ -14,7 +13,7 @@ extension MonolithDefinesExtension on Monolith {
   }
 
   /// dart-define用のJSONファイルと、アクセス補助用のクラスを生成する.
-  Future<void> generateDefines(DefinesOptions options) async {
+  Future<void> generateDefines() async {
     final defines = _parseConfiguration();
     final generate = defines.generate;
 
@@ -23,8 +22,7 @@ extension MonolithDefinesExtension on Monolith {
     final flavors = defines.flavors;
     final rootFile = generate.rootFile;
     final testFlavor = generate.testFlavor;
-    final mustache =
-        options.definesClassTemplateMustache ?? definesClassTemplateMustache;
+    const mustache = definesClassTemplateMustache;
 
     // Define classを生成
     final generator = DefinesGenerator();
