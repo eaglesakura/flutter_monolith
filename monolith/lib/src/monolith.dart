@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:armyknife_logger/armyknife_logger.dart';
 import 'package:armyknife_yamlx/armyknife_yamlx.dart';
+import 'package:monolith/src/dto/monolith_dto.dart';
 import 'package:monolith/src/monolith_options.dart';
 import 'package:monolith/src/package/dart_package.dart';
 import 'package:monolith/src/package/dart_package_runner.dart';
@@ -12,7 +13,7 @@ final _log = Logger.of(Monolith);
 /// FlutterでのModular Monolith Workspaceの処理をサポートするクラス.
 class Monolith {
   /// ワークスペースのRootパッケージ.
-  final DartPackage _project;
+  final DartPackage _workspaceProject;
 
   /// オプション.
   final MonolithOptions options;
@@ -21,27 +22,36 @@ class Monolith {
   final Map<String, dynamic> configurations;
 
   factory Monolith(MonolithOptions options) {
-    final pubspecYaml = () {
-      final workspace = options.workspace;
-      if (workspace != null) {
-        return File(p.join(workspace.path, 'pubspec.yaml'));
-      } else {
-        return File(p.join(Directory.current.path, 'pubspec.yaml'));
-      }
+    final workspaceDirectory = Directory.current;
+    final monolithFile =
+        (options.monolith ??
+                File(p.join(workspaceDirectory.path, 'monolith.yaml')))
+            .absolute;
+    _log.i('monolith.yaml: ${monolithFile.path}');
+
+    final monolithYamlFiles = () {
+      final rootMonolithDto = MonolithDto.fromJson(
+        YamlX.parse(monolithFile),
+      );
+      final includes = rootMonolithDto.includes ?? <String>[];
+      return [
+        monolithFile,
+        ...includes
+            .map((e) => File(p.join(workspaceDirectory.path, e)))
+            .where((e) => e.existsSync())
+            .map((e) {
+              _log.i('include: ${e.path}');
+              return e;
+            }),
+      ];
     }();
+
+    final pubspecYaml = File(p.join(workspaceDirectory.path, 'pubspec.yaml'));
     _log.i('load workspace: ${pubspecYaml.path}');
-    final workspace = DartPackage.fromFile(pubspecYaml);
-    final configurations = YamlX.parseWithMerge(
-      [
-        ...options.monolithFiles
-            .map((e) => File(p.normalize(e.absolute.path)))
-            .where((e) => e.existsSync()),
-      ],
-    );
     return Monolith._(
-      project: workspace,
+      project: DartPackage.fromFile(pubspecYaml),
       options: options,
-      configurations: configurations,
+      configurations: YamlX.parseWithMerge(monolithYamlFiles),
     );
   }
 
@@ -49,17 +59,17 @@ class Monolith {
     required DartPackage project,
     required this.options,
     required this.configurations,
-  }) : _project = project;
+  }) : _workspaceProject = project;
 
   /// ルートプロジェクト.
   DartPackageRunner get project =>
-      DartPackageRunner(package: _project, monolith: this);
+      DartPackageRunner(package: _workspaceProject, monolith: this);
 
   /// ワークスペースすべてのプロジェクトを列挙する.
   /// 最初のプロジェクトは、ワークスペースのルートプロジェクト.
   Iterable<DartPackageRunner> get workspace sync* {
     yield project;
-    for (final child in _project.workspaces) {
+    for (final child in _workspaceProject.workspaces) {
       yield DartPackageRunner(package: child, monolith: this);
     }
   }
@@ -70,7 +80,7 @@ class Monolith {
   /// ワークスペースに含まれるpackageを処理する.
   Future each(Future<void> Function(DartPackageRunner runner) callback) async {
     await callback(project);
-    for (final child in _project.workspaces) {
+    for (final child in _workspaceProject.workspaces) {
       await callback(DartPackageRunner(package: child, monolith: this));
     }
   }

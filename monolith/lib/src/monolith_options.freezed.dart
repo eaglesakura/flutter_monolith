@@ -15,14 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MonolithOptions {
 
-/// fvmコマンドを使用する
- bool get useFvm;/// miseコマンドを使用する
- bool get useMise;/// Dart ワークスペースのルートディレクトリ.
- Directory? get workspace;/// monolith.yamlのリスト.
-///
-/// 順番に読み込まれ、設定値は上書きされる.
-/// 存在しないファイルは無視される.
- List<File> get monolithFiles;
+/// monolith.yamlのパス.
+/// nullの場合、カレントディレクトリをルートとして `monolith.yaml` を読み込む.
+ File? get monolith;
 /// Create a copy of MonolithOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -33,16 +28,16 @@ $MonolithOptionsCopyWith<MonolithOptions> get copyWith => _$MonolithOptionsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithOptions&&(identical(other.useFvm, useFvm) || other.useFvm == useFvm)&&(identical(other.useMise, useMise) || other.useMise == useMise)&&(identical(other.workspace, workspace) || other.workspace == workspace)&&const DeepCollectionEquality().equals(other.monolithFiles, monolithFiles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithOptions&&(identical(other.monolith, monolith) || other.monolith == monolith));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,useFvm,useMise,workspace,const DeepCollectionEquality().hash(monolithFiles));
+int get hashCode => Object.hash(runtimeType,monolith);
 
 @override
 String toString() {
-  return 'MonolithOptions(useFvm: $useFvm, useMise: $useMise, workspace: $workspace, monolithFiles: $monolithFiles)';
+  return 'MonolithOptions(monolith: $monolith)';
 }
 
 
@@ -53,7 +48,7 @@ abstract mixin class $MonolithOptionsCopyWith<$Res>  {
   factory $MonolithOptionsCopyWith(MonolithOptions value, $Res Function(MonolithOptions) _then) = _$MonolithOptionsCopyWithImpl;
 @useResult
 $Res call({
- bool useFvm, bool useMise, Directory? workspace, List<File> monolithFiles
+ File? monolith
 });
 
 
@@ -70,13 +65,10 @@ class _$MonolithOptionsCopyWithImpl<$Res>
 
 /// Create a copy of MonolithOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? useFvm = null,Object? useMise = null,Object? workspace = freezed,Object? monolithFiles = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? monolith = freezed,}) {
   return _then(_self.copyWith(
-useFvm: null == useFvm ? _self.useFvm : useFvm // ignore: cast_nullable_to_non_nullable
-as bool,useMise: null == useMise ? _self.useMise : useMise // ignore: cast_nullable_to_non_nullable
-as bool,workspace: freezed == workspace ? _self.workspace : workspace // ignore: cast_nullable_to_non_nullable
-as Directory?,monolithFiles: null == monolithFiles ? _self.monolithFiles : monolithFiles // ignore: cast_nullable_to_non_nullable
-as List<File>,
+monolith: freezed == monolith ? _self.monolith : monolith // ignore: cast_nullable_to_non_nullable
+as File?,
   ));
 }
 
@@ -87,30 +79,12 @@ as List<File>,
 
 
 class _MonolithOptions implements MonolithOptions {
-  const _MonolithOptions({this.useFvm = false, this.useMise = false, this.workspace, required final  List<File> monolithFiles}): _monolithFiles = monolithFiles;
+  const _MonolithOptions({this.monolith});
   
 
-/// fvmコマンドを使用する
-@override@JsonKey() final  bool useFvm;
-/// miseコマンドを使用する
-@override@JsonKey() final  bool useMise;
-/// Dart ワークスペースのルートディレクトリ.
-@override final  Directory? workspace;
-/// monolith.yamlのリスト.
-///
-/// 順番に読み込まれ、設定値は上書きされる.
-/// 存在しないファイルは無視される.
- final  List<File> _monolithFiles;
-/// monolith.yamlのリスト.
-///
-/// 順番に読み込まれ、設定値は上書きされる.
-/// 存在しないファイルは無視される.
-@override List<File> get monolithFiles {
-  if (_monolithFiles is EqualUnmodifiableListView) return _monolithFiles;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_monolithFiles);
-}
-
+/// monolith.yamlのパス.
+/// nullの場合、カレントディレクトリをルートとして `monolith.yaml` を読み込む.
+@override final  File? monolith;
 
 /// Create a copy of MonolithOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -122,16 +96,16 @@ _$MonolithOptionsCopyWith<_MonolithOptions> get copyWith => __$MonolithOptionsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithOptions&&(identical(other.useFvm, useFvm) || other.useFvm == useFvm)&&(identical(other.useMise, useMise) || other.useMise == useMise)&&(identical(other.workspace, workspace) || other.workspace == workspace)&&const DeepCollectionEquality().equals(other._monolithFiles, _monolithFiles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithOptions&&(identical(other.monolith, monolith) || other.monolith == monolith));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,useFvm,useMise,workspace,const DeepCollectionEquality().hash(_monolithFiles));
+int get hashCode => Object.hash(runtimeType,monolith);
 
 @override
 String toString() {
-  return 'MonolithOptions(useFvm: $useFvm, useMise: $useMise, workspace: $workspace, monolithFiles: $monolithFiles)';
+  return 'MonolithOptions(monolith: $monolith)';
 }
 
 
@@ -142,7 +116,7 @@ abstract mixin class _$MonolithOptionsCopyWith<$Res> implements $MonolithOptions
   factory _$MonolithOptionsCopyWith(_MonolithOptions value, $Res Function(_MonolithOptions) _then) = __$MonolithOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- bool useFvm, bool useMise, Directory? workspace, List<File> monolithFiles
+ File? monolith
 });
 
 
@@ -159,13 +133,10 @@ class __$MonolithOptionsCopyWithImpl<$Res>
 
 /// Create a copy of MonolithOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? useFvm = null,Object? useMise = null,Object? workspace = freezed,Object? monolithFiles = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? monolith = freezed,}) {
   return _then(_MonolithOptions(
-useFvm: null == useFvm ? _self.useFvm : useFvm // ignore: cast_nullable_to_non_nullable
-as bool,useMise: null == useMise ? _self.useMise : useMise // ignore: cast_nullable_to_non_nullable
-as bool,workspace: freezed == workspace ? _self.workspace : workspace // ignore: cast_nullable_to_non_nullable
-as Directory?,monolithFiles: null == monolithFiles ? _self._monolithFiles : monolithFiles // ignore: cast_nullable_to_non_nullable
-as List<File>,
+monolith: freezed == monolith ? _self.monolith : monolith // ignore: cast_nullable_to_non_nullable
+as File?,
   ));
 }
 

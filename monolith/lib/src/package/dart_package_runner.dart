@@ -89,26 +89,12 @@ class DartPackageRunner {
 
     _log.i('exec: $executable $arguments');
 
-    if (_options.useMise) {
-      return runAsync(
-        'mise',
-        arguments: [
-          'exec',
-          '--',
-          executable,
-          ...arguments,
-        ],
-        workingDirectory: workingDirectory,
-        runOptions: runOptions,
-      );
-    } else {
-      return runAsync(
-        executable,
-        arguments: arguments,
-        workingDirectory: workingDirectory,
-        runOptions: runOptions,
-      );
-    }
+    return runAsync(
+      executable,
+      arguments: arguments,
+      workingDirectory: workingDirectory,
+      runOptions: runOptions,
+    );
   }
 
   /// package配下のファイルを取得する.
