@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:armyknife_logger/armyknife_logger.dart';
-import 'package:dartx/dartx_io.dart';
 import 'package:monolith/src/localization/csv2arb/l10n_localized_text_table.dart';
 import 'package:monolith/src/localization/csv2arb/localized_text.dart';
 import 'package:monolith/src/localization/dto/monolith_localization_dto.dart';
@@ -9,18 +8,15 @@ import 'package:monolith/src/localization/generator/l10n_helper_generator.dart';
 import 'package:monolith/src/localization/generator/l10n_helper_generator_template.dart';
 import 'package:monolith/src/localization/generator/l10n_strings_mixin_generator.dart';
 import 'package:monolith/src/localization/generator/l10n_strings_mixin_generator_template.dart';
-import 'package:monolith/src/localization/localization_options.dart';
 import 'package:monolith/src/monolith.dart';
 import 'package:monolith/src/package/dart_package_runner.dart';
+import 'package:path/path.dart' as p;
 
 final _log = Logger.file();
 
 extension MonolithLocalizationExtensions on Monolith {
   MonolithLocalizationDto _parseConfiguration() {
     final localization = configurations['localization'];
-    if (localization == null) {
-      return const MonolithLocalizationDto();
-    }
     return MonolithLocalizationDto.fromJson(
       localization as Map<String, dynamic>,
     );
@@ -69,21 +65,39 @@ extension MonolithLocalizationExtensions on Monolith {
   /// * packages/
   ///     * module/
   ///         * lib/gen/strings.dart
-  Future generateLocalization(LocalizationOptions options) async {
+  Future generateLocalization() async {
     final dto = _parseConfiguration();
-    final languages = dto.languages ?? [];
+    final appPackage = require(dto.app.packageName);
+    final languages = dto.languages;
     final table = L10nLocalizedTextTable();
-    final moduleHelperClassName =
-        dto.moduleHelperClassName ?? 'L10nStringsMixin';
-    final moduleHelperPath = dto.moduleHelperPath ?? 'lib/gen/strings.dart';
-    final arbPath = dto.arbPath ?? 'lib/l10n/';
-    final arbFilePrefix = dto.arbFilePrefix ?? 'intl_app_';
-    final l10nHelperClassName = dto.l10nHelperClassName ?? 'L10nHelper';
-    final l10nHelperPath = dto.l10nHelperPath ?? 'lib/l10n/l10n_helper.dart';
+    final moduleHelperClassName = dto.package.moduleHelperClassName;
+    final moduleHelperPath = dto.package.moduleHelperPath;
+    final arbPath = dto.app.arbPath;
+    final arbFilePrefix = dto.app.arbFilePrefix;
+    final l10nHelperClassName = dto.app.l10nHelperClassName;
+    final l10nHelperPath = dto.app.l10nHelperPath;
+
+    _log.i('arb generate to: ${appPackage.name}');
+    final packages = () {
+      final pathPrefixes = dto.package.pathPrefixes
+          .map((e) => relativeDirectory(e))
+          .toSet();
+      return [
+        ...workspace
+            .where(
+              (e) => pathPrefixes.any((e) => e.path.startsWith(e.path)),
+            )
+            .map((e) {
+              _log.i('  - sub package: ${e.name}');
+              return e;
+            }),
+        appPackage,
+      ];
+    }();
 
     // すべてのRunnerを巡回
-    for (final pkg in [...options.modules, options.appPackage]) {
-      final resDirectory = pkg.relativeDirectory('res');
+    for (final pkg in packages) {
+      final resDirectory = pkg.relativeDirectory(dto.package.resourcesPath);
       if (!resDirectory.existsSync()) {
         continue;
       }
@@ -95,7 +109,10 @@ extension MonolithLocalizationExtensions on Monolith {
           .listSync(recursive: true)
           .whereType<File>()
           .where(
-            (e) => e.name.startsWith('strings') && e.name.endsWith('.csv'),
+            (e) {
+              final name = p.basename(e.path);
+              return name.startsWith('strings') && name.endsWith('.csv');
+            },
           );
 
       for (final file in stringsCsvFiles) {
@@ -105,31 +122,29 @@ extension MonolithLocalizationExtensions on Monolith {
           return text.replaceAll(r'\\n', '\n');
         }
 
-        final LocalizedTextFactory factory =
-            options.localizedTextFactory ??
-            (Map<String, String> row) {
-              final id = '${pkg.name}_${row['id']!}';
-              var description = row['description'];
-              final text = <String, String>{};
-              for (final language in languages) {
-                final value = row[language]!;
-                text[language] = normalizeText(value);
-                description ??= value;
-              }
-              return LocalizedText(
-                packageName: pkg.name,
-                id: id,
-                text: text,
-                description: description,
-                placeHolders: LocalizedText.parsePlaceholders(
-                  text.values.first,
-                ),
-              );
-            };
+        LocalizedText localizationTextFactory(Map<String, String> row) {
+          final id = '${pkg.name}_${row['id']!}';
+          var description = row['description'];
+          final text = <String, String>{};
+          for (final language in languages) {
+            final value = row[language]!;
+            text[language] = normalizeText(value);
+            description ??= value;
+          }
+          return LocalizedText(
+            packageName: pkg.name,
+            id: id,
+            text: text,
+            description: description,
+            placeHolders: LocalizedText.parsePlaceholders(
+              text.values.first,
+            ),
+          );
+        }
 
         table.addCsv(
           csvFile: file,
-          factory: factory,
+          factory: localizationTextFactory,
         );
         // packageごとのアクセスヘルパーを生成
         final stringsMixInGenerator = L10nStringsMixinGenerator();
@@ -147,16 +162,16 @@ extension MonolithLocalizationExtensions on Monolith {
       }
     }
     _log.i('generate arb files');
-    final arbDirectory = options.appPackage.relativeDirectory(arbPath);
+    final arbDirectory = appPackage.relativeDirectory(arbPath);
     await table.generateArb(
       arbDirectory,
       arbFileNamePrefix: arbFilePrefix,
     );
     // l10n.dartを生成
-    await options.appPackage.pubGet();
+    await appPackage.pubGet();
 
     // アクセスヘルパーを生成
-    final dartFile = options.appPackage.relativeFile(l10nHelperPath);
+    final dartFile = appPackage.relativeFile(l10nHelperPath);
     await L10nHelperGenerator().generate(
       dartFile,
       className: l10nHelperClassName,
@@ -165,6 +180,6 @@ extension MonolithLocalizationExtensions on Monolith {
       localizedTexts: table.localizedTexts,
     );
     // format
-    await options.appPackage.exec('dart', arguments: ['format', dartFile.path]);
+    await appPackage.exec('dart', arguments: ['format', dartFile.path]);
   }
 }

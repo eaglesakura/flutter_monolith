@@ -16,19 +16,10 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MonolithLocalizationDto {
 
-@JsonKey(name: 'languages') List<String>? get languages;/// モジュールヘルパーのクラス名.
-/// デフォルトは `L10nStringsMixin` となる.
-@JsonKey(name: 'module_helper_class_name') String? get moduleHelperClassName;/// ローカライゼーションヘルパーのパス.
-/// デフォルトは `lib/gen/strings.dart` となる.
-@JsonKey(name: 'module_helper_path') String? get moduleHelperPath;/// ARBファイルの出力先パス.
-/// デフォルトは `lib/l10n/` となる.
-@JsonKey(name: 'arb_path') String? get arbPath;/// L10nHelperのクラス名.
-/// デフォルトは `L10nHelper` となる.
-@JsonKey(name: 'l10n_helper_class_name') String? get l10nHelperClassName;/// ARBファイルのファイル名の接頭辞.
-/// デフォルトは `intl_app_` となる.
-@JsonKey(name: 'arb_file_prefix') String? get arbFilePrefix;/// L10nHelperのパス.
-/// デフォルトは `lib/l10n/l10n_helper.dart` となる.
-@JsonKey(name: 'l10n_helper_path') String? get l10nHelperPath;
+/// 対応する言語
+@JsonKey(name: 'languages') List<String> get languages;/// アプリパッケージ
+@JsonKey(name: 'app') MonolithLocalizationAppDto get app;/// モジュールパッケージ
+@JsonKey(name: 'package') MonolithLocalizationPackageDto get package;
 /// Create a copy of MonolithLocalizationDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -41,16 +32,16 @@ $MonolithLocalizationDtoCopyWith<MonolithLocalizationDto> get copyWith => _$Mono
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithLocalizationDto&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.moduleHelperClassName, moduleHelperClassName) || other.moduleHelperClassName == moduleHelperClassName)&&(identical(other.moduleHelperPath, moduleHelperPath) || other.moduleHelperPath == moduleHelperPath)&&(identical(other.arbPath, arbPath) || other.arbPath == arbPath)&&(identical(other.l10nHelperClassName, l10nHelperClassName) || other.l10nHelperClassName == l10nHelperClassName)&&(identical(other.arbFilePrefix, arbFilePrefix) || other.arbFilePrefix == arbFilePrefix)&&(identical(other.l10nHelperPath, l10nHelperPath) || other.l10nHelperPath == l10nHelperPath));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithLocalizationDto&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.app, app) || other.app == app)&&(identical(other.package, package) || other.package == package));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(languages),moduleHelperClassName,moduleHelperPath,arbPath,l10nHelperClassName,arbFilePrefix,l10nHelperPath);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(languages),app,package);
 
 @override
 String toString() {
-  return 'MonolithLocalizationDto(languages: $languages, moduleHelperClassName: $moduleHelperClassName, moduleHelperPath: $moduleHelperPath, arbPath: $arbPath, l10nHelperClassName: $l10nHelperClassName, arbFilePrefix: $arbFilePrefix, l10nHelperPath: $l10nHelperPath)';
+  return 'MonolithLocalizationDto(languages: $languages, app: $app, package: $package)';
 }
 
 
@@ -61,11 +52,11 @@ abstract mixin class $MonolithLocalizationDtoCopyWith<$Res>  {
   factory $MonolithLocalizationDtoCopyWith(MonolithLocalizationDto value, $Res Function(MonolithLocalizationDto) _then) = _$MonolithLocalizationDtoCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'languages') List<String>? languages,@JsonKey(name: 'module_helper_class_name') String? moduleHelperClassName,@JsonKey(name: 'module_helper_path') String? moduleHelperPath,@JsonKey(name: 'arb_path') String? arbPath,@JsonKey(name: 'l10n_helper_class_name') String? l10nHelperClassName,@JsonKey(name: 'arb_file_prefix') String? arbFilePrefix,@JsonKey(name: 'l10n_helper_path') String? l10nHelperPath
+@JsonKey(name: 'languages') List<String> languages,@JsonKey(name: 'app') MonolithLocalizationAppDto app,@JsonKey(name: 'package') MonolithLocalizationPackageDto package
 });
 
 
-
+$MonolithLocalizationAppDtoCopyWith<$Res> get app;$MonolithLocalizationPackageDtoCopyWith<$Res> get package;
 
 }
 /// @nodoc
@@ -78,19 +69,33 @@ class _$MonolithLocalizationDtoCopyWithImpl<$Res>
 
 /// Create a copy of MonolithLocalizationDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? languages = freezed,Object? moduleHelperClassName = freezed,Object? moduleHelperPath = freezed,Object? arbPath = freezed,Object? l10nHelperClassName = freezed,Object? arbFilePrefix = freezed,Object? l10nHelperPath = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? languages = null,Object? app = null,Object? package = null,}) {
   return _then(_self.copyWith(
-languages: freezed == languages ? _self.languages : languages // ignore: cast_nullable_to_non_nullable
-as List<String>?,moduleHelperClassName: freezed == moduleHelperClassName ? _self.moduleHelperClassName : moduleHelperClassName // ignore: cast_nullable_to_non_nullable
-as String?,moduleHelperPath: freezed == moduleHelperPath ? _self.moduleHelperPath : moduleHelperPath // ignore: cast_nullable_to_non_nullable
-as String?,arbPath: freezed == arbPath ? _self.arbPath : arbPath // ignore: cast_nullable_to_non_nullable
-as String?,l10nHelperClassName: freezed == l10nHelperClassName ? _self.l10nHelperClassName : l10nHelperClassName // ignore: cast_nullable_to_non_nullable
-as String?,arbFilePrefix: freezed == arbFilePrefix ? _self.arbFilePrefix : arbFilePrefix // ignore: cast_nullable_to_non_nullable
-as String?,l10nHelperPath: freezed == l10nHelperPath ? _self.l10nHelperPath : l10nHelperPath // ignore: cast_nullable_to_non_nullable
-as String?,
+languages: null == languages ? _self.languages : languages // ignore: cast_nullable_to_non_nullable
+as List<String>,app: null == app ? _self.app : app // ignore: cast_nullable_to_non_nullable
+as MonolithLocalizationAppDto,package: null == package ? _self.package : package // ignore: cast_nullable_to_non_nullable
+as MonolithLocalizationPackageDto,
   ));
 }
-
+/// Create a copy of MonolithLocalizationDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MonolithLocalizationAppDtoCopyWith<$Res> get app {
+  
+  return $MonolithLocalizationAppDtoCopyWith<$Res>(_self.app, (value) {
+    return _then(_self.copyWith(app: value));
+  });
+}/// Create a copy of MonolithLocalizationDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MonolithLocalizationPackageDtoCopyWith<$Res> get package {
+  
+  return $MonolithLocalizationPackageDtoCopyWith<$Res>(_self.package, (value) {
+    return _then(_self.copyWith(package: value));
+  });
+}
 }
 
 
@@ -98,36 +103,22 @@ as String?,
 @JsonSerializable()
 
 class _MonolithLocalizationDto implements MonolithLocalizationDto {
-  const _MonolithLocalizationDto({@JsonKey(name: 'languages') final  List<String>? languages, @JsonKey(name: 'module_helper_class_name') this.moduleHelperClassName, @JsonKey(name: 'module_helper_path') this.moduleHelperPath, @JsonKey(name: 'arb_path') this.arbPath, @JsonKey(name: 'l10n_helper_class_name') this.l10nHelperClassName, @JsonKey(name: 'arb_file_prefix') this.arbFilePrefix, @JsonKey(name: 'l10n_helper_path') this.l10nHelperPath}): _languages = languages;
+  const _MonolithLocalizationDto({@JsonKey(name: 'languages') required final  List<String> languages, @JsonKey(name: 'app') required this.app, @JsonKey(name: 'package') required this.package}): _languages = languages;
   factory _MonolithLocalizationDto.fromJson(Map<String, dynamic> json) => _$MonolithLocalizationDtoFromJson(json);
 
- final  List<String>? _languages;
-@override@JsonKey(name: 'languages') List<String>? get languages {
-  final value = _languages;
-  if (value == null) return null;
+/// 対応する言語
+ final  List<String> _languages;
+/// 対応する言語
+@override@JsonKey(name: 'languages') List<String> get languages {
   if (_languages is EqualUnmodifiableListView) return _languages;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
+  return EqualUnmodifiableListView(_languages);
 }
 
-/// モジュールヘルパーのクラス名.
-/// デフォルトは `L10nStringsMixin` となる.
-@override@JsonKey(name: 'module_helper_class_name') final  String? moduleHelperClassName;
-/// ローカライゼーションヘルパーのパス.
-/// デフォルトは `lib/gen/strings.dart` となる.
-@override@JsonKey(name: 'module_helper_path') final  String? moduleHelperPath;
-/// ARBファイルの出力先パス.
-/// デフォルトは `lib/l10n/` となる.
-@override@JsonKey(name: 'arb_path') final  String? arbPath;
-/// L10nHelperのクラス名.
-/// デフォルトは `L10nHelper` となる.
-@override@JsonKey(name: 'l10n_helper_class_name') final  String? l10nHelperClassName;
-/// ARBファイルのファイル名の接頭辞.
-/// デフォルトは `intl_app_` となる.
-@override@JsonKey(name: 'arb_file_prefix') final  String? arbFilePrefix;
-/// L10nHelperのパス.
-/// デフォルトは `lib/l10n/l10n_helper.dart` となる.
-@override@JsonKey(name: 'l10n_helper_path') final  String? l10nHelperPath;
+/// アプリパッケージ
+@override@JsonKey(name: 'app') final  MonolithLocalizationAppDto app;
+/// モジュールパッケージ
+@override@JsonKey(name: 'package') final  MonolithLocalizationPackageDto package;
 
 /// Create a copy of MonolithLocalizationDto
 /// with the given fields replaced by the non-null parameter values.
@@ -142,16 +133,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithLocalizationDto&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.moduleHelperClassName, moduleHelperClassName) || other.moduleHelperClassName == moduleHelperClassName)&&(identical(other.moduleHelperPath, moduleHelperPath) || other.moduleHelperPath == moduleHelperPath)&&(identical(other.arbPath, arbPath) || other.arbPath == arbPath)&&(identical(other.l10nHelperClassName, l10nHelperClassName) || other.l10nHelperClassName == l10nHelperClassName)&&(identical(other.arbFilePrefix, arbFilePrefix) || other.arbFilePrefix == arbFilePrefix)&&(identical(other.l10nHelperPath, l10nHelperPath) || other.l10nHelperPath == l10nHelperPath));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithLocalizationDto&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.app, app) || other.app == app)&&(identical(other.package, package) || other.package == package));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_languages),moduleHelperClassName,moduleHelperPath,arbPath,l10nHelperClassName,arbFilePrefix,l10nHelperPath);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_languages),app,package);
 
 @override
 String toString() {
-  return 'MonolithLocalizationDto(languages: $languages, moduleHelperClassName: $moduleHelperClassName, moduleHelperPath: $moduleHelperPath, arbPath: $arbPath, l10nHelperClassName: $l10nHelperClassName, arbFilePrefix: $arbFilePrefix, l10nHelperPath: $l10nHelperPath)';
+  return 'MonolithLocalizationDto(languages: $languages, app: $app, package: $package)';
 }
 
 
@@ -162,11 +153,11 @@ abstract mixin class _$MonolithLocalizationDtoCopyWith<$Res> implements $Monolit
   factory _$MonolithLocalizationDtoCopyWith(_MonolithLocalizationDto value, $Res Function(_MonolithLocalizationDto) _then) = __$MonolithLocalizationDtoCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'languages') List<String>? languages,@JsonKey(name: 'module_helper_class_name') String? moduleHelperClassName,@JsonKey(name: 'module_helper_path') String? moduleHelperPath,@JsonKey(name: 'arb_path') String? arbPath,@JsonKey(name: 'l10n_helper_class_name') String? l10nHelperClassName,@JsonKey(name: 'arb_file_prefix') String? arbFilePrefix,@JsonKey(name: 'l10n_helper_path') String? l10nHelperPath
+@JsonKey(name: 'languages') List<String> languages,@JsonKey(name: 'app') MonolithLocalizationAppDto app,@JsonKey(name: 'package') MonolithLocalizationPackageDto package
 });
 
 
-
+@override $MonolithLocalizationAppDtoCopyWith<$Res> get app;@override $MonolithLocalizationPackageDtoCopyWith<$Res> get package;
 
 }
 /// @nodoc
@@ -179,20 +170,34 @@ class __$MonolithLocalizationDtoCopyWithImpl<$Res>
 
 /// Create a copy of MonolithLocalizationDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? languages = freezed,Object? moduleHelperClassName = freezed,Object? moduleHelperPath = freezed,Object? arbPath = freezed,Object? l10nHelperClassName = freezed,Object? arbFilePrefix = freezed,Object? l10nHelperPath = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? languages = null,Object? app = null,Object? package = null,}) {
   return _then(_MonolithLocalizationDto(
-languages: freezed == languages ? _self._languages : languages // ignore: cast_nullable_to_non_nullable
-as List<String>?,moduleHelperClassName: freezed == moduleHelperClassName ? _self.moduleHelperClassName : moduleHelperClassName // ignore: cast_nullable_to_non_nullable
-as String?,moduleHelperPath: freezed == moduleHelperPath ? _self.moduleHelperPath : moduleHelperPath // ignore: cast_nullable_to_non_nullable
-as String?,arbPath: freezed == arbPath ? _self.arbPath : arbPath // ignore: cast_nullable_to_non_nullable
-as String?,l10nHelperClassName: freezed == l10nHelperClassName ? _self.l10nHelperClassName : l10nHelperClassName // ignore: cast_nullable_to_non_nullable
-as String?,arbFilePrefix: freezed == arbFilePrefix ? _self.arbFilePrefix : arbFilePrefix // ignore: cast_nullable_to_non_nullable
-as String?,l10nHelperPath: freezed == l10nHelperPath ? _self.l10nHelperPath : l10nHelperPath // ignore: cast_nullable_to_non_nullable
-as String?,
+languages: null == languages ? _self._languages : languages // ignore: cast_nullable_to_non_nullable
+as List<String>,app: null == app ? _self.app : app // ignore: cast_nullable_to_non_nullable
+as MonolithLocalizationAppDto,package: null == package ? _self.package : package // ignore: cast_nullable_to_non_nullable
+as MonolithLocalizationPackageDto,
   ));
 }
 
-
+/// Create a copy of MonolithLocalizationDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MonolithLocalizationAppDtoCopyWith<$Res> get app {
+  
+  return $MonolithLocalizationAppDtoCopyWith<$Res>(_self.app, (value) {
+    return _then(_self.copyWith(app: value));
+  });
+}/// Create a copy of MonolithLocalizationDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MonolithLocalizationPackageDtoCopyWith<$Res> get package {
+  
+  return $MonolithLocalizationPackageDtoCopyWith<$Res>(_self.package, (value) {
+    return _then(_self.copyWith(package: value));
+  });
+}
 }
 
 // dart format on

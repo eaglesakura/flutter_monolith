@@ -15,14 +15,13 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LocalizationOptions {
 
-/// ビルド対象のアプリパッケージ
- DartPackage get appPackage;/// 分散されたモジュールパッケージ.
+// /// ビルド対象のアプリパッケージ
+// required DartPackage appPackage,
+/// 分散されたモジュールパッケージ.
 ///
 /// [appPackage] + [modules] に含まれるstrings.csvをマージし、
 /// ローカライゼーションファイルを生成する.
- List<DartPackage> get modules;/// ローカライゼーションテキストを生成するファクトリ.
-/// nullの場合はデフォルトのファクトリを使用する.
- LocalizedTextFactory? get localizedTextFactory;
+ List<DartPackage> get modules;
 /// Create a copy of LocalizationOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -33,16 +32,16 @@ $LocalizationOptionsCopyWith<LocalizationOptions> get copyWith => _$Localization
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LocalizationOptions&&(identical(other.appPackage, appPackage) || other.appPackage == appPackage)&&const DeepCollectionEquality().equals(other.modules, modules)&&(identical(other.localizedTextFactory, localizedTextFactory) || other.localizedTextFactory == localizedTextFactory));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LocalizationOptions&&const DeepCollectionEquality().equals(other.modules, modules));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,appPackage,const DeepCollectionEquality().hash(modules),localizedTextFactory);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(modules));
 
 @override
 String toString() {
-  return 'LocalizationOptions(appPackage: $appPackage, modules: $modules, localizedTextFactory: $localizedTextFactory)';
+  return 'LocalizationOptions(modules: $modules)';
 }
 
 
@@ -53,7 +52,7 @@ abstract mixin class $LocalizationOptionsCopyWith<$Res>  {
   factory $LocalizationOptionsCopyWith(LocalizationOptions value, $Res Function(LocalizationOptions) _then) = _$LocalizationOptionsCopyWithImpl;
 @useResult
 $Res call({
- DartPackage appPackage, List<DartPackage> modules, LocalizedTextFactory? localizedTextFactory
+ List<DartPackage> modules
 });
 
 
@@ -70,12 +69,10 @@ class _$LocalizationOptionsCopyWithImpl<$Res>
 
 /// Create a copy of LocalizationOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? appPackage = null,Object? modules = null,Object? localizedTextFactory = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? modules = null,}) {
   return _then(_self.copyWith(
-appPackage: null == appPackage ? _self.appPackage : appPackage // ignore: cast_nullable_to_non_nullable
-as DartPackage,modules: null == modules ? _self.modules : modules // ignore: cast_nullable_to_non_nullable
-as List<DartPackage>,localizedTextFactory: freezed == localizedTextFactory ? _self.localizedTextFactory : localizedTextFactory // ignore: cast_nullable_to_non_nullable
-as LocalizedTextFactory?,
+modules: null == modules ? _self.modules : modules // ignore: cast_nullable_to_non_nullable
+as List<DartPackage>,
   ));
 }
 
@@ -86,16 +83,18 @@ as LocalizedTextFactory?,
 
 
 class _LocalizationOptions implements LocalizationOptions {
-  const _LocalizationOptions({required this.appPackage, required final  List<DartPackage> modules, this.localizedTextFactory}): _modules = modules;
+  const _LocalizationOptions({required final  List<DartPackage> modules}): _modules = modules;
   
 
-/// ビルド対象のアプリパッケージ
-@override final  DartPackage appPackage;
+// /// ビルド対象のアプリパッケージ
+// required DartPackage appPackage,
 /// 分散されたモジュールパッケージ.
 ///
 /// [appPackage] + [modules] に含まれるstrings.csvをマージし、
 /// ローカライゼーションファイルを生成する.
  final  List<DartPackage> _modules;
+// /// ビルド対象のアプリパッケージ
+// required DartPackage appPackage,
 /// 分散されたモジュールパッケージ.
 ///
 /// [appPackage] + [modules] に含まれるstrings.csvをマージし、
@@ -106,9 +105,6 @@ class _LocalizationOptions implements LocalizationOptions {
   return EqualUnmodifiableListView(_modules);
 }
 
-/// ローカライゼーションテキストを生成するファクトリ.
-/// nullの場合はデフォルトのファクトリを使用する.
-@override final  LocalizedTextFactory? localizedTextFactory;
 
 /// Create a copy of LocalizationOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -120,16 +116,16 @@ _$LocalizationOptionsCopyWith<_LocalizationOptions> get copyWith => __$Localizat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LocalizationOptions&&(identical(other.appPackage, appPackage) || other.appPackage == appPackage)&&const DeepCollectionEquality().equals(other._modules, _modules)&&(identical(other.localizedTextFactory, localizedTextFactory) || other.localizedTextFactory == localizedTextFactory));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LocalizationOptions&&const DeepCollectionEquality().equals(other._modules, _modules));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,appPackage,const DeepCollectionEquality().hash(_modules),localizedTextFactory);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_modules));
 
 @override
 String toString() {
-  return 'LocalizationOptions(appPackage: $appPackage, modules: $modules, localizedTextFactory: $localizedTextFactory)';
+  return 'LocalizationOptions(modules: $modules)';
 }
 
 
@@ -140,7 +136,7 @@ abstract mixin class _$LocalizationOptionsCopyWith<$Res> implements $Localizatio
   factory _$LocalizationOptionsCopyWith(_LocalizationOptions value, $Res Function(_LocalizationOptions) _then) = __$LocalizationOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- DartPackage appPackage, List<DartPackage> modules, LocalizedTextFactory? localizedTextFactory
+ List<DartPackage> modules
 });
 
 
@@ -157,12 +153,10 @@ class __$LocalizationOptionsCopyWithImpl<$Res>
 
 /// Create a copy of LocalizationOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? appPackage = null,Object? modules = null,Object? localizedTextFactory = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? modules = null,}) {
   return _then(_LocalizationOptions(
-appPackage: null == appPackage ? _self.appPackage : appPackage // ignore: cast_nullable_to_non_nullable
-as DartPackage,modules: null == modules ? _self._modules : modules // ignore: cast_nullable_to_non_nullable
-as List<DartPackage>,localizedTextFactory: freezed == localizedTextFactory ? _self.localizedTextFactory : localizedTextFactory // ignore: cast_nullable_to_non_nullable
-as LocalizedTextFactory?,
+modules: null == modules ? _self._modules : modules // ignore: cast_nullable_to_non_nullable
+as List<DartPackage>,
   ));
 }
 
