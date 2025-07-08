@@ -5,7 +5,6 @@ import 'package:armyknife_yamlx/armyknife_yamlx.dart';
 import 'package:monolith/src/dto/monolith_dto.dart';
 import 'package:monolith/src/monolith_options.dart';
 import 'package:monolith/src/package/dart_package.dart';
-import 'package:monolith/src/package/dart_package_runner.dart';
 import 'package:path/path.dart' as p;
 
 final _log = Logger.of(Monolith);
@@ -13,7 +12,7 @@ final _log = Logger.of(Monolith);
 /// FlutterでのModular Monolith Workspaceの処理をサポートするクラス.
 class Monolith {
   /// ワークスペースのRootパッケージ.
-  final DartPackage _workspaceProject;
+  final DartPackage project;
 
   /// オプション.
   final MonolithOptions options;
@@ -56,37 +55,25 @@ class Monolith {
   }
 
   const Monolith._({
-    required DartPackage project,
+    required this.project,
     required this.options,
     required this.configurations,
-  }) : _workspaceProject = project;
-
-  /// ルートプロジェクト.
-  DartPackageRunner get project =>
-      DartPackageRunner(package: _workspaceProject, monolith: this);
+  });
 
   /// ワークスペースすべてのプロジェクトを列挙する.
   /// 最初のプロジェクトは、ワークスペースのルートプロジェクト.
-  Iterable<DartPackageRunner> get workspace sync* {
+  Iterable<DartPackage> get workspace sync* {
     yield project;
-    for (final child in _workspaceProject.workspaces) {
-      yield DartPackageRunner(package: child, monolith: this);
-    }
+    yield* project.workspaces;
   }
-
-  /// ルートプロジェクトからのディレクトリ取得
-  Directory directory(String path) => project.directory(path);
 
   /// ワークスペースに含まれるpackageを処理する.
-  Future each(Future<void> Function(DartPackageRunner runner) callback) async {
+  Future each(Future<void> Function(DartPackage pkg) callback) async {
     await callback(project);
-    for (final child in _workspaceProject.workspaces) {
-      await callback(DartPackageRunner(package: child, monolith: this));
+    for (final child in project.workspaces) {
+      await callback(child);
     }
   }
-
-  /// ルートプロジェクトからのファイル取得
-  File file(String path) => project.file(path);
 
   /// 指定パスの設定値を取得する.
   /// 存在しない場合はnullを返す.
@@ -95,14 +82,14 @@ class Monolith {
   }
 
   /// 指定ファイルが含まれるpackageを取得する.
-  DartPackageRunner? findFromFocusFile(File file) {
+  DartPackage? findFromFocusFile(File file) {
     var directory = file.parent;
     while (directory.path.isNotEmpty) {
       final pubspec = File(p.join(directory.path, 'pubspec.yaml'));
       if (pubspec.existsSync()) {
         _log.i('pubspec: ${pubspec.path}');
         return workspace.firstWhere(
-          (e) => p.equals(e.package.pubspecYaml.path, pubspec.path),
+          (e) => p.equals(e.pubspecYaml.path, pubspec.path),
         );
       }
       directory = directory.parent.absolute;
@@ -128,9 +115,15 @@ class Monolith {
     printImpl(0, configurations);
   }
 
+  /// ルートプロジェクトからのディレクトリ取得
+  Directory relativeDirectory(String path) => project.relativeDirectory(path);
+
+  /// ルートプロジェクトからのファイル取得
+  File relativeFile(String path) => project.relativeFile(path);
+
   /// ワークスペースに含まれるpackageを取得する.
   /// 存在しない場合は例外を投げる.
-  DartPackageRunner require(String name) {
+  DartPackage require(String name) {
     return workspace.firstWhere((e) => e.name == name);
   }
 
@@ -143,7 +136,7 @@ class Monolith {
   /// 指定したpackage名がnullの場合は、ワークスペースのルートプロジェクトを処理する.
   Future<T> run<T>(
     String name,
-    Future<T> Function(DartPackageRunner runner) callback,
+    Future<T> Function(DartPackage pkg) callback,
   ) async {
     return callback(require(name));
   }

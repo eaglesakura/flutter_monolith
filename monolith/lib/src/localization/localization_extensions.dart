@@ -11,6 +11,7 @@ import 'package:monolith/src/localization/generator/l10n_strings_mixin_generator
 import 'package:monolith/src/localization/generator/l10n_strings_mixin_generator_template.dart';
 import 'package:monolith/src/localization/localization_options.dart';
 import 'package:monolith/src/monolith.dart';
+import 'package:monolith/src/package/dart_package_runner.dart';
 
 final _log = Logger.file();
 
@@ -81,13 +82,13 @@ extension MonolithLocalizationExtensions on Monolith {
     final l10nHelperPath = dto.l10nHelperPath ?? 'lib/l10n/l10n_helper.dart';
 
     // すべてのRunnerを巡回
-    for (final runner in [...options.modules, options.appPackage]) {
-      final resDirectory = runner.directory('res');
+    for (final pkg in [...options.modules, options.appPackage]) {
+      final resDirectory = pkg.relativeDirectory('res');
       if (!resDirectory.existsSync()) {
         continue;
       }
 
-      _log.i('generate localization: ${runner.name}');
+      _log.i('generate localization: ${pkg.name}');
 
       // strings*.csvファイルを対象とする
       final stringsCsvFiles = resDirectory
@@ -107,7 +108,7 @@ extension MonolithLocalizationExtensions on Monolith {
         final LocalizedTextFactory factory =
             options.localizedTextFactory ??
             (Map<String, String> row) {
-              final id = '${runner.name}_${row['id']!}';
+              final id = '${pkg.name}_${row['id']!}';
               var description = row['description'];
               final text = <String, String>{};
               for (final language in languages) {
@@ -116,7 +117,7 @@ extension MonolithLocalizationExtensions on Monolith {
                 description ??= value;
               }
               return LocalizedText(
-                packageName: runner.name,
+                packageName: pkg.name,
                 id: id,
                 text: text,
                 description: description,
@@ -132,21 +133,21 @@ extension MonolithLocalizationExtensions on Monolith {
         );
         // packageごとのアクセスヘルパーを生成
         final stringsMixInGenerator = L10nStringsMixinGenerator();
-        final dartFile = runner.file(moduleHelperPath);
+        final dartFile = pkg.relativeFile(moduleHelperPath);
         await stringsMixInGenerator.generate(
           dartFile,
           l10nStringsMixinMustache: l10nStringsMixinMustache,
           className: moduleHelperClassName,
           localizedTexts: [
-            ...table.localizedTexts.where((e) => e.packageName == runner.name),
+            ...table.localizedTexts.where((e) => e.packageName == pkg.name),
           ],
         );
         // format
-        await runner.exec('dart', arguments: ['format', dartFile.path]);
+        await pkg.exec('dart', arguments: ['format', dartFile.path]);
       }
     }
     _log.i('generate arb files');
-    final arbDirectory = options.appPackage.directory(arbPath);
+    final arbDirectory = options.appPackage.relativeDirectory(arbPath);
     await table.generateArb(
       arbDirectory,
       arbFileNamePrefix: arbFilePrefix,
@@ -155,7 +156,7 @@ extension MonolithLocalizationExtensions on Monolith {
     await options.appPackage.pubGet();
 
     // アクセスヘルパーを生成
-    final dartFile = options.appPackage.file(l10nHelperPath);
+    final dartFile = options.appPackage.relativeFile(l10nHelperPath);
     await L10nHelperGenerator().generate(
       dartFile,
       className: l10nHelperClassName,

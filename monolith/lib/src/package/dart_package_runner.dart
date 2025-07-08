@@ -1,28 +1,12 @@
 import 'dart:io';
 
 import 'package:armyknife_logger/armyknife_logger.dart';
-import 'package:grinder/grinder.dart';
-import 'package:meta/meta.dart';
-import 'package:monolith/src/monolith.dart';
-import 'package:monolith/src/monolith_options.dart';
 import 'package:monolith/src/package/dart_package.dart';
-import 'package:path/path.dart' as p;
 
-/// Dartのpackageを処理するクラス.
-class DartPackageRunner {
-  final DartPackage package;
+final _log = Logger.file();
 
-  @internal
-  final Monolith monolith;
-
-  final Logger _log;
-
-  @internal
-  DartPackageRunner({
-    required this.package,
-    required this.monolith,
-  }) : _log = Logger.tag(package.name);
-
+/// DartPackageに対するタスクを実行する拡張メソッド.
+extension DartPackageTaskRunnerExtensions on DartPackage {
   /// バージョン名をビルド番号に簡易変換する.
   /// 1.2.3+4 -> [001][002][003][004] -> 1002003004
   int get buildNumber {
@@ -38,21 +22,13 @@ class DartPackageRunner {
         build;
   }
 
-  /// package名.
-  String get name => package.name;
-
-  /// packageのバージョン.
-  String get version => package.version;
-
-  MonolithOptions get _options => monolith.options;
-
   /// dart analyzeを実行する.
   Future analyze() async {
     return exec('dart', arguments: ['analyze']);
   }
 
   Future pubGet() async {
-    if (package.isFlutter) {
+    if (isFlutter) {
       return exec('flutter', arguments: ['pub', 'get']);
     } else {
       return exec('dart', arguments: ['pub', 'get']);
@@ -61,50 +37,15 @@ class DartPackageRunner {
 
   /// flutter cleanを実行する.
   Future clean() async {
-    if (package.isFlutter) {
+    if (isFlutter) {
       return exec('flutter', arguments: ['clean']);
     }
   }
 
-  /// package配下のディレクトリを取得する.
-  Directory directory(String path) =>
-      Directory(p.normalize(p.join(package.directory.path, path)));
-
-  /// 指定したコマンドを実行する.
-  Future<String> exec(
-    String executable, {
-    String? relativeWorkingDirectory,
-    required List<String> arguments,
-    Map<String, String>? environment,
-  }) async {
-    final workingDirectory = p.join(
-      package.directory.path,
-      relativeWorkingDirectory ?? '',
-    );
-
-    final runOptions = RunOptions(
-      includeParentEnvironment: true,
-      environment: environment,
-    );
-
-    _log.i('exec: $executable $arguments');
-
-    return runAsync(
-      executable,
-      arguments: arguments,
-      workingDirectory: workingDirectory,
-      runOptions: runOptions,
-    );
-  }
-
-  /// package配下のファイルを取得する.
-  File file(String path) =>
-      File(p.normalize(p.join(package.directory.path, path)));
-
   /// dart formatを実行する.
   Future format() async {
     for (final dir in ['lib/', 'test/']) {
-      final target = Directory(p.join(package.directory.path, dir));
+      final target = relativeDirectory(dir);
       if (target.existsSync()) {
         await exec(
           'dart',
@@ -118,7 +59,7 @@ class DartPackageRunner {
   Future validateFormat() async {
     _log.i('dart format $name');
     for (final dir in ['lib/', 'test/']) {
-      final target = directory(dir);
+      final target = relativeDirectory(dir);
       if (target.existsSync()) {
         await exec(
           'dart',
@@ -134,12 +75,12 @@ class DartPackageRunner {
 
   /// build_runnerを実行する
   Future runBuildRunner() async {
-    if (!package.containsDevDependencies('build_runner')) {
+    if (!containsDevDependencies('build_runner')) {
       _log.i('skip build_runner');
       return;
     }
 
-    _log.i('dart build_runner ${package.name}');
+    _log.i('dart build_runner $name');
 
     await exec(
       'dart',
@@ -149,10 +90,10 @@ class DartPackageRunner {
         'build',
         '--delete-conflicting-outputs',
       ],
-      relativeWorkingDirectory: package.directory.path,
+      relativeWorkingDirectory: directory.path,
     );
 
-    final libDirectory = Directory(p.join(package.directory.path, 'lib'));
+    final libDirectory = relativeDirectory('lib');
     if (libDirectory.existsSync()) {
       libDirectory
           .listSync(recursive: true)
@@ -173,8 +114,8 @@ class DartPackageRunner {
 
   /// dart testを実行する.
   Future<String> test() async {
-    if (package.hasTests) {
-      if (package.isFlutter) {
+    if (hasTests) {
+      if (isFlutter) {
         return exec('flutter', arguments: ['test']);
       } else {
         return exec('dart', arguments: ['test']);

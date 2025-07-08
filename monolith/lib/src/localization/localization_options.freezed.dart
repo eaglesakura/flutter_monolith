@@ -16,11 +16,11 @@ T _$identity<T>(T value) => value;
 mixin _$LocalizationOptions {
 
 /// ビルド対象のアプリパッケージ
- DartPackageRunner get appPackage;/// 分散されたモジュールパッケージ.
+ DartPackage get appPackage;/// 分散されたモジュールパッケージ.
 ///
 /// [appPackage] + [modules] に含まれるstrings.csvをマージし、
 /// ローカライゼーションファイルを生成する.
- List<DartPackageRunner> get modules;/// ローカライゼーションテキストを生成するファクトリ.
+ List<DartPackage> get modules;/// ローカライゼーションテキストを生成するファクトリ.
 /// nullの場合はデフォルトのファクトリを使用する.
  LocalizedTextFactory? get localizedTextFactory;
 /// Create a copy of LocalizationOptions
@@ -53,7 +53,7 @@ abstract mixin class $LocalizationOptionsCopyWith<$Res>  {
   factory $LocalizationOptionsCopyWith(LocalizationOptions value, $Res Function(LocalizationOptions) _then) = _$LocalizationOptionsCopyWithImpl;
 @useResult
 $Res call({
- DartPackageRunner appPackage, List<DartPackageRunner> modules, LocalizedTextFactory? localizedTextFactory
+ DartPackage appPackage, List<DartPackage> modules, LocalizedTextFactory? localizedTextFactory
 });
 
 
@@ -73,8 +73,8 @@ class _$LocalizationOptionsCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? appPackage = null,Object? modules = null,Object? localizedTextFactory = freezed,}) {
   return _then(_self.copyWith(
 appPackage: null == appPackage ? _self.appPackage : appPackage // ignore: cast_nullable_to_non_nullable
-as DartPackageRunner,modules: null == modules ? _self.modules : modules // ignore: cast_nullable_to_non_nullable
-as List<DartPackageRunner>,localizedTextFactory: freezed == localizedTextFactory ? _self.localizedTextFactory : localizedTextFactory // ignore: cast_nullable_to_non_nullable
+as DartPackage,modules: null == modules ? _self.modules : modules // ignore: cast_nullable_to_non_nullable
+as List<DartPackage>,localizedTextFactory: freezed == localizedTextFactory ? _self.localizedTextFactory : localizedTextFactory // ignore: cast_nullable_to_non_nullable
 as LocalizedTextFactory?,
   ));
 }
@@ -86,21 +86,21 @@ as LocalizedTextFactory?,
 
 
 class _LocalizationOptions implements LocalizationOptions {
-  const _LocalizationOptions({required this.appPackage, required final  List<DartPackageRunner> modules, this.localizedTextFactory}): _modules = modules;
+  const _LocalizationOptions({required this.appPackage, required final  List<DartPackage> modules, this.localizedTextFactory}): _modules = modules;
   
 
 /// ビルド対象のアプリパッケージ
-@override final  DartPackageRunner appPackage;
+@override final  DartPackage appPackage;
 /// 分散されたモジュールパッケージ.
 ///
 /// [appPackage] + [modules] に含まれるstrings.csvをマージし、
 /// ローカライゼーションファイルを生成する.
- final  List<DartPackageRunner> _modules;
+ final  List<DartPackage> _modules;
 /// 分散されたモジュールパッケージ.
 ///
 /// [appPackage] + [modules] に含まれるstrings.csvをマージし、
 /// ローカライゼーションファイルを生成する.
-@override List<DartPackageRunner> get modules {
+@override List<DartPackage> get modules {
   if (_modules is EqualUnmodifiableListView) return _modules;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_modules);
@@ -140,7 +140,7 @@ abstract mixin class _$LocalizationOptionsCopyWith<$Res> implements $Localizatio
   factory _$LocalizationOptionsCopyWith(_LocalizationOptions value, $Res Function(_LocalizationOptions) _then) = __$LocalizationOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- DartPackageRunner appPackage, List<DartPackageRunner> modules, LocalizedTextFactory? localizedTextFactory
+ DartPackage appPackage, List<DartPackage> modules, LocalizedTextFactory? localizedTextFactory
 });
 
 
@@ -160,8 +160,8 @@ class __$LocalizationOptionsCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? appPackage = null,Object? modules = null,Object? localizedTextFactory = freezed,}) {
   return _then(_LocalizationOptions(
 appPackage: null == appPackage ? _self.appPackage : appPackage // ignore: cast_nullable_to_non_nullable
-as DartPackageRunner,modules: null == modules ? _self._modules : modules // ignore: cast_nullable_to_non_nullable
-as List<DartPackageRunner>,localizedTextFactory: freezed == localizedTextFactory ? _self.localizedTextFactory : localizedTextFactory // ignore: cast_nullable_to_non_nullable
+as DartPackage,modules: null == modules ? _self._modules : modules // ignore: cast_nullable_to_non_nullable
+as List<DartPackage>,localizedTextFactory: freezed == localizedTextFactory ? _self.localizedTextFactory : localizedTextFactory // ignore: cast_nullable_to_non_nullable
 as LocalizedTextFactory?,
   ));
 }

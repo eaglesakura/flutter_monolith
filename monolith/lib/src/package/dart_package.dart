@@ -1,11 +1,15 @@
 import 'dart:io';
 
+import 'package:armyknife_logger/armyknife_logger.dart';
 import 'package:armyknife_yamlx/armyknife_yamlx.dart';
+import 'package:grinder/grinder.dart';
 import 'package:monolith/src/package/dto/pubspec_yaml_dto.dart';
 import 'package:path/path.dart' as p;
 
 /// Dartの1packageを示すオブジェクト.
 class DartPackage {
+  late final Logger _log;
+
   final File pubspecYaml;
 
   final PubspecYamlDto _pubspecYamlDto;
@@ -24,12 +28,13 @@ class DartPackage {
     );
   }
 
-  const DartPackage._({
+  DartPackage._({
     required this.pubspecYaml,
     required PubspecYamlDto pubspecYamlDto,
     required Map<String, dynamic> yamlMap,
   }) : _pubspecYamlDto = pubspecYamlDto,
-       _pubspecYaml = yamlMap;
+       _pubspecYaml = yamlMap,
+       _log = Logger.tag(pubspecYamlDto.name!);
 
   /// ディレクトリ
   Directory get directory => pubspecYaml.parent;
@@ -77,4 +82,39 @@ class DartPackage {
   bool containsDevDependencies(String pubName) {
     return _pubspecYamlDto.devDependencies?.containsKey(pubName) ?? false;
   }
+
+  /// 指定したコマンドを実行する.
+  Future<String> exec(
+    String executable, {
+    String? relativeWorkingDirectory,
+    required List<String> arguments,
+    Map<String, String>? environment,
+  }) async {
+    final workingDirectory = p.join(
+      directory.path,
+      relativeWorkingDirectory ?? '',
+    );
+
+    final runOptions = RunOptions(
+      includeParentEnvironment: true,
+      environment: environment,
+    );
+
+    _log.i('exec: $executable $arguments');
+
+    return runAsync(
+      executable,
+      arguments: arguments,
+      workingDirectory: workingDirectory,
+      runOptions: runOptions,
+    );
+  }
+
+  /// package配下のディレクトリを取得する.
+  Directory relativeDirectory(String path) =>
+      Directory(p.normalize(p.join(directory.path, path)));
+
+  /// package配下のファイルを取得する.
+  File relativeFile(String path) =>
+      File(p.normalize(p.join(directory.path, path)));
 }

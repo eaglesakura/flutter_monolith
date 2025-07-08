@@ -22,14 +22,14 @@ extension MonolithInstallExtensions on Monolith {
       final textFile = install.textFile;
       final path = install.path;
       if (base64File != null) {
-        final dst = file(path!);
+        final dst = relativeFile(path!);
         _log.i('write file(base64): ${dst.path}');
         if (dst.existsSync()) {
           _log.i('  - overwrite');
         }
         dst.writeAsBytesSync(base64Decode(base64File));
       } else if (textFile != null) {
-        final dst = file(path!);
+        final dst = relativeFile(path!);
         _log.i('write file(text): ${dst.path}');
         if (dst.existsSync()) {
           _log.i('  - overwrite');

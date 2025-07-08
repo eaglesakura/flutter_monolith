@@ -29,13 +29,13 @@ extension MonolithDefinesExtension on Monolith {
     for (final flavor in flavors.entries) {
       final flavorName = flavor.key;
       final keyValues = flavor.value;
-      final jsonFile = file(p.join(outputPath, '$flavorName.json'));
+      final jsonFile = relativeFile(p.join(outputPath, '$flavorName.json'));
 
       jsonFile.writeAsStringSync(jsonEncode(keyValues));
       generator.addAll(keyValues.keys);
     }
 
-    final dartFile = packageName.file(helperPath);
+    final dartFile = packageName.relativeFile(helperPath);
     generator.generate(
       dartFile,
       definesMustache: mustache,
