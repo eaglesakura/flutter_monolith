@@ -8,6 +8,7 @@ part of 'monolith_xcodegen_dto.dart';
 
 _MonolithXcodegenDto _$MonolithXcodegenDtoFromJson(Map<String, dynamic> json) =>
     _MonolithXcodegenDto(
+      packageName: json['package_name'] as String,
       touchFiles: (json['touch_files'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -18,4 +19,8 @@ _MonolithXcodegenDto _$MonolithXcodegenDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MonolithXcodegenDtoToJson(
   _MonolithXcodegenDto instance,
-) => <String, dynamic>{'touch_files': instance.touchFiles, 'env': instance.env};
+) => <String, dynamic>{
+  'package_name': instance.packageName,
+  'touch_files': instance.touchFiles,
+  'env': instance.env,
+};

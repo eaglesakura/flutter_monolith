@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MonolithXcodegenDto {
 
-/// 事前にtouchするファイル.
+/// パッケージ名
+@JsonKey(name: 'package_name') String get packageName;/// 事前にtouchするファイル.
 /// ファイルが作られていない場合、空ファイルを作成する.
 @JsonKey(name: 'touch_files') List<String>? get touchFiles;/// 環境変数
 @JsonKey(name: 'env') Map<String, String>? get env;
@@ -32,16 +33,16 @@ $MonolithXcodegenDtoCopyWith<MonolithXcodegenDto> get copyWith => _$MonolithXcod
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithXcodegenDto&&const DeepCollectionEquality().equals(other.touchFiles, touchFiles)&&const DeepCollectionEquality().equals(other.env, env));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithXcodegenDto&&(identical(other.packageName, packageName) || other.packageName == packageName)&&const DeepCollectionEquality().equals(other.touchFiles, touchFiles)&&const DeepCollectionEquality().equals(other.env, env));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(touchFiles),const DeepCollectionEquality().hash(env));
+int get hashCode => Object.hash(runtimeType,packageName,const DeepCollectionEquality().hash(touchFiles),const DeepCollectionEquality().hash(env));
 
 @override
 String toString() {
-  return 'MonolithXcodegenDto(touchFiles: $touchFiles, env: $env)';
+  return 'MonolithXcodegenDto(packageName: $packageName, touchFiles: $touchFiles, env: $env)';
 }
 
 
@@ -52,7 +53,7 @@ abstract mixin class $MonolithXcodegenDtoCopyWith<$Res>  {
   factory $MonolithXcodegenDtoCopyWith(MonolithXcodegenDto value, $Res Function(MonolithXcodegenDto) _then) = _$MonolithXcodegenDtoCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'touch_files') List<String>? touchFiles,@JsonKey(name: 'env') Map<String, String>? env
+@JsonKey(name: 'package_name') String packageName,@JsonKey(name: 'touch_files') List<String>? touchFiles,@JsonKey(name: 'env') Map<String, String>? env
 });
 
 
@@ -69,9 +70,10 @@ class _$MonolithXcodegenDtoCopyWithImpl<$Res>
 
 /// Create a copy of MonolithXcodegenDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? touchFiles = freezed,Object? env = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? packageName = null,Object? touchFiles = freezed,Object? env = freezed,}) {
   return _then(_self.copyWith(
-touchFiles: freezed == touchFiles ? _self.touchFiles : touchFiles // ignore: cast_nullable_to_non_nullable
+packageName: null == packageName ? _self.packageName : packageName // ignore: cast_nullable_to_non_nullable
+as String,touchFiles: freezed == touchFiles ? _self.touchFiles : touchFiles // ignore: cast_nullable_to_non_nullable
 as List<String>?,env: freezed == env ? _self.env : env // ignore: cast_nullable_to_non_nullable
 as Map<String, String>?,
   ));
@@ -84,9 +86,11 @@ as Map<String, String>?,
 @JsonSerializable()
 
 class _MonolithXcodegenDto implements MonolithXcodegenDto {
-  const _MonolithXcodegenDto({@JsonKey(name: 'touch_files') final  List<String>? touchFiles, @JsonKey(name: 'env') final  Map<String, String>? env}): _touchFiles = touchFiles,_env = env;
+  const _MonolithXcodegenDto({@JsonKey(name: 'package_name') required this.packageName, @JsonKey(name: 'touch_files') final  List<String>? touchFiles, @JsonKey(name: 'env') final  Map<String, String>? env}): _touchFiles = touchFiles,_env = env;
   factory _MonolithXcodegenDto.fromJson(Map<String, dynamic> json) => _$MonolithXcodegenDtoFromJson(json);
 
+/// パッケージ名
+@override@JsonKey(name: 'package_name') final  String packageName;
 /// 事前にtouchするファイル.
 /// ファイルが作られていない場合、空ファイルを作成する.
  final  List<String>? _touchFiles;
@@ -125,16 +129,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithXcodegenDto&&const DeepCollectionEquality().equals(other._touchFiles, _touchFiles)&&const DeepCollectionEquality().equals(other._env, _env));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithXcodegenDto&&(identical(other.packageName, packageName) || other.packageName == packageName)&&const DeepCollectionEquality().equals(other._touchFiles, _touchFiles)&&const DeepCollectionEquality().equals(other._env, _env));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_touchFiles),const DeepCollectionEquality().hash(_env));
+int get hashCode => Object.hash(runtimeType,packageName,const DeepCollectionEquality().hash(_touchFiles),const DeepCollectionEquality().hash(_env));
 
 @override
 String toString() {
-  return 'MonolithXcodegenDto(touchFiles: $touchFiles, env: $env)';
+  return 'MonolithXcodegenDto(packageName: $packageName, touchFiles: $touchFiles, env: $env)';
 }
 
 
@@ -145,7 +149,7 @@ abstract mixin class _$MonolithXcodegenDtoCopyWith<$Res> implements $MonolithXco
   factory _$MonolithXcodegenDtoCopyWith(_MonolithXcodegenDto value, $Res Function(_MonolithXcodegenDto) _then) = __$MonolithXcodegenDtoCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'touch_files') List<String>? touchFiles,@JsonKey(name: 'env') Map<String, String>? env
+@JsonKey(name: 'package_name') String packageName,@JsonKey(name: 'touch_files') List<String>? touchFiles,@JsonKey(name: 'env') Map<String, String>? env
 });
 
 
@@ -162,9 +166,10 @@ class __$MonolithXcodegenDtoCopyWithImpl<$Res>
 
 /// Create a copy of MonolithXcodegenDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? touchFiles = freezed,Object? env = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? packageName = null,Object? touchFiles = freezed,Object? env = freezed,}) {
   return _then(_MonolithXcodegenDto(
-touchFiles: freezed == touchFiles ? _self._touchFiles : touchFiles // ignore: cast_nullable_to_non_nullable
+packageName: null == packageName ? _self.packageName : packageName // ignore: cast_nullable_to_non_nullable
+as String,touchFiles: freezed == touchFiles ? _self._touchFiles : touchFiles // ignore: cast_nullable_to_non_nullable
 as List<String>?,env: freezed == env ? _self._env : env // ignore: cast_nullable_to_non_nullable
 as Map<String, String>?,
   ));
