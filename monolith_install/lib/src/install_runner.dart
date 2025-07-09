@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:armyknife_logger/armyknife_logger.dart';
-import 'package:monolith/src/install/dto/monolith_installs_dto.dart';
-import 'package:monolith/src/monolith.dart';
+import 'package:monolith/monolith.dart';
+import 'package:monolith_install/src/dto/monolith_installs_dto.dart';
 
 final _log = Logger.file();
 

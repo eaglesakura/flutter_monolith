@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:monolith/src/install/dto/monolith_install_dto.dart';
+import 'package:monolith_install/src/dto/monolith_install_dto.dart';
 
 part 'monolith_installs_dto.freezed.dart';
 part 'monolith_installs_dto.g.dart';
