@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:monolith/src/define/dto/monolith_defines_generate_dto.dart';
+import 'package:monolith_define/src/dto/monolith_defines_generate_dto.dart';
 
 part 'monolith_defines_dto.freezed.dart';
 part 'monolith_defines_dto.g.dart';

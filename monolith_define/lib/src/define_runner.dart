@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:monolith/src/define/dto/monolith_defines_dto.dart';
-import 'package:monolith/src/define/generator/defines_generator.dart';
-import 'package:monolith/src/define/generator/defines_generator_template.dart';
-import 'package:monolith/src/monolith.dart';
+import 'package:monolith/monolith.dart';
+import 'package:monolith_define/src/dto/monolith_defines_dto.dart';
+import 'package:monolith_define/src/generator/defines_generator.dart';
+import 'package:monolith_define/src/generator/defines_generator_template.dart';
 import 'package:path/path.dart' as p;
 
-extension MonolithDefinesExtension on Monolith {
+extension MonolithDefineExtension on Monolith {
   MonolithDefinesDto _parseConfiguration() {
     final defines = configurations['define'];
     return MonolithDefinesDto.fromJson(defines as Map<String, dynamic>);
