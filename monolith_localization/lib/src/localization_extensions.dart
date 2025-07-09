@@ -1,15 +1,14 @@
 import 'dart:io';
 
 import 'package:armyknife_logger/armyknife_logger.dart';
-import 'package:monolith/src/localization/csv2arb/l10n_localized_text_table.dart';
-import 'package:monolith/src/localization/csv2arb/localized_text.dart';
-import 'package:monolith/src/localization/dto/monolith_localization_dto.dart';
-import 'package:monolith/src/localization/generator/l10n_helper_generator.dart';
-import 'package:monolith/src/localization/generator/l10n_helper_generator_template.dart';
-import 'package:monolith/src/localization/generator/l10n_strings_mixin_generator.dart';
-import 'package:monolith/src/localization/generator/l10n_strings_mixin_generator_template.dart';
-import 'package:monolith/src/monolith.dart';
-import 'package:monolith/src/package/dart_package_runner.dart';
+import 'package:monolith/monolith.dart';
+import 'package:monolith_localization/src/csv2arb/l10n_localized_text_table.dart';
+import 'package:monolith_localization/src/csv2arb/localized_text.dart';
+import 'package:monolith_localization/src/dto/monolith_localization_dto.dart';
+import 'package:monolith_localization/src/generator/l10n_helper_generator.dart';
+import 'package:monolith_localization/src/generator/l10n_helper_generator_template.dart';
+import 'package:monolith_localization/src/generator/l10n_strings_mixin_generator.dart';
+import 'package:monolith_localization/src/generator/l10n_strings_mixin_generator_template.dart';
 import 'package:path/path.dart' as p;
 
 final _log = Logger.file();

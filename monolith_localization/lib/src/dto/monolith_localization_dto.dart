@@ -1,8 +1,8 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:monolith/src/localization/dto/monolith_localization_app_dto.dart';
-import 'package:monolith/src/localization/dto/monolith_localization_package_dto.dart';
+import 'package:monolith_localization/src/dto/monolith_localization_app_dto.dart';
+import 'package:monolith_localization/src/dto/monolith_localization_package_dto.dart';
 
 part 'monolith_localization_dto.freezed.dart';
 part 'monolith_localization_dto.g.dart';

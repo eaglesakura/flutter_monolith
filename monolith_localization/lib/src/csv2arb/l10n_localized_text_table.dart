@@ -6,7 +6,7 @@ import 'package:armyknife_logger/armyknife_logger.dart';
 import 'package:csv/csv.dart';
 import 'package:dartx/dartx.dart';
 import 'package:meta/meta.dart';
-import 'package:monolith/src/localization/csv2arb/localized_text.dart';
+import 'package:monolith_localization/src/csv2arb/localized_text.dart';
 import 'package:path/path.dart' as path;
 
 final _log = Logger.of(L10nLocalizedTextTable);
