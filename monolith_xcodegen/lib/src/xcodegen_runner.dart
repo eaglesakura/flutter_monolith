@@ -1,7 +1,6 @@
 import 'package:armyknife_logger/armyknife_logger.dart';
-import 'package:monolith/src/monolith.dart';
-import 'package:monolith/src/package/dart_package_runner.dart';
-import 'package:monolith/src/xcodegen/dto/monolith_xcodegen_dto.dart';
+import 'package:monolith/monolith.dart';
+import 'package:monolith_xcodegen/src/dto/monolith_xcodegen_dto.dart';
 
 final _log = Logger.file();
 
