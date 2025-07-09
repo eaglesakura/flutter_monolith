@@ -1,8 +1,8 @@
-name: monolith_localization
+name: monolith_localization_runtime
 description: "A new Flutter package project."
 version: 1.0.0
 resolution: workspace
-repository: https://github.com/eaglesakura/flutter_armyknife/flutter_monolith_localization
+repository: https://github.com/eaglesakura/flutter_monolith
 
 environment:
   sdk: ">=3.8.0"

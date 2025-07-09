@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 const l10nStringsMixinMustache = '''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: invalid_use_of_internal_member, implementation_imports
-import 'package:monolith_localization/src/localize_string_delegate.dart';
+import 'package:monolith_localization_runtime/src/localize_string_delegate.dart';
 
 /// e.g.
 /// class _Strings with {{className}} {}

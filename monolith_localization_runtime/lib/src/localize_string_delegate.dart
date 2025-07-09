@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:monolith_localization/src/localize_string_source.dart';
+import 'package:monolith_localization_runtime/src/localize_string_source.dart';
 
 /// ローカライズテキストを取得するための移譲クラス.
 @internal
