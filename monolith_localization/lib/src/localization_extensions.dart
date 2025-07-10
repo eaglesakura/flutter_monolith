@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:armyknife_logger/armyknife_logger.dart';
+import 'package:dartx/dartx.dart';
 import 'package:monolith/monolith.dart';
 import 'package:monolith_localization/src/csv2arb/l10n_localized_text_table.dart';
 import 'package:monolith_localization/src/csv2arb/localized_text.dart';
@@ -81,7 +82,7 @@ extension MonolithLocalizationExtensions on Monolith {
       final pathPrefixes = dto.package.pathPrefixes
           .map((e) => relativeDirectory(e))
           .toSet();
-      return [
+      return {
         ...workspace
             .where(
               (e) => pathPrefixes.any((e) => e.path.startsWith(e.path)),
@@ -91,11 +92,11 @@ extension MonolithLocalizationExtensions on Monolith {
               return e;
             }),
         appPackage,
-      ];
+      };
     }();
 
     // すべてのRunnerを巡回
-    for (final pkg in packages) {
+    for (final pkg in packages.sortedBy((e) => e.directory.path)) {
       final resDirectory = pkg.relativeDirectory(dto.package.resourcesPath);
       if (!resDirectory.existsSync()) {
         continue;
