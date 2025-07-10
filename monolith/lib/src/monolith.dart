@@ -5,6 +5,7 @@ import 'package:armyknife_yamlx/armyknife_yamlx.dart';
 import 'package:monolith/src/dto/monolith_dto.dart';
 import 'package:monolith/src/monolith_options.dart';
 import 'package:monolith/src/package/dart_package.dart';
+import 'package:monolith/src/shell/shell_runner.dart';
 import 'package:path/path.dart' as p;
 
 final _log = Logger.of(Monolith);
@@ -50,7 +51,11 @@ class Monolith {
     return Monolith._(
       project: DartPackage.fromFile(
         pubspecYaml,
-        shellRunner: options.shellRunner,
+        shellRunner:
+            options.shellRunner ??
+            ShellRunner(
+              monolith: monolithFile,
+            ),
       ),
       options: options,
       configurations: YamlX.parseWithMerge(monolithYamlFiles),

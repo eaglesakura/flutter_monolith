@@ -26,7 +26,7 @@ class DartPackage {
   @internal
   factory DartPackage.fromFile(
     File pubspecYaml, {
-    ShellRunner? shellRunner,
+    required ShellRunner shellRunner,
   }) {
     final yamlMap = YamlX.parse(pubspecYaml);
     final dto = PubspecYamlDto.fromJson(yamlMap);
@@ -34,7 +34,7 @@ class DartPackage {
       pubspecYaml: pubspecYaml.absolute,
       pubspecYamlDto: dto,
       yamlMap: yamlMap,
-      shellRunner: shellRunner ?? ShellRunner(),
+      shellRunner: shellRunner,
     );
   }
 
