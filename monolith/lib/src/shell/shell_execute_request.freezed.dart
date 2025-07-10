@@ -19,7 +19,8 @@ mixin _$ShellExecuteRequest {
  String get command;/// 実行するコマンドの引数.
  List<String> get arguments;/// 実行するコマンドの環境変数.
  Map<String, String>? get environment;/// 実行するコマンドのワーキングディレクトリ.
- Directory? get workingDirectory;
+ Directory? get workingDirectory;/// コマンドが0以外を返却した場合のハンドラ.
+ FailMode get failMode;
 /// Create a copy of ShellExecuteRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,16 +31,16 @@ $ShellExecuteRequestCopyWith<ShellExecuteRequest> get copyWith => _$ShellExecute
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShellExecuteRequest&&(identical(other.command, command) || other.command == command)&&const DeepCollectionEquality().equals(other.arguments, arguments)&&const DeepCollectionEquality().equals(other.environment, environment)&&(identical(other.workingDirectory, workingDirectory) || other.workingDirectory == workingDirectory));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShellExecuteRequest&&(identical(other.command, command) || other.command == command)&&const DeepCollectionEquality().equals(other.arguments, arguments)&&const DeepCollectionEquality().equals(other.environment, environment)&&(identical(other.workingDirectory, workingDirectory) || other.workingDirectory == workingDirectory)&&(identical(other.failMode, failMode) || other.failMode == failMode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,command,const DeepCollectionEquality().hash(arguments),const DeepCollectionEquality().hash(environment),workingDirectory);
+int get hashCode => Object.hash(runtimeType,command,const DeepCollectionEquality().hash(arguments),const DeepCollectionEquality().hash(environment),workingDirectory,failMode);
 
 @override
 String toString() {
-  return 'ShellExecuteRequest(command: $command, arguments: $arguments, environment: $environment, workingDirectory: $workingDirectory)';
+  return 'ShellExecuteRequest(command: $command, arguments: $arguments, environment: $environment, workingDirectory: $workingDirectory, failMode: $failMode)';
 }
 
 
@@ -50,7 +51,7 @@ abstract mixin class $ShellExecuteRequestCopyWith<$Res>  {
   factory $ShellExecuteRequestCopyWith(ShellExecuteRequest value, $Res Function(ShellExecuteRequest) _then) = _$ShellExecuteRequestCopyWithImpl;
 @useResult
 $Res call({
- String command, List<String> arguments, Map<String, String>? environment, Directory? workingDirectory
+ String command, List<String> arguments, Map<String, String>? environment, Directory? workingDirectory, FailMode failMode
 });
 
 
@@ -67,13 +68,14 @@ class _$ShellExecuteRequestCopyWithImpl<$Res>
 
 /// Create a copy of ShellExecuteRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? command = null,Object? arguments = null,Object? environment = freezed,Object? workingDirectory = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? command = null,Object? arguments = null,Object? environment = freezed,Object? workingDirectory = freezed,Object? failMode = null,}) {
   return _then(_self.copyWith(
 command: null == command ? _self.command : command // ignore: cast_nullable_to_non_nullable
 as String,arguments: null == arguments ? _self.arguments : arguments // ignore: cast_nullable_to_non_nullable
 as List<String>,environment: freezed == environment ? _self.environment : environment // ignore: cast_nullable_to_non_nullable
 as Map<String, String>?,workingDirectory: freezed == workingDirectory ? _self.workingDirectory : workingDirectory // ignore: cast_nullable_to_non_nullable
-as Directory?,
+as Directory?,failMode: null == failMode ? _self.failMode : failMode // ignore: cast_nullable_to_non_nullable
+as FailMode,
   ));
 }
 
@@ -84,7 +86,7 @@ as Directory?,
 
 
 class _ShellExecuteRequest implements ShellExecuteRequest {
-  const _ShellExecuteRequest({required this.command, required final  List<String> arguments, final  Map<String, String>? environment, this.workingDirectory}): _arguments = arguments,_environment = environment;
+  const _ShellExecuteRequest({required this.command, required final  List<String> arguments, final  Map<String, String>? environment, this.workingDirectory, this.failMode = FailMode.exit}): _arguments = arguments,_environment = environment;
   
 
 /// 実行するコマンド.
@@ -111,6 +113,8 @@ class _ShellExecuteRequest implements ShellExecuteRequest {
 
 /// 実行するコマンドのワーキングディレクトリ.
 @override final  Directory? workingDirectory;
+/// コマンドが0以外を返却した場合のハンドラ.
+@override@JsonKey() final  FailMode failMode;
 
 /// Create a copy of ShellExecuteRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -122,16 +126,16 @@ _$ShellExecuteRequestCopyWith<_ShellExecuteRequest> get copyWith => __$ShellExec
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShellExecuteRequest&&(identical(other.command, command) || other.command == command)&&const DeepCollectionEquality().equals(other._arguments, _arguments)&&const DeepCollectionEquality().equals(other._environment, _environment)&&(identical(other.workingDirectory, workingDirectory) || other.workingDirectory == workingDirectory));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShellExecuteRequest&&(identical(other.command, command) || other.command == command)&&const DeepCollectionEquality().equals(other._arguments, _arguments)&&const DeepCollectionEquality().equals(other._environment, _environment)&&(identical(other.workingDirectory, workingDirectory) || other.workingDirectory == workingDirectory)&&(identical(other.failMode, failMode) || other.failMode == failMode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,command,const DeepCollectionEquality().hash(_arguments),const DeepCollectionEquality().hash(_environment),workingDirectory);
+int get hashCode => Object.hash(runtimeType,command,const DeepCollectionEquality().hash(_arguments),const DeepCollectionEquality().hash(_environment),workingDirectory,failMode);
 
 @override
 String toString() {
-  return 'ShellExecuteRequest(command: $command, arguments: $arguments, environment: $environment, workingDirectory: $workingDirectory)';
+  return 'ShellExecuteRequest(command: $command, arguments: $arguments, environment: $environment, workingDirectory: $workingDirectory, failMode: $failMode)';
 }
 
 
@@ -142,7 +146,7 @@ abstract mixin class _$ShellExecuteRequestCopyWith<$Res> implements $ShellExecut
   factory _$ShellExecuteRequestCopyWith(_ShellExecuteRequest value, $Res Function(_ShellExecuteRequest) _then) = __$ShellExecuteRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String command, List<String> arguments, Map<String, String>? environment, Directory? workingDirectory
+ String command, List<String> arguments, Map<String, String>? environment, Directory? workingDirectory, FailMode failMode
 });
 
 
@@ -159,13 +163,14 @@ class __$ShellExecuteRequestCopyWithImpl<$Res>
 
 /// Create a copy of ShellExecuteRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? command = null,Object? arguments = null,Object? environment = freezed,Object? workingDirectory = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? command = null,Object? arguments = null,Object? environment = freezed,Object? workingDirectory = freezed,Object? failMode = null,}) {
   return _then(_ShellExecuteRequest(
 command: null == command ? _self.command : command // ignore: cast_nullable_to_non_nullable
 as String,arguments: null == arguments ? _self._arguments : arguments // ignore: cast_nullable_to_non_nullable
 as List<String>,environment: freezed == environment ? _self._environment : environment // ignore: cast_nullable_to_non_nullable
 as Map<String, String>?,workingDirectory: freezed == workingDirectory ? _self.workingDirectory : workingDirectory // ignore: cast_nullable_to_non_nullable
-as Directory?,
+as Directory?,failMode: null == failMode ? _self.failMode : failMode // ignore: cast_nullable_to_non_nullable
+as FailMode,
   ));
 }
 

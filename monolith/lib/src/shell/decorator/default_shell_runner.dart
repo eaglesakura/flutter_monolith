@@ -7,6 +7,8 @@ import 'package:monolith/src/shell/shell_execute_request.dart';
 import 'package:monolith/src/shell/shell_execute_result.dart';
 import 'package:monolith/src/shell/shell_runner.dart';
 
+final _log = Logger.file();
+
 /// デフォルトのシェル実行インスタンス.
 @internal
 class DefaultShellRunner implements ShellRunner {
@@ -57,11 +59,19 @@ class DefaultShellRunner implements ShellRunner {
       await stdoutSubscription.cancel();
       await stderrSubscription.cancel();
 
-      // 実行終了後に終了コードをログ出力する
+      // 終了コードによってエラーハンドリングを行う
       if (exitCode != 0) {
-        throw Exception(
-          'Shell command execution completed. Exit code: $exitCode',
-        );
+        switch (request.failMode) {
+          case FailMode.exit:
+            _log.e('Shell command execution completed. Exit code: $exitCode');
+            exit(exitCode);
+          case FailMode.throwException:
+            throw Exception(
+              'Shell command execution completed. Exit code: $exitCode',
+            );
+          case FailMode.returnFunction:
+            break;
+        }
       }
 
       return ShellExecuteResult(
