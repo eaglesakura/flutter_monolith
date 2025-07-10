@@ -58,9 +58,11 @@ class DefaultShellRunner implements ShellRunner {
       await stderrSubscription.cancel();
 
       // 実行終了後に終了コードをログ出力する
-      log.i(
-        'Shell command execution completed. Exit code: $exitCode',
-      );
+      if (exitCode != 0) {
+        throw Exception(
+          'Shell command execution completed. Exit code: $exitCode',
+        );
+      }
 
       return ShellExecuteResult(
         request: request,
