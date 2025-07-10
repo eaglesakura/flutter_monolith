@@ -5,12 +5,12 @@ import 'package:mustache_template/mustache.dart';
 
 /// --define で渡した値の定数を生成するジェネレータ.
 class DefinesGenerator {
-  final _keys = <String>{};
+  final keys = <String>{};
 
   DefinesGenerator();
 
   /// 定数を追加する.
-  void addAll(Iterable<String> keys) => _keys.addAll(keys);
+  void addAll(Iterable<String> keys) => this.keys.addAll(keys);
 
   /// defines.dartを生成する.
   void generate(
@@ -40,7 +40,7 @@ class DefinesGenerator {
   /// Mustacheテンプレート引数を生成する.
   Map<String, dynamic> _compileMustacheValues() {
     return <String, dynamic>{
-      'keys': _keys.toList().sorted(),
+      'keys': keys.toList().sorted(),
     };
   }
 }
