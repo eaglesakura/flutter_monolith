@@ -17,7 +17,8 @@ mixin _$MonolithOptions {
 
 /// monolith.yamlのパス.
 /// nullの場合、カレントディレクトリをルートとして `monolith.yaml` を読み込む.
- File? get monolith;
+ File? get monolith;/// シェル実行インスタンス.
+ ShellRunner? get shellRunner;
 /// Create a copy of MonolithOptions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +29,16 @@ $MonolithOptionsCopyWith<MonolithOptions> get copyWith => _$MonolithOptionsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithOptions&&(identical(other.monolith, monolith) || other.monolith == monolith));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MonolithOptions&&(identical(other.monolith, monolith) || other.monolith == monolith)&&(identical(other.shellRunner, shellRunner) || other.shellRunner == shellRunner));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,monolith);
+int get hashCode => Object.hash(runtimeType,monolith,shellRunner);
 
 @override
 String toString() {
-  return 'MonolithOptions(monolith: $monolith)';
+  return 'MonolithOptions(monolith: $monolith, shellRunner: $shellRunner)';
 }
 
 
@@ -48,7 +49,7 @@ abstract mixin class $MonolithOptionsCopyWith<$Res>  {
   factory $MonolithOptionsCopyWith(MonolithOptions value, $Res Function(MonolithOptions) _then) = _$MonolithOptionsCopyWithImpl;
 @useResult
 $Res call({
- File? monolith
+ File? monolith, ShellRunner? shellRunner
 });
 
 
@@ -65,10 +66,11 @@ class _$MonolithOptionsCopyWithImpl<$Res>
 
 /// Create a copy of MonolithOptions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? monolith = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? monolith = freezed,Object? shellRunner = freezed,}) {
   return _then(_self.copyWith(
 monolith: freezed == monolith ? _self.monolith : monolith // ignore: cast_nullable_to_non_nullable
-as File?,
+as File?,shellRunner: freezed == shellRunner ? _self.shellRunner : shellRunner // ignore: cast_nullable_to_non_nullable
+as ShellRunner?,
   ));
 }
 
@@ -79,12 +81,14 @@ as File?,
 
 
 class _MonolithOptions implements MonolithOptions {
-  const _MonolithOptions({this.monolith});
+  const _MonolithOptions({this.monolith, this.shellRunner});
   
 
 /// monolith.yamlのパス.
 /// nullの場合、カレントディレクトリをルートとして `monolith.yaml` を読み込む.
 @override final  File? monolith;
+/// シェル実行インスタンス.
+@override final  ShellRunner? shellRunner;
 
 /// Create a copy of MonolithOptions
 /// with the given fields replaced by the non-null parameter values.
@@ -96,16 +100,16 @@ _$MonolithOptionsCopyWith<_MonolithOptions> get copyWith => __$MonolithOptionsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithOptions&&(identical(other.monolith, monolith) || other.monolith == monolith));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MonolithOptions&&(identical(other.monolith, monolith) || other.monolith == monolith)&&(identical(other.shellRunner, shellRunner) || other.shellRunner == shellRunner));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,monolith);
+int get hashCode => Object.hash(runtimeType,monolith,shellRunner);
 
 @override
 String toString() {
-  return 'MonolithOptions(monolith: $monolith)';
+  return 'MonolithOptions(monolith: $monolith, shellRunner: $shellRunner)';
 }
 
 
@@ -116,7 +120,7 @@ abstract mixin class _$MonolithOptionsCopyWith<$Res> implements $MonolithOptions
   factory _$MonolithOptionsCopyWith(_MonolithOptions value, $Res Function(_MonolithOptions) _then) = __$MonolithOptionsCopyWithImpl;
 @override @useResult
 $Res call({
- File? monolith
+ File? monolith, ShellRunner? shellRunner
 });
 
 
@@ -133,10 +137,11 @@ class __$MonolithOptionsCopyWithImpl<$Res>
 
 /// Create a copy of MonolithOptions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? monolith = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? monolith = freezed,Object? shellRunner = freezed,}) {
   return _then(_MonolithOptions(
 monolith: freezed == monolith ? _self.monolith : monolith // ignore: cast_nullable_to_non_nullable
-as File?,
+as File?,shellRunner: freezed == shellRunner ? _self.shellRunner : shellRunner // ignore: cast_nullable_to_non_nullable
+as ShellRunner?,
   ));
 }
 

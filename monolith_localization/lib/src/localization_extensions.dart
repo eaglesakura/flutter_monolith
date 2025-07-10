@@ -157,7 +157,7 @@ extension MonolithLocalizationExtensions on Monolith {
           ],
         );
         // format
-        await pkg.exec('dart', arguments: ['format', dartFile.path]);
+        await pkg.shell('dart', arguments: ['format', dartFile.path]);
       }
     }
     _log.i('generate arb files');
@@ -179,6 +179,6 @@ extension MonolithLocalizationExtensions on Monolith {
       localizedTexts: table.localizedTexts,
     );
     // format
-    await appPackage.exec('dart', arguments: ['format', dartFile.path]);
+    await appPackage.shell('dart', arguments: ['format', dartFile.path]);
   }
 }

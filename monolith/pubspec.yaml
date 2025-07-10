@@ -14,7 +14,6 @@ dependencies:
   armyknife_yamlx: ^1.0.0
   path: ^1.9.1
   armyknife_logger: ^1.0.0
-  grinder: ^0.9.5
   dartx: ^1.2.0
   armyknife_dartx: ^1.0.0
   csv: ^6.0.0

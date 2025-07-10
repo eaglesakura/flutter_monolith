@@ -24,21 +24,21 @@ extension DartPackageTaskRunnerExtensions on DartPackage {
 
   /// dart analyzeを実行する.
   Future analyze() async {
-    return exec('dart', arguments: ['analyze']);
+    return shell('dart', arguments: ['analyze']);
   }
 
   Future pubGet() async {
     if (isFlutter) {
-      return exec('flutter', arguments: ['pub', 'get']);
+      return shell('flutter', arguments: ['pub', 'get']);
     } else {
-      return exec('dart', arguments: ['pub', 'get']);
+      return shell('dart', arguments: ['pub', 'get']);
     }
   }
 
   /// flutter cleanを実行する.
   Future clean() async {
     if (isFlutter) {
-      return exec('flutter', arguments: ['clean']);
+      return shell('flutter', arguments: ['clean']);
     }
   }
 
@@ -47,7 +47,7 @@ extension DartPackageTaskRunnerExtensions on DartPackage {
     for (final dir in ['lib/', 'test/']) {
       final target = relativeDirectory(dir);
       if (target.existsSync()) {
-        await exec(
+        await shell(
           'dart',
           arguments: ['format', dir],
         );
@@ -61,7 +61,7 @@ extension DartPackageTaskRunnerExtensions on DartPackage {
     for (final dir in ['lib/', 'test/']) {
       final target = relativeDirectory(dir);
       if (target.existsSync()) {
-        await exec(
+        await shell(
           'dart',
           arguments: [
             'format',
@@ -82,7 +82,7 @@ extension DartPackageTaskRunnerExtensions on DartPackage {
 
     _log.i('dart build_runner $name');
 
-    await exec(
+    await shell(
       'dart',
       arguments: [
         'run',
@@ -116,9 +116,9 @@ extension DartPackageTaskRunnerExtensions on DartPackage {
   Future<String> test() async {
     if (hasTests) {
       if (isFlutter) {
-        return exec('flutter', arguments: ['test']);
+        return shell('flutter', arguments: ['test']);
       } else {
-        return exec('dart', arguments: ['test']);
+        return shell('dart', arguments: ['test']);
       }
     } else {
       return '';

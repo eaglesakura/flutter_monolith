@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:monolith/src/shell/shell_runner.dart';
 
 part 'monolith_options.freezed.dart';
 
@@ -10,5 +11,8 @@ abstract class MonolithOptions with _$MonolithOptions {
     /// monolith.yamlのパス.
     /// nullの場合、カレントディレクトリをルートとして `monolith.yaml` を読み込む.
     File? monolith,
+
+    /// シェル実行インスタンス.
+    ShellRunner? shellRunner,
   }) = _MonolithOptions;
 }

@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:armyknife_logger/armyknife_logger.dart';
 import 'package:armyknife_yamlx/armyknife_yamlx.dart';
-import 'package:grinder/grinder.dart';
+import 'package:meta/meta.dart';
 import 'package:monolith/src/package/dto/pubspec_yaml_dto.dart';
+import 'package:monolith/src/shell/shell_execute_request.dart';
+import 'package:monolith/src/shell/shell_runner.dart';
 import 'package:path/path.dart' as p;
 
 /// Dartの1packageを示すオブジェクト.
@@ -18,13 +20,21 @@ class DartPackage {
   // ignore: unused_field
   final Map<String, dynamic> _pubspecYaml;
 
-  factory DartPackage.fromFile(File pubspecYaml) {
+  /// シェル実行インスタンス.
+  final ShellRunner _shellRunner;
+
+  @internal
+  factory DartPackage.fromFile(
+    File pubspecYaml, {
+    ShellRunner? shellRunner,
+  }) {
     final yamlMap = YamlX.parse(pubspecYaml);
     final dto = PubspecYamlDto.fromJson(yamlMap);
     return DartPackage._(
       pubspecYaml: pubspecYaml.absolute,
       pubspecYamlDto: dto,
       yamlMap: yamlMap,
+      shellRunner: shellRunner ?? ShellRunner(),
     );
   }
 
@@ -32,9 +42,11 @@ class DartPackage {
     required this.pubspecYaml,
     required PubspecYamlDto pubspecYamlDto,
     required Map<String, dynamic> yamlMap,
+    required ShellRunner shellRunner,
   }) : _pubspecYamlDto = pubspecYamlDto,
        _pubspecYaml = yamlMap,
-       _log = Logger.tag(pubspecYamlDto.name!);
+       _log = Logger.tag(pubspecYamlDto.name!),
+       _shellRunner = shellRunner;
 
   /// ディレクトリ
   Directory get directory => pubspecYaml.parent;
@@ -69,7 +81,10 @@ class DartPackage {
     final workspace = _pubspecYamlDto.workspace ?? const [];
     for (final pub in workspace) {
       final child = p.join(pubspecYaml.parent.path, pub, 'pubspec.yaml');
-      yield DartPackage.fromFile(File(child));
+      yield DartPackage.fromFile(
+        File(child),
+        shellRunner: _shellRunner,
+      );
     }
   }
 
@@ -84,7 +99,7 @@ class DartPackage {
   }
 
   /// 指定したコマンドを実行する.
-  Future<String> exec(
+  Future<String> shell(
     String executable, {
     String? relativeWorkingDirectory,
     required List<String> arguments,
@@ -95,19 +110,16 @@ class DartPackage {
       relativeWorkingDirectory ?? '',
     );
 
-    final runOptions = RunOptions(
-      includeParentEnvironment: true,
-      environment: environment,
-    );
-
     _log.i('exec: $executable $arguments');
 
-    return runAsync(
-      executable,
-      arguments: arguments,
-      workingDirectory: workingDirectory,
-      runOptions: runOptions,
+    final result = await _shellRunner.execute(
+      ShellExecuteRequest(
+        command: executable,
+        arguments: arguments,
+        workingDirectory: Directory(workingDirectory),
+      ),
     );
+    return result.stdout;
   }
 
   /// package配下のディレクトリを取得する.

@@ -48,7 +48,10 @@ class Monolith {
     final pubspecYaml = File(p.join(workspaceDirectory.path, 'pubspec.yaml'));
     _log.i('load workspace: ${pubspecYaml.path}');
     return Monolith._(
-      project: DartPackage.fromFile(pubspecYaml),
+      project: DartPackage.fromFile(
+        pubspecYaml,
+        shellRunner: options.shellRunner,
+      ),
       options: options,
       configurations: YamlX.parseWithMerge(monolithYamlFiles),
     );

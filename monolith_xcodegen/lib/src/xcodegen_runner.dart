@@ -31,7 +31,7 @@ extension MonolithRunXcodegenExtensions on Monolith {
     }
 
     await pkg.pubGet();
-    await pkg.exec(
+    await pkg.shell(
       'xcodegen',
       arguments: [],
       environment: env,

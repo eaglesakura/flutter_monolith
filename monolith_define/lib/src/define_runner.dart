@@ -42,7 +42,7 @@ extension MonolithDefineExtension on Monolith {
       pathToTestDefineJson: p.join(outputPath, '$testFlavor.json'),
     );
 
-    await project.exec(
+    await project.shell(
       'dart',
       arguments: [
         'format',
