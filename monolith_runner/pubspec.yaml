@@ -15,6 +15,8 @@ dependencies:
   monolith_install: ^1.0.0
   monolith_localization: ^1.0.0
   monolith_xcodegen: ^1.0.0
+  ansicolor: ^2.0.3
+  armyknife_logger: ^1.0.1
 
 dev_dependencies:
   lints: ^6.0.0
