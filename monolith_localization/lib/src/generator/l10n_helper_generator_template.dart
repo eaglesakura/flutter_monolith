@@ -6,18 +6,22 @@ const l10nHelperMustache = '''
 // ignore_for_file: depend_on_referenced_packages, implementation_imports, invalid_use_of_internal_member
 import 'package:monolith_localization_runtime/src/localize_string_delegate.dart';
 import 'package:monolith_localization_runtime/src/localize_string_source.dart';
+import 'package:flutter/material.dart';
 
 import '{{{importL10n}}}';
 
 /// e.g.
-/// final WidgetBuilder builder;
-/// 
-/// Widget build(BuildContext context) {
-///   L10nHelper.configure(L10n.of(context));
-///   return Builder(builder);
-/// }
+/// localizationsDelegates: [
+///   {{className}}.delegate,
+///   GlobalMaterialLocalizations.delegate,
+///   GlobalCupertinoLocalizations.delegate,
+///   GlobalWidgetsLocalizations.delegate,
+/// ]
 final class {{className}} {
   const {{className}}._();
+
+  /// L10n Delegate instance.
+  static const delegate = _{{className}}Delegate();
 
   static void configure(L10n? l10n) {
     if (l10n == null) {
@@ -48,4 +52,25 @@ final class {{className}} {
   }
 }
 
+class _{{className}}Delegate implements LocalizationsDelegate<L10n> {
+  final delegate = L10n.delegate;
+
+  const _{{className}}Delegate();
+
+  @override
+  Type get type => delegate.type;
+
+  @override
+  bool isSupported(Locale locale) => delegate.isSupported(locale);
+
+  @override
+  Future<L10n> load(Locale locale) async {
+    final result = await delegate.load(locale);
+    L10nHelper.configure(result);
+    return result;
+  }
+
+  @override
+  bool shouldReload(covariant LocalizationsDelegate<L10n> old) => false;
+}
 ''';

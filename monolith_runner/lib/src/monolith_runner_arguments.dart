@@ -27,25 +27,25 @@ abstract class MonolithRunnerArguments with _$MonolithRunnerArguments {
   }
 
   static void _injectLogger() {
-    final redPen = AnsiPen()..red(bold: true);
-    final yellowPen = AnsiPen()..yellow(bold: true);
-    final bluePen = AnsiPen()..blue(bold: true);
-
     LoggerProxy.i = (String tag, String message) {
-      print('${bluePen('[$tag]')} $message');
+      final pen = AnsiPen()..green(bold: true);
+      print(pen('[$tag] $message'));
     };
 
     LoggerProxy.w = (String tag, String message) {
-      print(yellowPen('[$tag] $message'));
+      final pen = AnsiPen()..yellow(bold: true);
+      print(pen('[$tag] $message'));
     };
     LoggerProxy.e =
         (String tag, String message, [dynamic error, StackTrace? stackTrace]) {
-          print(redPen('[$tag] $message'));
-          print(redPen(error.toString()));
-          print(redPen(stackTrace.toString()));
+          final pen = AnsiPen()..red(bold: true);
+          print(pen('[$tag] $message'));
+          print(pen(error.toString()));
+          print(pen(stackTrace.toString()));
         };
     LoggerProxy.d = (String tag, String message) {
-      print(yellowPen('[$tag] $message'));
+      final pen = AnsiPen()..yellow(bold: true);
+      print(pen('[$tag] $message'));
     };
   }
 }
