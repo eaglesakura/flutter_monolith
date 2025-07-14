@@ -1,5 +1,7 @@
 # Flutter Monolith
 
+![Flutter Monolith](./docs/res/monolith_logo.png)
+
 Flutterプロジェクトのモジュラーモノリス構造をサポートする統合プロジェクト管理ツールセットである。
 大規模なFlutterアプリケーション開発において、複数のパッケージを効率的に管理し、
 開発環境の構築から本番リリースまでの全プロセスを自動化する。
