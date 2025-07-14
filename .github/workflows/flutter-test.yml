@@ -1,0 +1,43 @@
+name: Flutter Test
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/id/*/*
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+
+    strategy:
+      matrix:
+        package:
+          - monolith
+          - monolith_define
+          - monolith_install
+          - monolith_localization
+          - monolith_localization_runtime
+          - monolith_runner
+          - monolith_xcodegen
+
+    steps:
+      # 最初にリポジトリをチェックアウトする
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      # Flutterをインストールして依存関係を取得する
+      - name: install flutter(by fvm)
+        uses: ./.github/actions/install-flutter
+
+      # テスト
+      - name: flutter test - ${{ matrix.package }}
+        run: |
+          cp pubspec.yaml.template pubspec.yaml
+          cd ${{ matrix.package }}
+          dart pub get
+          dart analyze
+          dart format --set-exit-if-changed ./lib/
+          dart format --set-exit-if-changed ./test/
+          flutter test ./test/
