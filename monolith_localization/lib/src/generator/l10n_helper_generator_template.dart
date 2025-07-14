@@ -4,9 +4,10 @@ import 'package:meta/meta.dart';
 const l10nHelperMustache = '''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: depend_on_referenced_packages, implementation_imports, invalid_use_of_internal_member
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:monolith_localization_runtime/src/localize_string_delegate.dart';
 import 'package:monolith_localization_runtime/src/localize_string_source.dart';
-import 'package:flutter/material.dart';
 
 import '{{{importL10n}}}';
 
@@ -22,6 +23,26 @@ final class {{className}} {
 
   /// L10n Delegate instance.
   static const delegate = _{{className}}Delegate();
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const supportedLocales = L10n.supportedLocales;
 
   static void configure(L10n? l10n) {
     if (l10n == null) {
