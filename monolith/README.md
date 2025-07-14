@@ -1,39 +1,87 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Flutterプロジェクトのモジュラーモノリス構造をサポートするプロジェクト管理ライブラリである。
+`monolith.yaml`設定ファイルを用いて、Flutterアプリケーションの開発環境構築やタスク実行を自動化する。
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+* **Dart Define管理**: フレーバー別の環境定数定義とコード生成
+* **多言語化サポート**: アプリケーションおよびパッケージの国際化リソース管理
+* **Xcodeプロジェクト生成**: iOS開発用のプロジェクト設定自動生成
+* **シークレットファイル管理**: 機密情報を含むファイルの安全な配布とインストール
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+プロジェクトルートに`monolith.yaml`設定ファイルを作成し、必要な設定を記述する。
+1Password CLIやその他のシークレット管理ツールとの連携も可能である。
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+`monolith.yaml`の基本設定例:
 
-```dart
-const like = 'sample';
+```yaml
+includes:
+  - secrets/monolith.yaml
+
+define:
+  output_path: secrets/dart-define/
+  generate:
+    package_name: foundation_metadata
+    helper_path: lib/gen/defines.dart
+    # optional, default: `test`
+    test_flavor: test
+  # required
+  flavors:
+    development:
+      FLAVOR: development
+    production:
+      FLAVOR: production
+    test:
+      FLAVOR: development
+
+localization:
+  # required
+  languages:
+    - ja
+    - en
+  app:
+    # required, module name
+    package_name: app
+    # optional, default: `lib/l10n/`
+    arb_path: lib/l10n/
+    # optional, default: `intl_app_`
+    arb_file_prefix: intl_app_
+    # optional, default: `L10nHelper`
+    l10n_helper_class_name: L10nHelper
+    # optional, default: `lib/l10n/l10n_helper.dart`
+    l10n_helper_path: lib/l10n/l10n_helper.dart
+  package:
+    # required, path to packages(relative to root)
+    path_prefixes:
+      - app/
+      - packages/
+    # optional, default: `res/`
+    resources_path: res/
+    # optional, default: `L10nStringsMixin`
+    module_helper_class_name: L10nStringsMixin
+    # optional, default: `lib/gen/strings.dart`
+    module_helper_path: lib/gen/strings.dart
+
+
+xcodegen:
+  package_name: app
+  touch_files:
+    - ios/GoogleService-Info.plist
+
+install:
+  - path: secrets/config.json
+    text_file: |
+      {"environment": "production"}
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+このパッケージはFlutterのモジュラーモノリス構造を採用するプロジェクトに最適化されている。
+複数のパッケージを含む大規模なFlutterプロジェクトの管理を効率化し、
+開発チーム間での設定共有や環境構築の自動化を実現する。
+
+詳細な設定項目や使用方法については、プロジェクトのドキュメントを参照すること。
