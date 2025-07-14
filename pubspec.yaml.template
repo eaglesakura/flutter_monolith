@@ -1,0 +1,16 @@
+name: flutter_monolith
+version: 0.0.1
+publish_to: "none"
+
+environment:
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.32.0"
+
+workspace:
+  - monolith
+  - monolith_define
+  - monolith_install
+  - monolith_localization
+  - monolith_localization_runtime
+  - monolith_runner
+  - monolith_xcodegen

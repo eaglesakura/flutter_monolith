@@ -31,7 +31,6 @@ migrate_working_dir/
 build/
 /pubspec.yaml
 pubspec_overrides.yaml
-pubspec.yaml.template
 
 # FVM Version Cache
 .fvm/
