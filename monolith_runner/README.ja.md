@@ -20,6 +20,145 @@ dev_dependencies:
 
 ## Usage
 
+```yaml
+# monolith.yaml - 設定例
+# 注意: このファイルはバージョン管理にコミットしてください
+
+# シークレットファイルをインクルード (op inject コマンドで注入)
+includes:
+  - secrets/monolith.yaml
+
+# Dart Define設定
+define:
+  output_path: secrets/dart-define/
+  generate:
+    package_name: foundation_metadata
+    helper_path: lib/gen/defines.dart
+    # オプション, デフォルト: `test`
+    test_flavor: test
+  # 必須
+  flavors:
+    development:
+      FLAVOR: development
+      API_URL: https://api-dev.example.com
+      DEBUG_MODE: true
+      LOG_LEVEL: debug
+    production:
+      FLAVOR: production
+      API_URL: https://api.example.com
+      DEBUG_MODE: false
+      LOG_LEVEL: info
+    test:
+      FLAVOR: development
+      API_URL: https://api-test.example.com
+      DEBUG_MODE: true
+      LOG_LEVEL: debug
+
+# ローカライズ設定
+localization:
+  # 必須
+  languages:
+    - ja
+    - en
+  app:
+    # 必須, モジュール名
+    package_name: app
+    # オプション, デフォルト: `lib/l10n/`
+    arb_path: lib/l10n/
+    # オプション, デフォルト: `intl_app_`
+    arb_file_prefix: intl_app_
+    # オプション, デフォルト: `L10nHelper`
+    l10n_helper_class_name: L10nHelper
+    # オプション, デフォルト: `lib/l10n/l10n_helper.dart`
+    l10n_helper_path: lib/l10n/l10n_helper.dart
+  package:
+    # 必須, パッケージへのパス (ルートからの相対パス)
+    path_prefixes:
+      - app/
+      - packages/
+    # オプション, デフォルト: `res/`
+    resources_path: res/
+    # オプション, デフォルト: `L10nStringsMixin`
+    module_helper_class_name: L10nStringsMixin
+    # オプション, デフォルト: `lib/gen/strings.dart`
+    module_helper_path: lib/gen/strings.dart
+
+# Xcodeプロジェクト生成設定
+xcodegen:
+  # 必須
+  package_name: app
+  # オプション - xcodegen実行前に作成するファイル
+  touch_files:
+    - ios/GoogleService-Info.plist
+    - ios/firebase_app_id_file.json
+  # オプション - xcodegen実行時の環境変数
+  env:
+    DEVELOPMENT_TEAM: ABCD123456
+    CODE_SIGN_IDENTITY: "iPhone Developer"
+    BUNDLE_ID_SUFFIX: dev
+
+# ファイルインストール設定
+install:
+  # Androidファイル
+  - path: secrets/android.keystore
+    base64_file: <base64_encoded_keystore_content>
+  - path: secrets/android.properties
+    text_file: |
+      android.projectName = MyApp
+      android.applicationId = com.example.myapp
+      android.keystore.password = <keystore_password>
+      android.keystore.debug.password = <debug_password>
+      android.keystore.release.password = <release_password>
+  - path: app/android/app/src/development/google-services.json
+    base64_file: <base64_encoded_google_services_json>
+  - path: app/android/app/src/production/google-services.json
+    base64_file: <base64_encoded_google_services_json>
+
+  # iOSファイル - Development
+  - path: app/ios/Configurations/Debug-development/GoogleService-Info.plist
+    base64_file: <base64_encoded_google_service_plist>
+  - path: app/ios/Configurations/Profile-development/GoogleService-Info.plist
+    base64_file: <base64_encoded_google_service_plist>
+  - path: app/ios/Configurations/Release-development/GoogleService-Info.plist
+    base64_file: <base64_encoded_google_service_plist>
+
+  # iOSファイル - Production
+  - path: app/ios/Configurations/Debug-production/GoogleService-Info.plist
+    base64_file: <base64_encoded_google_service_plist>
+  - path: app/ios/Configurations/Profile-production/GoogleService-Info.plist
+    base64_file: <base64_encoded_google_service_plist>
+  - path: app/ios/Configurations/Release-production/GoogleService-Info.plist
+    base64_file: <base64_encoded_google_service_plist>
+```
+
+**1Password CLIとの連携例**:
+```yaml
+# 本番環境での1Password CLI使用例
+# プレースホルダーを実際の1Password参照に置換してください
+
+xcodegen:
+  package_name: app
+  touch_files:
+    - ios/GoogleService-Info.plist
+  env:
+    DEVELOPMENT_TEAM: op://vault-id/apple-developer/team-id
+    CODE_SIGN_IDENTITY: op://vault-id/apple-developer/code-sign-identity
+    BUNDLE_ID_SUFFIX: op://vault-id/app-config/bundle-suffix
+
+install:
+  - path: secrets/android.keystore
+    base64_file: op://vault-id/android-keystore/keystore.base64
+  - path: secrets/android.properties
+    text_file: |
+      android.projectName = MyApp
+      android.applicationId = com.example.myapp
+      android.keystore.password = op://vault-id/android-keystore/keystore-password
+      android.keystore.debug.password = op://vault-id/android-keystore/debug-password
+      android.keystore.release.password = op://vault-id/android-keystore/release-password
+  - path: app/ios/Configurations/Release-production/GoogleService-Info.plist
+    base64_file: op://vault-id/google-services/ios-production.plist.base64
+```
+
 **利用可能なコマンド一覧**:
 ```bash
 # シークレットファイルのインストール
