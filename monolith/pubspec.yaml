@@ -1,5 +1,5 @@
 name: monolith
-description: A starting point for Dart libraries or applications.
+description: A project management library that supports the modular monolith structure for Flutter projects. It automates the setup of development environments and task execution for Flutter applications using the monolith.yaml configuration file.
 version: 1.0.0
 resolution: workspace
 repository: https://github.com/eaglesakura/flutter_monolith
