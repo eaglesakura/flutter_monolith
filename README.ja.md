@@ -34,7 +34,7 @@ Flutterプロジェクトのモジュラーモノリス構造をサポートす�
 
 ### 🔧 統合プロジェクト管理
 - **monolith.yaml**: 全設定を一元管理
-- **統一ランナー**: `dart run monolith:*`コマンドで全機能実行
+- **統一ランナー**: `dart run monolith_runner:*`コマンドで全機能実行
 - **CI/CD最適化**: 自動化された開発環境構築
 
 ### 🌍 高度なローカライズ
@@ -115,10 +115,10 @@ install:
 op inject --force --in-file monolith.yaml --out-file secrets/monolith.yaml
 
 # 開発環境のセットアップ
-dart run monolith:install        # シークレットファイルの展開
-dart run monolith:define         # 環境定数の生成
-dart run monolith:localization   # ローカライズリソースの生成
-dart run monolith:xcodegen       # Xcodeプロジェクトの生成
+dart run monolith_runner:install        # シークレットファイルの展開
+dart run monolith_runner:define         # 環境定数の生成
+dart run monolith_runner:localization   # ローカライズリソースの生成
+dart run monolith_runner:xcodegen       # Xcodeプロジェクトの生成
 
 # アプリケーションのビルド
 flutter build ios --dart-define-from-file=secrets/dart-define/production.json
@@ -131,7 +131,7 @@ flutter build ios --dart-define-from-file=secrets/dart-define/production.json
 | パッケージ | 説明 | 用途 |
 |-----------|------|------|
 | **monolith** | メインライブラリ | プロジェクト管理・タスク実行の統制 |
-| **monolith_runner** | 統一ランナー | `dart run monolith:*`コマンドの提供 |
+| **monolith_runner** | 統一ランナー | `dart run monolith_runner:*`コマンドの提供 |
 
 ### Feature Packages
 
@@ -186,22 +186,22 @@ dart pub get
 
 # 開発環境の構築
 op inject --force --in-file monolith.yaml --out-file secrets/monolith.yaml
-dart run monolith:install
-dart run monolith:define
-dart run monolith:localization
-dart run monolith:xcodegen
+dart run monolith_runner:install
+dart run monolith_runner:define
+dart run monolith_runner:localization
+dart run monolith_runner:xcodegen
 ```
 
 ### 2. 日常開発
 ```bash
 # ローカライズリソースの更新
-dart run monolith:localization
+dart run monolith_runner:localization
 
 # 新しい環境定数の追加
-dart run monolith:define
+dart run monolith_runner:define
 
 # iOS設定の更新
-dart run monolith:xcodegen
+dart run monolith_runner:xcodegen
 ```
 
 ### 3. CI/CD統合
@@ -212,9 +212,9 @@ dart run monolith:xcodegen
     OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
   run: |
     op inject --force --in-file monolith.yaml --out-file secrets/monolith.yaml
-    dart run monolith:install
-    dart run monolith:define
-    dart run monolith:xcodegen
+    dart run monolith_runner:install
+    dart run monolith_runner:define
+    dart run monolith_runner:xcodegen
 
 - name: Build iOS
   run: flutter build ios --dart-define-from-file=secrets/dart-define/production.json

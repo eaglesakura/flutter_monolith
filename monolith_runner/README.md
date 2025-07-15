@@ -1,5 +1,5 @@
 A runner package for executing all monolith features from a unified command-line interface.
-By adding it to `dev_dependencies`, you can access all monolith functionality through `dart run monolith:*` commands.
+By adding it to `dev_dependencies`, you can access all monolith functionality through `dart run monolith_runner:*` commands.
 
 ## Features
 
@@ -162,16 +162,16 @@ install:
 **Available commands**:
 ```bash
 # Install secret files
-dart run monolith:install
+dart run monolith_runner:install
 
 # Generate localization resources
-dart run monolith:localization
+dart run monolith_runner:localization
 
 # Generate Dart Define constants
-dart run monolith:define
+dart run monolith_runner:define
 
 # Generate Xcode project
-dart run monolith:xcodegen
+dart run monolith_runner:xcodegen
 ```
 
 **CI/CD integration example**:
@@ -197,9 +197,9 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
         run: |
           op inject --force --in-file monolith.yaml --out-file secrets/monolith.yaml
-          dart run monolith:install
-          dart run monolith:define
-          dart run monolith:xcodegen
+          dart run monolith_runner:install
+          dart run monolith_runner:define
+          dart run monolith_runner:xcodegen
           
       - name: Build iOS
         run: flutter build ios --dart-define-from-file=secrets/dart-define/production.json
