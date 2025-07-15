@@ -33,7 +33,7 @@ Large-scale Flutter projects face the following challenges:
 
 ### 🔧 Integrated Project Management
 - **monolith.yaml**: Centralized management of all configurations
-- **Unified Runner**: Execute all features with `dart run monolith:*` commands
+- **Unified Runner**: Execute all features with `dart run monolith_runner:*` commands
 - **CI/CD Optimization**: Automated development environment setup
 
 ### 🌍 Advanced Localization
@@ -114,10 +114,10 @@ install:
 op inject --force --in-file monolith.yaml --out-file secrets/monolith.yaml
 
 # Setup development environment
-dart run monolith:install        # Deploy secret files
-dart run monolith:define         # Generate environment constants
-dart run monolith:localization   # Generate localization resources
-dart run monolith:xcodegen       # Generate Xcode project
+dart run monolith_runner:install        # Deploy secret files
+dart run monolith_runner:define         # Generate environment constants
+dart run monolith_runner:localization   # Generate localization resources
+dart run monolith_runner:xcodegen       # Generate Xcode project
 
 # Build application
 flutter build ios --dart-define-from-file=secrets/dart-define/production.json
@@ -130,7 +130,7 @@ flutter build ios --dart-define-from-file=secrets/dart-define/production.json
 | Package | Description | Purpose |
 |---------|-------------|---------|
 | **monolith** | Main library | Project management and task execution control |
-| **monolith_runner** | Unified runner | Provides `dart run monolith:*` commands |
+| **monolith_runner** | Unified runner | Provides `dart run monolith_runner:*` commands |
 
 ### Feature Packages
 
@@ -185,22 +185,22 @@ dart pub get
 
 # Setup development environment
 op inject --force --in-file monolith.yaml --out-file secrets/monolith.yaml
-dart run monolith:install
-dart run monolith:define
-dart run monolith:localization
-dart run monolith:xcodegen
+dart run monolith_runner:install
+dart run monolith_runner:define
+dart run monolith_runner:localization
+dart run monolith_runner:xcodegen
 ```
 
 ### 2. Daily Development
 ```bash
 # Update localization resources
-dart run monolith:localization
+dart run monolith_runner:localization
 
 # Add new environment constants
-dart run monolith:define
+dart run monolith_runner:define
 
 # Update iOS settings
-dart run monolith:xcodegen
+dart run monolith_runner:xcodegen
 ```
 
 ### 3. CI/CD Integration
@@ -211,9 +211,9 @@ dart run monolith:xcodegen
     OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
   run: |
     op inject --force --in-file monolith.yaml --out-file secrets/monolith.yaml
-    dart run monolith:install
-    dart run monolith:define
-    dart run monolith:xcodegen
+    dart run monolith_runner:install
+    dart run monolith_runner:define
+    dart run monolith_runner:xcodegen
 
 - name: Build iOS
   run: flutter build ios --dart-define-from-file=secrets/dart-define/production.json

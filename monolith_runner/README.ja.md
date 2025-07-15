@@ -1,5 +1,5 @@
 monolithの各機能を統一されたコマンドラインインターフェースから実行するためのランナーパッケージである。
-`dev_dependencies`に追加することで、`dart run monolith:*`コマンドからmonolithの全機能にアクセスできるようになる。
+`dev_dependencies`に追加することで、`dart run monolith_runner:*`コマンドからmonolithの全機能にアクセスできるようになる。
 
 ## Features
 
@@ -162,16 +162,16 @@ install:
 **利用可能なコマンド一覧**:
 ```bash
 # シークレットファイルのインストール
-dart run monolith:install
+dart run monolith_runner:install
 
 # ローカライズリソースの生成
-dart run monolith:localization
+dart run monolith_runner:localization
 
 # Dart Define定数の生成
-dart run monolith:define
+dart run monolith_runner:define
 
 # Xcodeプロジェクトの生成
-dart run monolith:xcodegen
+dart run monolith_runner:xcodegen
 ```
 
 **CI/CD統合例**:
@@ -197,9 +197,9 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
         run: |
           op inject --force --in-file monolith.yaml --out-file secrets/monolith.yaml
-          dart run monolith:install
-          dart run monolith:define
-          dart run monolith:xcodegen
+          dart run monolith_runner:install
+          dart run monolith_runner:define
+          dart run monolith_runner:xcodegen
           
       - name: Build iOS
         run: flutter build ios --dart-define-from-file=secrets/dart-define/production.json
