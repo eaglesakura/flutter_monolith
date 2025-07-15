@@ -50,7 +50,7 @@ Flutterプロジェクトのモジュラーモノリス構造をサポートす�
 ### 📱 iOS開発自動化
 - **xcodegen統合**: YAMLベースのXcodeプロジェクト生成
 - **環境変数注入**: シークレット管理ツールとの連携
-- **証明書管理**: 開発チーム向けの自動配布
+- **ファイル作成**: ビルドに必要なファイルの事前作成
 
 ## 🚀 クイックスタート
 
@@ -141,7 +141,7 @@ flutter build ios --dart-define-from-file=secrets/dart-define/production.json
 | **monolith_install** | シークレットファイル展開 | 機密ファイルの安全な配布・展開 |
 | **monolith_localization** | モジュール単位ローカライズ | パッケージ独立型多言語リソース管理 |
 | **monolith_localization_runtime** | ローカライズランタイム | 生成コードの実行時サポート |
-| **monolith_xcodegen** | Xcodeプロジェクト生成 | iOS開発環境の自動化 |
+| **monolith_xcodegen** | Xcodeプロジェクト生成 | xcodegenツールを使用したXcodeプロジェクトの自動生成 |
 
 ## 🏗️ プロジェクト構造例
 

@@ -52,27 +52,22 @@ xcodegen:
 
 **実行例とログ出力**:
 ```bash
-$ dart run monolith_xcodegen
+$ dart run monolith:xcodegen
 
-Generating Xcode project with xcodegen...
-✓ Reading monolith.yaml configuration
-✓ Setting environment variables:
-  - DEVELOPMENT_TEAM: ABC***456
-  - PROVISIONING_PROFILE_UUID: 12345***890
-✓ Creating touch files:
-  - ios/GoogleService-Info.plist
-  - ios/firebase_app_id_file.json
-✓ Running xcodegen...
+xcodegen
+  - package: app
+  - touchFiles: ios/GoogleService-Info.plist
+  - env: DEVELOPMENT_TEAM
+
+touch: ios/GoogleService-Info.plist
+Running xcodegen in app/ios/
 ✓ Xcode project generated successfully
-
-Project generated at: app/ios/Runner.xcodeproj
 ```
 
 **生成されるXcodeプロジェクトの特徴**:
 - Flutterフレームワークとの適切な連携設定
 - 環境別の設定ファイルの自動認識
-- コード署名設定の自動適用
-- ビルドスクリプトの最適化
+- 環境変数を使用したプロジェクト設定
 
 ## Additional information
 
@@ -80,23 +75,23 @@ Project generated at: app/ios/Runner.xcodeproj
 
 **開発チーム向けの利点**:
 - **環境の標準化**: 全開発者が同一のXcodeプロジェクト設定を共有
-- **シークレット管理**: 機密情報をバージョン管理から分離
+- **環境変数注入**: 外部設定ツールとの連携による柔軟な設定管理
 - **自動化**: CI/CD環境での自動プロジェクト生成
 
 **サポートする環境変数の例**:
 - `DEVELOPMENT_TEAM`: Apple Developer Team ID
 - `CODE_SIGN_IDENTITY`: コード署名アイデンティティ
-- `PROVISIONING_PROFILE_UUID`: プロビジョニングプロファイルUUID
 - `BUNDLE_ID_SUFFIX`: Bundle Identifierサフィックス
+- その他xcodegen実行時に必要な任意の環境変数
 
 **前提条件**:
 - `xcodegen`ツールがシステムにインストールされていること
 - 対象パッケージに`project.yml`ファイルが存在すること
-- 必要に応じてシークレット管理ツール（1Password CLI等）が設定済みであること
+- `monolith.yaml`で適切な`xcodegen`設定が記述されていること
 
 **トラブルシューティング**:
 - ファイルが見つからない場合: `touch_files`設定で事前作成を確認
-- 環境変数が反映されない場合: シークレット管理ツールの認証状態を確認
+- 環境変数が反映されない場合: `monolith.yaml`の`env`設定を確認
 - プロジェクト生成に失敗する場合: `project.yml`の構文エラーをチェック
 
 Flutterとネイティブプラットフォーム開発を橋渡しし、
