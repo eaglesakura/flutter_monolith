@@ -1,0 +1,28 @@
+---
+description: pull requestを作成
+alwaysApply: false
+---
+# AIの役割
+
+* mainブランチへのpull requestを作成します
+
+## 作業手順
+
+1. gitコマンドを使用して、origin/mainブランチとHEADとのdiffをまとめてください
+2. 現在の作業ブランチから、mainブランチへのpull requestを `gh` コマンドで作成してください
+
+## descriptionのフォーマット
+
+```
+# Feature
+
+* 追加された機能
+
+# Changed
+
+* 変更された機能
+
+# Fixed
+
+* 修正された機能
+```

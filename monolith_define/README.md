@@ -1,16 +1,16 @@
-A package that automatically generates JSON files for passing to the Dart `--dart-define` command and a `Defines` class for type-safe programmatic access.
-It streamlines environment constant management for different flavors and build-time constant injection.
+A package that automatically generates JSON files for Dart `--dart-define` commands and type-safe `Defines` classes for programmatic access.
+It streamlines flavor-specific environment constant management and build-time constant injection.
 
 ## Features
 
-* **Flavor-based Constant Management**: Constant definition for development, production, and test environments
-* **Automatic JSON File Generation**: Output JSON files for use with `--dart-define-from-file`
-* **Type-safe Access**: Runtime constant access through the generated `Defines` class
+* **Flavor-specific Constant Management**: Constant definitions for development, production, and test environments
+* **Automatic JSON File Generation**: Output JSON files usable with `--dart-define-from-file`
+* **Type-safe Access**: Runtime constant access through generated `Defines` classes
 * **Build Tool Integration**: Automatic integration with Flutter/Dart build processes
 
 ## Getting started
 
-Configure the `define` section in `monolith.yaml`.
+Describe the configuration in the `define` section of `monolith.yaml`.
 
 ```yaml
 # monolith.yaml
@@ -37,7 +37,7 @@ define:
 
 The above configuration generates the following files:
 
-**JSON file example** (`secrets/dart-define/development.json`):
+**JSON File Example** (`secrets/dart-define/development.json`):
 ```json
 {
   "FLAVOR": "development",
@@ -45,7 +45,7 @@ The above configuration generates the following files:
 }
 ```
 
-**Generated Defines class example**:
+**Generated Defines Class Example**:
 ```dart
 final class Defines {
   static String get FLAVOR { ... }
@@ -54,7 +54,7 @@ final class Defines {
 }
 ```
 
-**Usage at build time**:
+**Usage at Build Time**:
 
 ```bash
 # Build using JSON file
@@ -79,11 +79,13 @@ void main() {
 ## Additional information
 
 This package is optimized for multi-flavor development of Flutter applications.
-It improves development efficiency and prevents human errors during release by managing environment-specific configuration values in a type-safe manner and automating build-time constant injection.
+It improves development efficiency and prevents human errors during release by providing type-safe management of environment-specific configuration values and automating build-time constant injection.
 
-**Special functionality in test environments**:
-- Automatically searches the workspace directory when running `flutter test`
-- Dynamically loads constants from JSON files for test flavors
+**Special Features for Test Environment**:
+- Automatically searches workspace directory when running `flutter test`
+- Dynamically loads constants from test flavor JSON files
 - Transparently switches between build-time constants and test-time constants
+
+**Directory Management**: The package automatically creates necessary directories when executing define tasks, ensuring proper file structure setup without manual operations.
 
 This enables consistent use of environment constants in unit tests and integration tests as well. 

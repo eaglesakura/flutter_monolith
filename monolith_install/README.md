@@ -1,17 +1,17 @@
-A package that securely deploys files to the workspace from data retrieved from secret management tools such as the `op inject` command.
-It integrates with secret management tools like 1Password and AWS Secrets Manager to automate the distribution of sensitive files.
+A package that safely deploys files to workspaces from data obtained from secret management tools like `op inject` command.
+It integrates with secret management tools such as 1Password and AWS Secrets Manager to automate distribution of confidential files.
 
 ## Features
 
-* **Base64 File Deployment**: Decode and deploy encoded binary files
+* **Base64 File Deployment**: Decode and place encoded binary files
 * **Text File Generation**: Dynamic generation of configuration files and property files
 * **Secret Management Tool Integration**: Automatic integration with 1Password CLI, AWS CLI, etc.
-* **Secure Distribution**: Safe distribution method that doesn't include sensitive files in version control
+* **Secure Distribution**: Safe distribution method that doesn't include confidential files in version control
 
 ## Getting started
 
-Define the files to be deployed in the `install` section of `monolith.yaml`.
-Retrieve secret data using the `op inject` command beforehand and execute the deployment process.
+Define files to be deployed in the `install` section of `monolith.yaml`.
+Execute the deployment process after obtaining secret data with the `op inject` command in advance.
 
 ```bash
 # Inject secret data with 1Password CLI
@@ -23,7 +23,7 @@ dart run monolith_install
 
 ## Usage
 
-**Android development file deployment example**:
+**Android Development File Deployment Example**:
 ```yaml
 # monolith.yaml
 install:
@@ -43,7 +43,7 @@ install:
     base64_file: op://vault-id/google-services/production.json.base64
 ```
 
-**iOS development file deployment example**:
+**iOS Development File Deployment Example**:
 ```yaml
 install:
   # Environment-specific GoogleService-Info.plist
@@ -56,15 +56,17 @@ install:
 
 ## Additional information
 
-This package is designed to safely share sensitive files among development teams without including them in version control systems.
+This package is designed to safely share confidential files among development teams without including them in version control systems.
 
-**Supported deployment formats**:
-- `base64_file`: Base64-encoded binary files
+**Supported Deployment Formats**:
+- `base64_file`: Base64 encoded binary files
 - `text_file`: Plain text files (with environment variable expansion support)
 
-**Security requirements**:
-- Deployed files should be excluded by `.gitignore`
+**Security Requirements**:
+- Deployed files should be excluded in `.gitignore`
 - Properly manage access permissions to secret management tools
-- Configure appropriate authentication credentials in CI/CD environments
+- Set appropriate authentication credentials in CI/CD environments
 
-Optimized for distributing sensitive files commonly used in mobile app development, such as Keystore files, certificates, and API configuration files. 
+It's optimized for distributing confidential files commonly used in mobile app development, such as Keystore files, certificates, and API configuration files.
+
+**Version Compatibility**: This package maintains compatibility with the latest monolith ecosystem and ensures reliable integration with all project management features. 

@@ -1,12 +1,12 @@
-A project management library that supports the modular monolith structure for Flutter projects.
-It automates the setup of development environments and task execution for Flutter applications using the `monolith.yaml` configuration file.
+A project management library that supports modular monolith structures for Flutter projects.
+It automates Flutter application development environment setup and task execution using `monolith.yaml` configuration files.
 
 ## Features
 
-* **Dart Define Management**: Environment constant definition and code generation for each flavor
-* **Internationalization Support**: Internationalization resource management for applications and packages
-* **Xcode Project Generation**: Automated generation of project settings for iOS development
-* **Secret File Management**: Secure distribution and installation of files containing sensitive information
+* **Dart Define Management**: Environment constant definition and code generation per flavor
+* **Multi-language Support**: Internationalization resource management for applications and packages
+* **Xcode Project Generation**: Automatic generation of project settings for iOS development
+* **Secret File Management**: Safe distribution and installation of files containing confidential information
 
 ## Getting started
 
@@ -79,8 +79,12 @@ install:
 
 ## Additional information
 
-This package is optimized for projects that adopt the modular monolith structure for Flutter.
+This package is optimized for projects that adopt Flutter's modular monolith structure.
 It streamlines the management of large-scale Flutter projects containing multiple packages,
-enabling efficient configuration sharing and automated environment setup among development teams.
+and realizes automation of configuration sharing and environment setup among development teams.
 
-Please refer to the project documentation for detailed configuration options and usage instructions. 
+For detailed configuration items and usage methods, please refer to the project documentation.
+
+**FVM Support**: Automatically detects Flutter Version Management (FVM) by checking for the presence of a `.fvm` directory in the project root. When FVM is detected, all Flutter and Dart commands are executed through FVM to ensure version consistency.
+
+**Error Handling**: Improved shell execution error handling - modified to properly exit with error code 127 when process fails instead of returning error results, enabling proper failure detection in CI/CD pipelines. 

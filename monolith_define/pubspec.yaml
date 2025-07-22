@@ -1,6 +1,6 @@
 name: monolith_define
 description: A package that automatically generates JSON files for passing to the Dart --dart-define command and a Defines class for type-safe programmatic access. It streamlines environment constant management for different flavors and build-time constant injection.
-version: 1.0.0
+version: 1.0.1
 resolution: workspace
 repository: https://github.com/eaglesakura/flutter_monolith
 
@@ -8,7 +8,7 @@ environment:
   sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
-  monolith: ^1.0.0
+  monolith: ^1.0.1
   armyknife_logger: ^1.0.1
   freezed_annotation: ^3.1.0
   meta: ^1.16.0

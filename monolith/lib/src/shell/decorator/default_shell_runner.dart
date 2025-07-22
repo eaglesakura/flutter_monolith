@@ -86,12 +86,7 @@ class DefaultShellRunner implements ShellRunner {
         e,
         stackTrace,
       );
-      return ShellExecuteResult(
-        request: request,
-        stdout: '',
-        stderr: e.toString(),
-        exitCode: -1,
-      );
+      exit(127);
     }
   }
 }

@@ -1,6 +1,6 @@
 name: monolith_xcodegen
 description: A package that supports iOS project generation using xcodegen. It provides Xcode project generation optimized for Flutter projects by automating environment variable injection and file creation based on monolith.yaml configuration.
-version: 1.0.0
+version: 1.0.1
 resolution: workspace
 repository: https://github.com/eaglesakura/flutter_monolith
 
@@ -11,7 +11,7 @@ dependencies:
   json_annotation: ^4.9.0
   freezed_annotation: ^3.0.0
   armyknife_logger: ^1.0.1
-  monolith: ^1.0.0
+  monolith: ^1.0.1
 
 dev_dependencies:
   lints: ^6.0.0

@@ -14,19 +14,19 @@ final _log = Logger.of(FvmShellDecorator);
 class FvmShellDecorator implements ShellRunner {
   final ShellRunner _shellRunner;
 
-  /// fvmrcのパス.
-  final File fvmrc;
+  /// .fvmディレクトリ.
+  final Directory dotFvm;
 
   FvmShellDecorator(
     this._shellRunner, {
-    required this.fvmrc,
+    required this.dotFvm,
   });
 
   @override
   Future<ShellExecuteResult> execute(ShellExecuteRequest request) async {
     if (request.command == 'dart' || request.command == 'flutter') {
       // _log.i('fvmrc: ${fvmrc.path}');
-      if (fvmrc.existsSync()) {
+      if (dotFvm.existsSync()) {
         // fvmrcが存在する場合、fvmを使用してコマンドを実行する.
         return _shellRunner.execute(
           request.copyWith(

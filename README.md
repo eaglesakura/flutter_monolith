@@ -2,54 +2,55 @@
 
 ![Flutter Monolith](./docs/res/monolith_logo.png)
 
-An integrated project management toolset that supports the modular monolith structure for Flutter projects.
-For large-scale Flutter application development, it efficiently manages multiple packages and automates the entire process from development environment setup to production release.
+An integrated project management toolset that supports modular monolith structures for Flutter projects.
+It efficiently manages multiple packages in large-scale Flutter application development,
+automating the entire process from development environment setup to production releases.
 
-## 🚀 Problems Solved
+## 🚀 Challenges Solved
 
 Large-scale Flutter projects face the following challenges:
 
-**Environment Management Complexity**
+**Complex Environment Management**
 - Cumbersome configuration management for different flavors
-- Version control issues with sensitive files
+- Version control issues with confidential files
 - Inconsistent environment setup among developers
 
 **Localization Limitations**
-- Flutter's standard internationalization features only work at the application level
+- Flutter's standard internationalization features are only at the application level
 - Difficult to implement independent localization per package
-- Unable to separate domain logic from translation resources
+- Cannot separate domain logic from translation resources
 
 **iOS Development Complexity**
 - Manual management of Xcode project settings
 - Distribution of certificates and provisioning profiles
-- Difficulty in sharing settings among team members
+- Difficulty in sharing configurations between teams
 
-**Project Management Inefficiency**
-- The hassle of running each tool individually
+**Inefficient Project Management**
+- Tedious individual execution of each tool
 - Complex configuration in CI/CD environments
 - Lack of standardized development workflows
 
 ## ✨ Key Features
 
 ### 🔧 Integrated Project Management
-- **monolith.yaml**: Centralized management of all configurations
+- **monolith.yaml**: Centralized configuration management
 - **Unified Runner**: Execute all features with `dart run monolith_runner:*` commands
 - **CI/CD Optimization**: Automated development environment setup
 
 ### 🌍 Advanced Localization
 - **Module-level Management**: Independent localization resources per package
-- **CSV Management**: Simple format for multi-language resource definition
-- **Type-safe Access**: Runtime guarantees through auto-generated Mixin classes
+- **CSV Management**: Multi-language resource definition in simple format
+- **Type-safe Access**: Runtime guarantee through auto-generated Mixin classes
 
 ### 🔐 Secure Configuration Management
-- **Secret Separation**: Exclude sensitive files from version control
+- **Secret Separation**: Exclude confidential files from version control
 - **1Password Integration**: Integration with `op inject` command
 - **Automatic Deployment**: Safe distribution of Base64 files and text files
 
 ### 📱 iOS Development Automation
 - **xcodegen Integration**: YAML-based Xcode project generation
 - **Environment Variable Injection**: Integration with secret management tools
-- **File Creation**: Pre-creation of files needed for build
+- **File Creation**: Pre-creation of files necessary for builds
 
 ## 🚀 Quick Start
 
@@ -63,7 +64,7 @@ dev_dependencies:
 
 ### Basic Configuration
 
-Create `monolith.yaml` in project root:
+Create `monolith.yaml` in the project root:
 
 ```yaml
 # monolith.yaml
@@ -137,10 +138,10 @@ flutter build ios --dart-define-from-file=secrets/dart-define/production.json
 | Package | Description | Key Features |
 |---------|-------------|--------------|
 | **monolith_define** | Dart Define management | Flavor-specific environment constants and JSON file generation |
-| **monolith_install** | Secret file deployment | Safe distribution and deployment of sensitive files |
+| **monolith_install** | Secret file deployment | Safe distribution and deployment of confidential files |
 | **monolith_localization** | Module-level localization | Package-independent multi-language resource management |
 | **monolith_localization_runtime** | Localization runtime | Runtime support for generated code |
-| **monolith_xcodegen** | Xcode project generation | Automatic Xcode project generation using xcodegen tool |
+| **monolith_xcodegen** | Xcode project generation | Automated Xcode project generation using xcodegen tool |
 
 ## 🏗️ Project Structure Example
 
@@ -154,19 +155,19 @@ my_flutter_app/
 │       └── production.json
 ├── app/                            # Main application
 │   ├── lib/
-│   │   ├── l10n/                   # Application localization
+│   │   ├── l10n/                   # Application-level localization
 │   │   └── gen/
-│   │       └── defines.dart        # Generated environment constants class
+│   │       └── defines.dart        # Generated environment constant classes
 │   └── ios/
 │       └── Runner.xcodeproj        # Generated Xcode project
-└── packages/                       # Domain and feature packages
+└── packages/                       # Domain and feature-specific packages
     ├── domain/
     │   └── user/
     │       ├── res/
     │       │   └── strings.csv     # Package-specific localization
     │       └── lib/
     │           └── gen/
-    │               └── strings.dart # Generated localization class
+    │               └── strings.dart # Generated localization classes
     └── screen/
         └── login/
             ├── res/
@@ -199,7 +200,7 @@ dart run monolith_runner:localization
 # Add new environment constants
 dart run monolith_runner:define
 
-# Update iOS settings
+# Update iOS configurations
 dart run monolith_runner:xcodegen
 ```
 
@@ -221,14 +222,14 @@ dart run monolith_runner:xcodegen
 
 ## 🤝 Target Projects
 
-This toolset is ideal for Flutter projects with the following characteristics:
+This toolset is ideal for Flutter projects that:
 
-- Projects adopting **large-scale modular monolith structure**
-- Projects with **multiple developers and teams** collaborating
-- Projects with **multi-flavor** support (development, production environments, etc.)
-- Projects requiring **multi-language support**
-- **iOS/Android cross-platform** mobile applications
-- Projects emphasizing **CI/CD** automation
+- Adopt **large-scale modular monolith structures**
+- Involve **multiple developers and teams** in collaboration
+- Have **multi-flavor** environments (development, production, etc.)
+- Require **multi-language support**
+- Target **both iOS and Android** mobile applications
+- Emphasize **CI/CD** automation
 
 ## 📄 License
 
@@ -236,9 +237,11 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 ## 🤝 Contributing
 
-Issue reports and pull requests are welcome. For major changes, 
-it's recommended to first discuss them in an issue.
+Issue reports and pull requests are welcome. For major changes,
+we recommend discussing them in an Issue first.
 
 ---
 
-By using **Flutter Monolith**, you can manage the complexity of large-scale Flutter projects and significantly improve development efficiency. Maximize the benefits of modular monolith structure and build scalable, maintainable Flutter applications. 
+By using **Flutter Monolith**, you can manage the complexity of large-scale Flutter projects
+and significantly improve development efficiency. Leverage the benefits of modular monolith structure
+to build scalable and maintainable Flutter applications. 

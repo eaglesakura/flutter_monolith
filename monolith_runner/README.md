@@ -1,10 +1,10 @@
-A runner package for executing all monolith features from a unified command-line interface.
-By adding it to `dev_dependencies`, you can access all monolith functionality through `dart run monolith_runner:*` commands.
+A runner package for executing each function of monolith from a unified command line interface.
+By adding it to `dev_dependencies`, you can access all monolith features from `dart run monolith_runner:*` commands.
 
 ## Features
 
-* **Unified Command Line**: Execute all monolith features with a consistent interface
-* **Development Integration**: Simple integration through dev_dependencies
+* **Unified Command Line**: Execute all monolith functions through a consistent interface
+* **Development Integration**: Simple introduction with dev_dependencies
 * **Automatic Feature Discovery**: Automatic detection and execution of available monolith features
 * **Error Handling**: Appropriate error messages and help display
 
@@ -22,13 +22,13 @@ dev_dependencies:
 
 ```yaml
 # monolith.yaml - Configuration example
-# Note: This file should be committed to version control
+# Note: Please commit this file to version control
 
-# Include secrets file (injected by op inject command)
+# Include secret files (injected with op inject command)
 includes:
   - secrets/monolith.yaml
 
-# Dart Define configuration
+# Dart Define settings
 define:
   output_path: secrets/dart-define/
   generate:
@@ -54,7 +54,7 @@ define:
       DEBUG_MODE: true
       LOG_LEVEL: debug
 
-# Localization configuration
+# Localization settings
 localization:
   # required
   languages:
@@ -83,7 +83,7 @@ localization:
     # optional, default: `lib/gen/strings.dart`
     module_helper_path: lib/gen/strings.dart
 
-# Xcode project generation configuration
+# Xcode project generation settings
 xcodegen:
   # required
   package_name: app
@@ -91,13 +91,13 @@ xcodegen:
   touch_files:
     - ios/GoogleService-Info.plist
     - ios/firebase_app_id_file.json
-  # optional - environment variables for xcodegen
+  # optional - environment variables for xcodegen execution
   env:
     DEVELOPMENT_TEAM: ABCD123456
     CODE_SIGN_IDENTITY: "iPhone Developer"
     BUNDLE_ID_SUFFIX: dev
 
-# File installation configuration
+# File installation settings
 install:
   # Android files
   - path: secrets/android.keystore
@@ -131,9 +131,9 @@ install:
     base64_file: <base64_encoded_google_service_plist>
 ```
 
-**Using with 1Password CLI:**
+**1Password CLI Integration Example**:
 ```yaml
-# For production use with 1Password CLI
+# Production environment 1Password CLI usage example
 # Replace placeholders with actual 1Password references
 
 xcodegen:
@@ -159,7 +159,7 @@ install:
     base64_file: op://vault-id/google-services/ios-production.plist.base64
 ```
 
-**Available commands**:
+**Available Commands List**:
 ```bash
 # Install secret files
 dart run monolith_runner:install
@@ -174,7 +174,7 @@ dart run monolith_runner:define
 dart run monolith_runner:xcodegen
 ```
 
-**CI/CD integration example**:
+**CI/CD Integration Example**:
 ```yaml
 # .github/workflows/build.yml
 name: Build
@@ -210,17 +210,18 @@ jobs:
 This runner package is designed to streamline development workflows:
 
 **Developer Experience Improvements**:
-- **Unified Command System**: Easy-to-remember and consistent command naming
+- **Unified Command System**: Easy-to-remember and consistent command names
 - **Incremental Execution**: Individual execution of only necessary features
-- **Batch Execution**: Automated development environment setup
+- **Batch Execution**: Automation of development environment setup
 
-**CI/CD Environment Benefits**:
+**Benefits in CI/CD Environments**:
 - **Error Handling**: Appropriate error codes and messages on failure
 - **Log Output**: Clear display of progress and results
 
 **Project Integration**:
-- **Lightweight Integration**: Access to all features through dev_dependencies only
+- **Lightweight Integration**: Access to all features with only dev_dependencies
 - **Configuration File Sharing**: Common use of `monolith.yaml` in project root
-- **Version Management**: Centralized version management for monolith features
+- **Version Management**: Centralized version management of monolith features
+- **Dependency Consistency**: Automatic maintenance of compatibility with latest monolith ecosystem packages
 
-Streamlines the entire process from development to release as a unified entry point to maximize the utilization of the monolith library suite. 
+It functions as a unified entry point to streamline all processes from development to release and maximize utilization of the monolith library suite. 
