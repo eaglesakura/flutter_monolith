@@ -10,8 +10,8 @@ environment:
 dependencies:
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
-  monolith: ^1.0.0
-  monolith_define: ^1.0.0
+  monolith: ^1.0.1
+  monolith_define: ^1.0.1
   monolith_install: ^1.0.0
   monolith_localization: ^1.0.0
   monolith_xcodegen: ^1.0.0

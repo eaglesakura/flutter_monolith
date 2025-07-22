@@ -17,7 +17,7 @@ dependencies:
   dartx: ^1.2.0
   path: ^1.9.1
   mustache_template: ^2.0.0
-  monolith: ^1.0.0
+  monolith: ^1.0.1
 
 dev_dependencies:
   lints: ^6.0.0

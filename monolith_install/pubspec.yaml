@@ -8,7 +8,7 @@ environment:
   sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
-  monolith: ^1.0.0
+  monolith: ^1.0.1
   armyknife_logger: ^1.0.1
   freezed_annotation: ^3.1.0
 
