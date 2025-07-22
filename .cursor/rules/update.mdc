@@ -1,0 +1,14 @@
+---
+description: CHANGELOGを更新
+alwaysApply: false
+---
+
+# AIの役割
+
+* 各packageのCHANGELOGを更新します
+
+## 作業手順
+
+* gitコマンドを使用して、origin/mainブランチとHEADとのdiffを英語でまとめてください
+* CHANGELOGに反映してください
+* READMEを更新してください

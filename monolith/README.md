@@ -83,4 +83,6 @@ This package is optimized for projects that adopt the modular monolith structure
 It streamlines the management of large-scale Flutter projects containing multiple packages,
 enabling efficient configuration sharing and automated environment setup among development teams.
 
+**FVM Support**: The package automatically detects Flutter Version Management (FVM) by checking for the `.fvm` directory in the project root. When FVM is detected, all Flutter and Dart commands are executed through FVM to ensure version consistency.
+
 Please refer to the project documentation for detailed configuration options and usage instructions. 
