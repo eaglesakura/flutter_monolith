@@ -1,17 +1,17 @@
-A package that supports building localization resources on a module basis, which is not provided by Flutter's standard features.
-It provides a mechanism for each package to independently manage localization resources in large-scale Flutter projects.
+A package that supports module-level localization resource construction, which is not provided by Flutter's standard features.
+It provides a mechanism for large-scale Flutter projects where each package can independently manage localization resources.
 
 ## Features
 
-* **Module-Independent Localization**: Each package manages its own localization resources
+* **Module-independent Localization**: Each package manages its own localization resources
 * **Unified Language Management**: Consistent language settings across the entire project
-* **Automatic Code Generation**: Automatic generation of Dart code from ARB files
-* **Mixin Support**: Localization resource sharing functionality between packages
+* **Automatic Code Generation**: Automatic Dart code generation from ARB files
+* **Mixin Provision**: Localization resource sharing functionality between packages
 
 ## Getting started
 
-Configure the multi-language settings in the `localization` section of `monolith.yaml`.
-You can manage application and package configurations separately.
+Describe multi-language settings in the `localization` section of `monolith.yaml`.
+Application and package settings can be managed separately.
 
 ```yaml
 # monolith.yaml
@@ -21,7 +21,7 @@ localization:
     - ja
     - en
   
-  # Application configuration
+  # Application settings
   app:
     package_name: app
     arb_path: lib/l10n/
@@ -29,7 +29,7 @@ localization:
     l10n_helper_class_name: L10nHelper
     l10n_helper_path: lib/l10n/l10n_helper.dart
   
-  # Package configuration
+  # Package settings
   package:
     path_prefixes:
       - app/
@@ -41,7 +41,7 @@ localization:
 
 ## Usage
 
-**Package structure example**:
+**Package Structure Example**:
 ```
 packages/
 ├── domain/
@@ -60,17 +60,17 @@ packages/
                 └── strings.dart  # Auto-generated
 ```
 
-**CSV resource file example** (`packages/domain/user/res/strings.csv`):
+**CSV Resource File Example** (`packages/domain/user/res/strings.csv`):
 ```csv
 id,ja,en,description
-user_name,ユーザー名,User Name,User name
-user_email,メールアドレス,Email Address,Email address
-user_profile,プロフィール,Profile,Profile
-validation_email_required,メールアドレスは必須です,Email address is required,Email address required validation
-validation_email_invalid,有効なメールアドレスを入力してください,Please enter a valid email address,Email address format validation
+user_name,ユーザー名,User Name,ユーザー名
+user_email,メールアドレス,Email Address,メールアドレス
+user_profile,プロフィール,Profile,プロフィール
+validation_email_required,メールアドレスは必須です,Email address is required,メールアドレスの必須入力バリデーション
+validation_email_invalid,有効なメールアドレスを入力してください,Please enter a valid email address,メールアドレスの形式バリデーション
 ```
 
-**Generated Dart code example**:
+**Generated Dart Code Example**:
 ```dart
 // packages/domain/user/lib/gen/strings.dart
 mixin L10nStringsMixin {
@@ -80,20 +80,17 @@ mixin L10nStringsMixin {
   String get validation_email_required;
   String get validation_email_invalid;
 }
-
 ```
 
-**Usage in package example**:
+**Package Usage Example**:
 ```dart
 // packages/domain/user/lib/src/user_validator.dart
 import '../gen/strings.dart';
-
 
 final class _Strings with L10nStringsMixin {}
 
 @internal
 final strings = _Strings();
-
 
 class UserValidator {
   String? validateEmail(String? email) {
@@ -114,7 +111,7 @@ class UserValidator {
 }
 ```
 
-**Application integration example**:
+**Application Integration Example**:
 ```dart
 // app/lib/main.dart
 import 'package:flutter/material.dart';
@@ -134,17 +131,17 @@ class MyApp extends StatelessWidget {
 
 ## Additional information
 
-This package is optimized for large-scale Flutter projects that adopt a modular monolith structure.
+This package is optimized for large-scale Flutter projects that adopt modular monolith structures.
 
-**Traditional challenges**:
-- Flutter's standard internationalization features only support application-level functionality
+**Traditional Challenges**:
+- Flutter's standard internationalization features only support application level
 - Each package cannot independently manage localization resources
 - Difficulty in separating domain logic from localization resources
 
-**Solutions provided by this package**:
-- Independent localization resource management on a package basis
-- Concise resource definition using CSV files
+**Solutions by This Package**:
+- Independent localization resource management per package
+- Concise resource definition based on CSV files
 - Type-safe access through automatic code generation
 - Consistent language settings across the entire project
 
-This enables domain packages and screen packages to have their own localization resources while achieving unified multilingual support for the entire application.
+This enables domain packages and screen packages to have their own localization resources while achieving unified multi-language support across the entire application. 

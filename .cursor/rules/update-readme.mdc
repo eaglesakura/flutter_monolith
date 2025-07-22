@@ -1,8 +1,7 @@
 ---
-description: 英語版のREADMEを更新してください
+description: 英語版のREADMEを更新、もしくは英訳を求められた場合
 alwaysApply: false
 ---
-
 # AIの役割
 
 * 各packageの `README.ja.md` をもとに、英語版の `README.md` を更新します
@@ -10,5 +9,6 @@ alwaysApply: false
 
 ## 作業手順
 
-1. `README.md` を削除する
-1. `README.ja.jd` を英語に翻訳し、 `README.md` に保存する
+1. 「英訳を開始します」とユーザーに伝える
+2. `README.md` を削除する
+3. `README.ja.jd` を英語に翻訳し、 `README.md` に保存する
