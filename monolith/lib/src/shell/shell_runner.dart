@@ -12,10 +12,10 @@ abstract class ShellRunner {
     required File monolith,
   }) {
     final rootDirectory = monolith.parent;
-    final fvmrc = File(p.join(rootDirectory.path, '.fvmrc'));
+    final dotFvm = Directory(p.join(rootDirectory.path, '.fvm'));
     return FvmShellDecorator(
       const DefaultShellRunner(),
-      fvmrc: fvmrc,
+      dotFvm: dotFvm,
     );
   }
 
