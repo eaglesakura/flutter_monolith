@@ -85,4 +85,6 @@ enabling efficient configuration sharing and automated environment setup among d
 
 **FVM Support**: The package automatically detects Flutter Version Management (FVM) by checking for the `.fvm` directory in the project root. When FVM is detected, all Flutter and Dart commands are executed through FVM to ensure version consistency.
 
+**Error Handling**: Improved shell execution error handling - process failures now properly exit with error code 127 instead of returning error results, ensuring proper CI/CD pipeline failure detection.
+
 Please refer to the project documentation for detailed configuration options and usage instructions. 

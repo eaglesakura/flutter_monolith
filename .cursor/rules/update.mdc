@@ -9,6 +9,7 @@ alwaysApply: false
 
 ## 作業手順
 
-* gitコマンドを使用して、origin/mainブランチとHEADとのdiffを英語でまとめてください
-* CHANGELOGに反映してください
-* READMEを更新してください
+1. gitコマンドを使用して、origin/mainブランチとHEADとのdiffまとめてください
+2. 各packageの `CHANGELOG.md` を英語で更新してください
+3. 各packageの `README.ja.md` を日本語で更新してください
+4. 各packageの `README.md` を英語で更新してください

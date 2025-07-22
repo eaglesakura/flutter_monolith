@@ -68,3 +68,5 @@ This package is designed to safely share sensitive files among development teams
 - Configure appropriate authentication credentials in CI/CD environments
 
 Optimized for distributing sensitive files commonly used in mobile app development, such as Keystore files, certificates, and API configuration files. 
+
+**Version Compatibility**: This package maintains compatibility with the latest monolith ecosystem, ensuring reliable integration across all project management features. 

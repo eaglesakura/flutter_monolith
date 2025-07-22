@@ -1,6 +1,6 @@
 name: monolith_install
 description: A package that securely deploys files to the workspace from data retrieved from secret management tools such as the op inject command. It integrates with secret management tools like 1Password and AWS Secrets Manager to automate the distribution of sensitive files.
-version: 1.0.0
+version: 1.0.1
 resolution: workspace
 repository: https://github.com/eaglesakura/flutter_monolith
 

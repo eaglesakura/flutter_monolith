@@ -147,4 +147,4 @@ This package is optimized for large-scale Flutter projects that adopt a modular 
 - Type-safe access through automatic code generation
 - Consistent language settings across the entire project
 
-This enables domain packages and screen packages to have their own localization resources while achieving unified multilingual support for the entire application. 
+This enables domain packages and screen packages to have their own localization resources while achieving unified multilingual support for the entire application.

@@ -222,5 +222,6 @@ This runner package is designed to streamline development workflows:
 - **Lightweight Integration**: Access to all features through dev_dependencies only
 - **Configuration File Sharing**: Common use of `monolith.yaml` in project root
 - **Version Management**: Centralized version management for monolith features
+- **Dependency Consistency**: Automatically maintains compatibility with the latest monolith ecosystem packages
 
 Streamlines the entire process from development to release as a unified entry point to maximize the utilization of the monolith library suite. 

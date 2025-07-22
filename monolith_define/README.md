@@ -86,4 +86,6 @@ It improves development efficiency and prevents human errors during release by m
 - Dynamically loads constants from JSON files for test flavors
 - Transparently switches between build-time constants and test-time constants
 
+**Directory Management**: The package automatically creates necessary directories during define task execution, ensuring proper file structure setup without manual intervention.
+
 This enables consistent use of environment constants in unit tests and integration tests as well. 
