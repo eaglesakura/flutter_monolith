@@ -33,6 +33,11 @@ extension MonolithDefineExtension on Monolith {
       final flavorName = flavor.key;
       final keyValues = flavor.value;
       final jsonFile = relativeFile(p.join(outputPath, '$flavorName.json'));
+      final saveDirectory = jsonFile.parent;
+      if (!saveDirectory.existsSync()) {
+        _log.i('create directory: ${saveDirectory.path}');
+        saveDirectory.createSync(recursive: true);
+      }
 
       _log.i('flavor: $flavorName :: ${jsonFile.path}');
       for (final key in keyValues.keys) {
