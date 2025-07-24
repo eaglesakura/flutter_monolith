@@ -36,7 +36,7 @@ final class Defines {
   static final _defineList = <String, String>{};
 
   static void _ensureInitialized() {
-    if (_isFlutterTesting || _defineList.isNotEmpty) {
+    if (!_isFlutterTesting || _defineList.isNotEmpty) {
       return;
     }
 
