@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 import 'package:monolith_localization_runtime/src/localize_string_source.dart';
 
 /// ローカライズテキストを取得するための移譲クラス.
-@internal
 final class LocalizeStringDelegate {
   /// ローカライズされたテキストを取得するための関数.
   static String Function(LocalizeStringSource source) delegate = (source) {
