@@ -26,8 +26,8 @@ dependencies:
 **生成されたコードとの連携例**:
 
 ```dart
-// packages/domain/user/lib/gen/strings.dart
-import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+// app_user_package
+import 'package:path/to/gen/strings.dart';
 
 final class _Strings with L10nStringsMixin {
   // ランタイムによる自動実装
@@ -70,40 +70,18 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-**動的言語切り替え**:
-
-```dart
-class LanguageSettings extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () => L10nHelper.setLocale(context, Locale('ja')),
-          child: Text('日本語'),
-        ),
-        ElevatedButton(
-          onPressed: () => L10nHelper.setLocale(context, Locale('en')),
-          child: Text('English'),
-        ),
-      ],
-    );
-  }
-}
-```
-
-**テキスト最適化のカスタマイズ**:
+**テキスト整形処理のカスタマイズ**:
 
 ```dart
 import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
 
 Future<void> main() async {
   // ローカライズテキストの最適化設定
-  LocalizeStringDelegate.optimize = _optimizeStringResource;
+  LocalizeStringDelegate.format = _formatStringResource;
 }
 
 /// プロジェクト固有のテキスト整形処理
-String _optimizeStringResource(String source) {
+String _formatStringResource(String source) {
   // 改行文字の変換例
   return source.replaceAll(r'\n', '\n');
 }
