@@ -9,10 +9,19 @@ final class LocalizeStringDelegate {
 
   /// ローカライズテキストのフォーマット.
   /// プロジェクト固有のテキスト整形を行う.
-  /// 引数"source"はローカライズ完了した文字列が渡される.
-  static String Function(String source) format = (source) {
-    return source;
-  };
+  static String Function({
+    required String id,
+    required List<String> arguments,
+    required String originalFormattedText,
+  })
+  format =
+      ({
+        required String id,
+        required List<String> arguments,
+        required String originalFormattedText,
+      }) {
+        return originalFormattedText;
+      };
 
   const LocalizeStringDelegate._();
 
@@ -22,7 +31,9 @@ final class LocalizeStringDelegate {
     List<String> arguments = const [],
   }) {
     return format(
-      delegate(
+      id: id,
+      arguments: arguments,
+      originalFormattedText: delegate(
         LocalizeStringSource(id, arguments),
       ),
     );

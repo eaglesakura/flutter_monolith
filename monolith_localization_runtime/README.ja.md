@@ -81,7 +81,11 @@ Future<void> main() async {
 }
 
 /// プロジェクト固有のテキスト整形処理
-String _formatStringResource(String source) {
+String _formatStringResource({
+    required String id,
+    required List<String> arguments,
+    required String originalFormattedText,
+}) {
   // 改行文字の変換例
   return source.replaceAll(r'\n', '\n');
 }
