@@ -9,6 +9,12 @@ final class LocalizeStringDelegate {
     return source.id;
   };
 
+  /// ローカライズテキストの最適化.
+  /// プロジェクト固有のテキスト整形を行う.
+  static String Function(String source) optimize = (source) {
+    return source;
+  };
+
   const LocalizeStringDelegate._();
 
   /// 指定したIDのローカライズテキストを取得する.
@@ -16,6 +22,10 @@ final class LocalizeStringDelegate {
     String id, {
     List<String> arguments = const [],
   }) {
-    return delegate(LocalizeStringSource(id, arguments));
+    return optimize(
+      delegate(
+        LocalizeStringSource(id, arguments),
+      ),
+    );
   }
 }
