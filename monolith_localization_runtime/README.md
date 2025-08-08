@@ -3,10 +3,11 @@ It dynamically loads localization resources managed per module in Flutter applic
 
 ## Features
 
-* **Dynamic Locale Switching**: Language change support during application runtime
-* **Memory Optimization**: Load only necessary language resources
-* **Flutter Integration**: Transparent integration with standard internationalization features
-* **Type-safe Access**: Runtime type checking through generated Mixin classes
+- **Dynamic Locale Switching**: Language change support during application runtime
+- **Memory Optimization**: Load only necessary language resources
+- **Flutter Integration**: Transparent integration with standard internationalization features
+- **Type-safe Access**: Runtime type checking through generated Mixin classes
+- **Customizable Text Optimization**: Support for project-specific text formatting processes
 
 ## Getting started
 
@@ -22,9 +23,10 @@ dependencies:
 ## Usage
 
 **Integration with Generated Code Example**:
+
 ```dart
-// packages/domain/user/lib/gen/strings.dart
-import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+// app_user_package
+import 'package:path/to/gen/strings.dart';
 
 final class _Strings with L10nStringsMixin {
   // Automatic implementation by runtime
@@ -38,17 +40,18 @@ class UserValidator {
     if (email == null || email.isEmpty) {
       return strings.validation_email_required;
     }
-    
+
     if (!_isValidEmail(email)) {
       return strings.validation_email_invalid;
     }
-    
+
     return null;
   }
 }
 ```
 
 **Application Integration**:
+
 ```dart
 // app/lib/main.dart
 import 'package:flutter/material.dart';
@@ -66,24 +69,24 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-**Dynamic Language Switching**:
+**Customizing Text Formatting Process**:
+
 ```dart
-class LanguageSettings extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () => L10nHelper.setLocale(context, Locale('ja')),
-          child: Text('日本語'),
-        ),
-        ElevatedButton(
-          onPressed: () => L10nHelper.setLocale(context, Locale('en')),
-          child: Text('English'),
-        ),
-      ],
-    );
-  }
+import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+
+Future<void> main() async {
+  // Localized text optimization settings
+  LocalizeStringDelegate.format = _formatStringResource;
+}
+
+/// Project-specific text formatting process
+String _formatStringResource({
+    required String id,
+    required List<String> arguments,
+    required String originalFormattedText,
+}) {
+  // Example of newline character conversion
+  return originalFormattedText.replaceAll(r'\n', '\n');
 }
 ```
 

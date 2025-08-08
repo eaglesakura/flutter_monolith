@@ -1,13 +1,27 @@
-import 'package:meta/meta.dart';
 import 'package:monolith_localization_runtime/src/localize_string_source.dart';
 
 /// ローカライズテキストを取得するための移譲クラス.
-@internal
 final class LocalizeStringDelegate {
   /// ローカライズされたテキストを取得するための関数.
   static String Function(LocalizeStringSource source) delegate = (source) {
     return source.id;
   };
+
+  /// ローカライズテキストのフォーマット.
+  /// プロジェクト固有のテキスト整形を行う.
+  static String Function({
+    required String id,
+    required List<String> arguments,
+    required String originalFormattedText,
+  })
+  format =
+      ({
+        required String id,
+        required List<String> arguments,
+        required String originalFormattedText,
+      }) {
+        return originalFormattedText;
+      };
 
   const LocalizeStringDelegate._();
 
@@ -16,6 +30,12 @@ final class LocalizeStringDelegate {
     String id, {
     List<String> arguments = const [],
   }) {
-    return delegate(LocalizeStringSource(id, arguments));
+    return format(
+      id: id,
+      arguments: arguments,
+      originalFormattedText: delegate(
+        LocalizeStringSource(id, arguments),
+      ),
+    );
   }
 }

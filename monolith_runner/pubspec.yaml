@@ -1,6 +1,6 @@
 name: monolith_runner
 description: A runner package for executing all monolith features from a unified command-line interface. By adding it to dev_dependencies, you can access all monolith functionality through dart run monolith:* commands.
-version: 1.0.1
+version: 1.0.2
 resolution: workspace
 repository: https://github.com/eaglesakura/flutter_monolith
 
@@ -11,10 +11,10 @@ dependencies:
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
   monolith: ^1.0.1
-  monolith_define: ^1.0.1
-  monolith_install: ^1.0.0
-  monolith_localization: ^1.0.0
-  monolith_xcodegen: ^1.0.0
+  monolith_define: ^1.0.2
+  monolith_install: ^1.0.1
+  monolith_localization: ^1.0.2
+  monolith_xcodegen: ^1.0.1
   ansicolor: ^2.0.3
   armyknife_logger: ^1.0.1
 

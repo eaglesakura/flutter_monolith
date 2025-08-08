@@ -1,6 +1,6 @@
 ## 1.0.1
 
-- Updated Flutter environment constraint to include upper bound
+- Added string formatting customization feature for application layer
 
 ## 1.0.0
 

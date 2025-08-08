@@ -1,13 +1,14 @@
 `monolith_localization`が生成したコードを実行時にサポートするランタイムライブラリである。
-モジュール単位で管理されるローカライズリソースをFlutterアプリケーションで動的に読み込み、
+モジュール単位で管理されるローカライズリソースを Flutter アプリケーションで動的に読み込み、
 型安全なアクセスを提供する。
 
 ## Features
 
-* **動的ロケール切り替え**: アプリケーション実行時の言語変更サポート
-* **メモリ効率化**: 必要な言語リソースのみを読み込み
-* **Flutter統合**: 標準の国際化機能との透過的な連携
-* **型安全アクセス**: 生成されたMixinクラスによる実行時型チェック
+- **動的ロケール切り替え**: アプリケーション実行時の言語変更サポート
+- **メモリ効率化**: 必要な言語リソースのみを読み込み
+- **Flutter 統合**: 標準の国際化機能との透過的な連携
+- **型安全アクセス**: 生成された Mixin クラスによる実行時型チェック
+- **カスタマイズ可能なテキスト最適化**: プロジェクト固有のテキスト整形処理をサポート
 
 ## Getting started
 
@@ -23,9 +24,10 @@ dependencies:
 ## Usage
 
 **生成されたコードとの連携例**:
+
 ```dart
-// packages/domain/user/lib/gen/strings.dart
-import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+// app_user_package
+import 'package:path/to/gen/strings.dart';
 
 final class _Strings with L10nStringsMixin {
   // ランタイムによる自動実装
@@ -39,17 +41,18 @@ class UserValidator {
     if (email == null || email.isEmpty) {
       return strings.validation_email_required;
     }
-    
+
     if (!_isValidEmail(email)) {
       return strings.validation_email_invalid;
     }
-    
+
     return null;
   }
 }
 ```
 
 **アプリケーションでの統合**:
+
 ```dart
 // app/lib/main.dart
 import 'package:flutter/material.dart';
@@ -67,28 +70,28 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-**動的言語切り替え**:
+**テキスト整形処理のカスタマイズ**:
+
 ```dart
-class LanguageSettings extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () => L10nHelper.setLocale(context, Locale('ja')),
-          child: Text('日本語'),
-        ),
-        ElevatedButton(
-          onPressed: () => L10nHelper.setLocale(context, Locale('en')),
-          child: Text('English'),
-        ),
-      ],
-    );
-  }
+import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+
+Future<void> main() async {
+  // ローカライズテキストの最適化設定
+  LocalizeStringDelegate.format = _formatStringResource;
+}
+
+/// プロジェクト固有のテキスト整形処理
+String _formatStringResource({
+    required String id,
+    required List<String> arguments,
+    required String originalFormattedText,
+}) {
+  // 改行文字の変換例
+  return source.replaceAll(r'\n', '\n');
 }
 ```
 
 ## Additional information
 
 このライブラリにより、`monolith_localization`で生成されたモジュール単位のローカライズコードが、
-実際のFlutterアプリケーションで効率的に動作することが保証される。
+実際の Flutter アプリケーションで効率的に動作することが保証される。

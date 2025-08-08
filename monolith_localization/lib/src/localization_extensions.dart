@@ -85,7 +85,12 @@ extension MonolithLocalizationExtensions on Monolith {
       return {
         ...workspace
             .where(
-              (e) => pathPrefixes.any((e) => e.path.startsWith(e.path)),
+              (pkg) {
+                // pkgのパスがpathPrefixesのいずれかのパスを含むかどうかを判定する
+                return pathPrefixes.any(
+                  (e) => pkg.directory.path.startsWith(e.path),
+                );
+              },
             )
             .map((e) {
               _log.i('  - sub package: ${e.name}');
