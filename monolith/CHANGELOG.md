@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Fixed an issue where environment variables were not set when executing shell commands in DartPackage
+
 ## 1.0.1
 
 - Fixed shell execution error handling: Process failures now exit with code 127 instead of returning error result
