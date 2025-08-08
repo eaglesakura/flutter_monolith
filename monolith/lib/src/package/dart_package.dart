@@ -117,6 +117,7 @@ class DartPackage {
         command: executable,
         arguments: arguments,
         workingDirectory: Directory(workingDirectory),
+        environment: environment,
       ),
     );
     return result.stdout;
