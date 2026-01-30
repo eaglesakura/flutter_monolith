@@ -26,8 +26,12 @@ class DefaultMonolithFileMerger implements MonolithFileMerger {
 
     // インストールは特殊なマージ
     for (final yamlMap in yamlMaps) {
-      final install = yamlMap['install'] as List<Map<String, dynamic>>? ?? [];
+      final install = yamlMap['install'] as List<dynamic>? ?? [];
       for (final installItem in install) {
+        if (installItem is! Map<String, dynamic>) {
+          continue;
+        }
+
         final path = installItem['path'] as String?;
         if (path == null) {
           continue;
