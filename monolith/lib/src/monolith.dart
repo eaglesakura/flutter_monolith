@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:armyknife_logger/armyknife_logger.dart';
 import 'package:armyknife_yamlx/armyknife_yamlx.dart';
 import 'package:monolith/src/dto/monolith_dto.dart';
+import 'package:monolith/src/internal/default_monolith_file_merger.dart';
 import 'package:monolith/src/monolith_options.dart';
 import 'package:monolith/src/package/dart_package.dart';
 import 'package:monolith/src/shell/shell_runner.dart';
@@ -27,6 +28,8 @@ class Monolith {
         (options.monolith ??
                 File(p.join(workspaceDirectory.path, 'monolith.yaml')))
             .absolute;
+    final monolithFileMerger =
+        options.monolithFileMerger ?? const DefaultMonolithFileMerger();
     _log.i('monolith.yaml: ${monolithFile.path}');
 
     final monolithYamlFiles = () {
@@ -58,7 +61,7 @@ class Monolith {
             ),
       ),
       options: options,
-      configurations: YamlX.parseWithMerge(monolithYamlFiles),
+      configurations: monolithFileMerger.merge(monolithYamlFiles),
     );
   }
 
