@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:monolith/src/monolith_file_merger.dart';
 import 'package:monolith/src/shell/shell_runner.dart';
 
 part 'monolith_options.freezed.dart';
@@ -14,5 +15,8 @@ abstract class MonolithOptions with _$MonolithOptions {
 
     /// シェル実行インスタンス.
     ShellRunner? shellRunner,
+
+    /// `monolith.yaml` 系ファイルをマージするためのインスタンス.
+    MonolithFileMerger? monolithFileMerger,
   }) = _MonolithOptions;
 }
