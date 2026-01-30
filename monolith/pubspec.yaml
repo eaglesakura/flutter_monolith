@@ -18,7 +18,7 @@ dependencies:
   armyknife_dartx: ^1.0.0
   csv: ^6.0.0
   mustache_template: ^2.0.0
-  collection: ^1.18.0
+  collection: ^1.19.0
 
 dev_dependencies:
   lints: ^6.0.0
