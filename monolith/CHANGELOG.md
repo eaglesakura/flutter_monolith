@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Changed the merging behavior of the `install` property to be handled per `path`.
+
 ## 1.0.2
 
 - Fixed an issue where environment variables were not set when executing shell commands in DartPackage
