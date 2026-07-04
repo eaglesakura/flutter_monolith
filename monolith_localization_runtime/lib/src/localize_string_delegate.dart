@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:monolith_localization_runtime/src/arb_delegate_loader.dart';
 import 'package:monolith_localization_runtime/src/localize_string_source.dart';
 
 /// ローカライズテキストを取得するための移譲クラス.
@@ -6,6 +9,33 @@ final class LocalizeStringDelegate {
   static String Function(LocalizeStringSource source) delegate = (source) {
     return source.id;
   };
+
+  /// テスト用にarbファイルを [delegate] に注入する.
+  /// テスト用途であり、通常は使用しない.
+  ///
+  /// Golden Test(UI Test) 等で、CSVファイルのテキストデータを注入する必要がある場合に使用する.
+  static Future<void> injectDelegateForTest({
+    required File arbFile,
+  }) async {
+    final table = await ArbDelegateLoader.load(arbFile);
+    delegate = (source) {
+      final resolver = table[source.id];
+      if (resolver == null) {
+        throw StateError('Unknown localize string id: ${source.id}');
+      }
+      return resolver(source);
+    };
+  }
+
+  /// テスト用に [delegate] をリセットする.
+  /// テスト用途であり、通常は使用しない.
+  ///
+  /// [injectDelegateForTest] で注入したデータをリセットする.
+  static Future<void> resetDelegateForTest() async {
+    delegate = (source) {
+      return source.id;
+    };
+  }
 
   /// ローカライズテキストのフォーマット.
   /// プロジェクト固有のテキスト整形を行う.
