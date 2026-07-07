@@ -11,21 +11,25 @@ automating the entire process from development environment setup to production r
 Large-scale Flutter projects face the following challenges:
 
 **Complex Environment Management**
+
 - Cumbersome configuration management for different flavors
 - Version control issues with confidential files
 - Inconsistent environment setup among developers
 
 **Localization Limitations**
+
 - Flutter's standard internationalization features are only at the application level
 - Difficult to implement independent localization per package
 - Cannot separate domain logic from translation resources
 
 **iOS Development Complexity**
+
 - Manual management of Xcode project settings
 - Distribution of certificates and provisioning profiles
 - Difficulty in sharing configurations between teams
 
 **Inefficient Project Management**
+
 - Tedious individual execution of each tool
 - Complex configuration in CI/CD environments
 - Lack of standardized development workflows
@@ -33,21 +37,25 @@ Large-scale Flutter projects face the following challenges:
 ## ✨ Key Features
 
 ### 🔧 Integrated Project Management
+
 - **monolith.yaml**: Centralized configuration management
 - **Unified Runner**: Execute all features with `dart run monolith_runner:*` commands
 - **CI/CD Optimization**: Automated development environment setup
 
 ### 🌍 Advanced Localization
+
 - **Module-level Management**: Independent localization resources per package
 - **CSV Management**: Multi-language resource definition in simple format
 - **Type-safe Access**: Runtime guarantee through auto-generated Mixin classes
 
 ### 🔐 Secure Configuration Management
+
 - **Secret Separation**: Exclude confidential files from version control
 - **1Password Integration**: Integration with `op inject` command
 - **Automatic Deployment**: Safe distribution of Base64 files and text files
 
 ### 📱 iOS Development Automation
+
 - **xcodegen Integration**: YAML-based Xcode project generation
 - **Environment Variable Injection**: Integration with secret management tools
 - **File Creation**: Pre-creation of files necessary for builds
@@ -180,6 +188,7 @@ my_flutter_app/
 ## 🔄 Development Workflow
 
 ### 1. Initial Setup
+
 ```bash
 # Install dependencies
 dart pub get
@@ -193,6 +202,7 @@ dart run monolith_runner:xcodegen
 ```
 
 ### 2. Daily Development
+
 ```bash
 # Update localization resources
 dart run monolith_runner:localization
@@ -205,6 +215,7 @@ dart run monolith_runner:xcodegen
 ```
 
 ### 3. CI/CD Integration
+
 ```yaml
 # .github/workflows/build.yml
 - name: Setup development environment
@@ -244,4 +255,4 @@ we recommend discussing them in an Issue first.
 
 By using **Flutter Monolith**, you can manage the complexity of large-scale Flutter projects
 and significantly improve development efficiency. Leverage the benefits of modular monolith structure
-to build scalable and maintainable Flutter applications. 
+to build scalable and maintainable Flutter applications.
