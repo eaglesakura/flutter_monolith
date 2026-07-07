@@ -9,6 +9,7 @@
 - **Flutter 統合**: 標準の国際化機能との透過的な連携
 - **型安全アクセス**: 生成された Mixin クラスによる実行時型チェック
 - **カスタマイズ可能なテキスト最適化**: プロジェクト固有のテキスト整形処理をサポート
+- **テストサポート**: Unit Test / Golden Test 向けの delegate 注入 API
 
 ## Getting started
 
@@ -88,6 +89,31 @@ String _formatStringResource({
 }) {
   // 改行文字の変換例
   return source.replaceAll(r'\n', '\n');
+}
+```
+
+**Unit Test / Golden Test サポート**:
+
+```dart
+import 'dart:io';
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+
+void main() {
+  final arbFile = File('path/to/intl_app_ja.arb');
+
+  setUpAll(() async {
+    await LocalizeStringDelegate.injectDelegateForTest(arbFile: arbFile);
+  });
+
+  tearDownAll(() async {
+    await LocalizeStringDelegate.resetDelegateForTest();
+  });
+
+  test('ARBからローカライズ文字列を解決する', () {
+    expect(LocalizeStringDelegate.get('some_message_id'), '期待する文言');
+  });
 }
 ```
 
