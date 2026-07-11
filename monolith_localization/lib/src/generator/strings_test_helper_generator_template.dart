@@ -1,18 +1,19 @@
 import 'package:meta/meta.dart';
 
-/// StringsTestHelper 生成用 Mustache テンプレート.
+/// Mustache template for generating StringsTestHelper.
 ///
-/// ARB 本文は `{{{arbBase64}}}`（三重括弧）で HTML エスケープせず埋め込む.
-/// 各言語 getter はリリースモード（`dart.vm.product`）で [UnsupportedError] を投げる.
+/// Embeds ARB content with `{{{arbBase64}}}` (triple braces) so HTML escaping
+/// is skipped. Each language getter throws [UnsupportedError] in release mode
+/// (`dart.vm.product`).
 @internal
 const stringsTestHelperMustache = '''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: invalid_use_of_internal_member, implementation_imports
 import 'dart:convert';
 
-/// Unit Test / Widget Preview 向けに ARB JSON 文字列を提供する.
+/// Provides ARB JSON strings for unit tests and widget previews.
 ///
-/// リリースモード（`dart.vm.product`）では getter 呼び出し時に例外を投げる.
+/// Throws when a getter is called in release mode (`dart.vm.product`).
 ///
 /// Example:
 /// ```dart
@@ -24,11 +25,11 @@ final class {{className}} {
   const {{className}}._();
 
 {{#languages}}
-  /// 言語 `{{sourceLang}}` の ARB JSON 文字列.
+  /// ARB JSON string for locale `{{sourceLang}}`.
   ///
-  /// リリースモードでは [UnsupportedError] を投げる.
+  /// Throws [UnsupportedError] in release mode.
   static String get {{lang}} {
-    // 本番バイナリへの混入利用を防ぐ
+    // Prevent accidental use in production binaries.
     if (const bool.fromEnvironment('dart.vm.product')) {
       throw UnsupportedError(
         '{{className}}.{{lang}} must not be used in release mode',
