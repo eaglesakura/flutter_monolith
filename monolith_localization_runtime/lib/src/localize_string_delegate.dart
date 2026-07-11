@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:monolith_localization_runtime/src/arb_delegate_loader.dart';
 import 'package:monolith_localization_runtime/src/localize_string_source.dart';
 
@@ -10,14 +8,15 @@ final class LocalizeStringDelegate {
     return source.id;
   };
 
-  /// テスト用にarbファイルを [delegate] に注入する.
+  /// テスト用にarbファイルのJSON文字列を [delegate] に注入する.
   /// テスト用途であり、通常は使用しない.
   ///
   /// Golden Test(UI Test) 等で、CSVファイルのテキストデータを注入する必要がある場合に使用する.
+  /// 呼び出し側で ARB ファイルを `readAsString()` したうえで渡すこと.
   static Future<void> injectDelegateForTest({
-    required File arbFile,
+    required String arbJson,
   }) async {
-    final table = await ArbDelegateLoader.load(arbFile);
+    final table = ArbDelegateLoader.load(arbJson);
     delegate = (source) {
       final resolver = table[source.id];
       if (resolver == null) {

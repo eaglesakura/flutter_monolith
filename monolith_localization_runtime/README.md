@@ -100,10 +100,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
 
 void main() {
-  final arbFile = File('path/to/intl_app_ja.arb');
-
   setUpAll(() async {
-    await LocalizeStringDelegate.injectDelegateForTest(arbFile: arbFile);
+    final arbJson = await File('path/to/intl_app_ja.arb').readAsString();
+    await LocalizeStringDelegate.injectDelegateForTest(arbJson: arbJson);
   });
 
   tearDownAll(() async {

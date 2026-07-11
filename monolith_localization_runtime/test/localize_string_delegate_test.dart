@@ -7,7 +7,9 @@ void main() {
   final fixtureFile = File('test/fixtures/test_ja.arb');
 
   setUp(() async {
-    await LocalizeStringDelegate.injectDelegateForTest(arbFile: fixtureFile);
+    await LocalizeStringDelegate.injectDelegateForTest(
+      arbJson: await fixtureFile.readAsString(),
+    );
   });
 
   tearDown(() async {
@@ -51,17 +53,8 @@ void main() {
   });
 
   test('不正なJSONのARBはFormatExceptionを投げる', () async {
-    final invalidFile = File('test/fixtures/invalid.arb');
-    invalidFile.writeAsStringSync('not json');
-
-    addTearDown(() {
-      if (invalidFile.existsSync()) {
-        invalidFile.deleteSync();
-      }
-    });
-
     await expectLater(
-      LocalizeStringDelegate.injectDelegateForTest(arbFile: invalidFile),
+      LocalizeStringDelegate.injectDelegateForTest(arbJson: 'not json'),
       throwsA(isA<FormatException>()),
     );
   });

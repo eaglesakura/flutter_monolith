@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:meta/meta.dart';
 import 'package:monolith_localization_runtime/src/localize_string_source.dart';
@@ -13,36 +12,36 @@ import 'package:monolith_localization_runtime/src/localize_string_source.dart';
 ///
 /// Example:
 /// ```dart
-/// final table = await ArbDelegateLoader.load(File('lib/l10n/intl_app_ja.arb'));
+/// final arbJson = await File('lib/l10n/intl_app_ja.arb').readAsString();
+/// final table = ArbDelegateLoader.load(arbJson);
 /// ```
 @internal
 final class ArbDelegateLoader {
   const ArbDelegateLoader._();
 
-  /// [arbFile] を読み込み、メッセージIDごとのresolverを返す.
+  /// [arbJson] をパースし、メッセージIDごとのresolverを返す.
   ///
   /// 値が文字列で、かつキーが `@` で始まらないエントリのみ登録する.
   /// ルートがJSONオブジェクトでない場合は [FormatException] を投げる.
   ///
-  /// [arbFile] monolithが生成したARBファイル
+  /// [arbJson] monolithが生成したARBファイルのJSON文字列
   ///
   /// Example:
   /// ```dart
-  /// final table = await ArbDelegateLoader.load(File('test/fixtures/test_ja.arb'));
+  /// final arbJson = await File('test/fixtures/test_ja.arb').readAsString();
+  /// final table = ArbDelegateLoader.load(arbJson);
   /// final text = table['one_argument']!(
   ///   LocalizeStringSource('one_argument', ['太郎']),
   /// );
   /// ```
-  static Future<Map<String, String Function(LocalizeStringSource)>> load(
-    File arbFile,
-  ) async {
-    // ARBファイルを読み込む
-    final content = await arbFile.readAsString();
+  static Map<String, String Function(LocalizeStringSource)> load(
+    String arbJson,
+  ) {
     // JSONとしてデコードする
-    final json = jsonDecode(content);
+    final json = jsonDecode(arbJson);
     // ルートがオブジェクトでなければ不正なARBとして扱う
     if (json is! Map<String, dynamic>) {
-      throw FormatException('ARB file must be a JSON object: ${arbFile.path}');
+      throw const FormatException('ARB content must be a JSON object');
     }
 
     // メッセージIDとresolverの対応表を構築する
