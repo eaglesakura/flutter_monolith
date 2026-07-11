@@ -7,6 +7,7 @@ Flutter標準では提供されていないモジュール単位でのローカ�
 * **統一言語管理**: プロジェクト全体で一貫した言語設定
 * **自動コード生成**: ARBファイルからDartコードの自動生成
 * **Mixin提供**: パッケージ間でのローカライズリソース共有機能
+* **テストヘルパー生成**: Unit Test / Widget Preview / Golden Test 向けに ARB JSON を埋め込む `StringsTestHelper`（任意）
 
 ## Getting started
 
@@ -37,11 +38,19 @@ localization:
     resources_path: res/
     module_helper_class_name: L10nStringsMixin
     module_helper_path: lib/gen/strings.dart
+
+  # 任意: Unit Test / Widget Preview / Golden Test 用ヘルパー
+  # 省略時は生成しない（後方互換）。
+  test_helper:
+    package_name: foundation_resources          # 必須: 出力先パッケージ
+    test_helper_class_name: StringsTestHelper   # 任意, デフォルト: StringsTestHelper
+    test_helper_path: lib/gen/strings_test_helper.dart  # 任意, デフォルト: lib/gen/strings_test_helper.dart
 ```
 
 ## Usage
 
 **パッケージ構造例**:
+
 ```
 packages/
 ├── domain/
@@ -61,6 +70,7 @@ packages/
 ```
 
 **CSVリソースファイル例** (`packages/domain/user/res/strings.csv`):
+
 ```csv
 id,ja,en,description
 user_name,ユーザー名,User Name,ユーザー名
@@ -71,6 +81,7 @@ validation_email_invalid,有効なメールアドレスを入力してくださ�
 ```
 
 **生成されるDartコード例**:
+
 ```dart
 // packages/domain/user/lib/gen/strings.dart
 mixin L10nStringsMixin {
@@ -81,9 +92,11 @@ mixin L10nStringsMixin {
   String get validation_email_invalid;
 }
 
+
 ```
 
 **パッケージでの使用例**:
+
 ```dart
 // packages/domain/user/lib/src/user_validator.dart
 import '../gen/strings.dart';
@@ -111,10 +124,12 @@ class UserValidator {
   bool _isValidEmail(String email) {
     return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
   }
+
 }
 ```
 
 **アプリケーションでの統合例**:
+
 ```dart
 // app/lib/main.dart
 import 'package:flutter/material.dart';
@@ -132,20 +147,46 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-## Additional information
+**Unit Test / Widget Preview / Golden Test（`StringsTestHelper`）**:
 
-このパッケージはモジュラーモノリス構造を採用する大規模Flutterプロジェクトに最適化されている。
+`localization.test_helper` を設定すると、`dart run monolith_runner:localization` 実行時に ARB 埋め込みヘルパー（Base64）が生成される。
+ファイル I/O なしで `LocalizeStringDelegate.injectDelegateForTest` に言語 getter を渡せる。
+
+```dart
+import 'package:foundation_resources/gen/strings_test_helper.dart';
+import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+
+setUpAll(() async {
+  await LocalizeStringDelegate.injectDelegateForTest(
+    arbJson: StringsTestHelper.ja,
+  );
+});
+
+*earDownAll(() async {
+* await LocalizeStringDelegate.resetDelegateForTest();
+});
+```
+
+* リリースビルドから `StringsTestHelper` を呼び出さないこと（`UnsupportedError` となる）
+* テスト / Preview 側パッケージは、生成先パッケージ（例: `foundation_resources`）と `monolith_localization_runtime` に依存する
+
+*# Additional information
+*
+*のパッケージはモジュラーモノリス構造を採用する大規模Flutterプロジェクトに最適化されている。
 
 **従来の課題**:
-- Flutter標準の国際化機能はアプリケーションレベルでのみサポート
-- 各パッケージが独立してローカライズリソースを管理できない
-- ドメインロジックとローカライズリソースの分離が困難
+
+* Flutter標準の国際化機能はアプリケーションレベルでのみサポート
+* 各パッケージが独立してローカライズリソースを管理できない
+* ドメインロジックとローカライズリソースの分離が困難
+*
 
 **本パッケージの解決策**:
-- パッケージ単位での独立したローカライズリソース管理
-- CSVファイルベースの簡潔なリソース定義
-- 自動コード生成による型安全なアクセス
-- プロジェクト全体での一貫した言語設定
+
+* パッケージ単位での独立したローカライズリソース管理
+* CSVファイルベースの簡潔なリソース定義
+* 自動コード生成による型安全なアクセス
+* プロジェクト全体での一貫した言語設定
 
 これにより、ドメインパッケージやスクリーンパッケージがそれぞれ独自のローカライズリソースを持ちながら、
 アプリケーション全体として統一された多言語対応を実現できる。

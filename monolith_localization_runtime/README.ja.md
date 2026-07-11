@@ -19,7 +19,7 @@
 ```yaml
 # pubspec.yaml
 dependencies:
-  monolith_localization_runtime: ^1.0.0
+  monolith_localization_runtime: ^1.1.0
 ```
 
 ## Usage
