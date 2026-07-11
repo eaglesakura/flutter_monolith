@@ -16,6 +16,11 @@ _MonolithLocalizationDto _$MonolithLocalizationDtoFromJson(
   package: MonolithLocalizationPackageDto.fromJson(
     json['package'] as Map<String, dynamic>,
   ),
+  testHelper: json['test_helper'] == null
+      ? null
+      : MonolithLocalizationTestHelperDto.fromJson(
+          json['test_helper'] as Map<String, dynamic>,
+        ),
 );
 
 Map<String, dynamic> _$MonolithLocalizationDtoToJson(
@@ -24,4 +29,5 @@ Map<String, dynamic> _$MonolithLocalizationDtoToJson(
   'languages': instance.languages,
   'app': instance.app,
   'package': instance.package,
+  'test_helper': instance.testHelper,
 };
