@@ -10,6 +10,8 @@ import 'package:monolith_localization/src/generator/l10n_helper_generator.dart';
 import 'package:monolith_localization/src/generator/l10n_helper_generator_template.dart';
 import 'package:monolith_localization/src/generator/l10n_strings_mixin_generator.dart';
 import 'package:monolith_localization/src/generator/l10n_strings_mixin_generator_template.dart';
+import 'package:monolith_localization/src/generator/strings_test_helper_generator.dart';
+import 'package:monolith_localization/src/generator/strings_test_helper_generator_template.dart';
 import 'package:path/path.dart' as p;
 
 final _log = Logger.file();
@@ -65,6 +67,8 @@ extension MonolithLocalizationExtensions on Monolith {
   /// * packages/
   ///     * module/
   ///         * lib/gen/strings.dart
+  /// * （`localization.test_helper` 設定時）
+  ///     * 指定パッケージ配下に StringsTestHelper（ARB 埋め込み）を生成する
   Future generateLocalization() async {
     final dto = _parseConfiguration();
     final appPackage = require(dto.app.packageName);
@@ -172,6 +176,32 @@ extension MonolithLocalizationExtensions on Monolith {
       arbDirectory,
       arbFileNamePrefix: arbFilePrefix,
     );
+
+    // Unit Test 用 StringsTestHelper を生成する（設定がある場合のみ）
+    final testHelper = dto.testHelper;
+    if (testHelper != null) {
+      _log.i(
+        'generate strings test helper: '
+        '${testHelper.packageName}/${testHelper.testHelperPath}',
+      );
+      // 出力先パッケージを解決する
+      final outputPackage = require(testHelper.packageName);
+      final helperFile = outputPackage.relativeFile(testHelper.testHelperPath);
+      await StringsTestHelperGenerator().generate(
+        helperFile,
+        mustacheTemplate: stringsTestHelperMustache,
+        className: testHelper.testHelperClassName,
+        arbDirectory: arbDirectory,
+        arbFilePrefix: arbFilePrefix,
+        languages: languages,
+      );
+      // 出力先パッケージの shell で format する
+      await outputPackage.shell(
+        'dart',
+        arguments: ['format', helperFile.path],
+      );
+    }
+
     // l10n.dartを生成
     await appPackage.pubGet();
 
