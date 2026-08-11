@@ -7,6 +7,7 @@ It streamlines flavor-specific environment constant management and build-time co
 * **Automatic JSON File Generation**: Output JSON files usable with `--dart-define-from-file`
 * **Type-safe Access**: Runtime constant access through generated `Defines` classes
 * **Build Tool Integration**: Automatic integration with Flutter/Dart build processes
+* **Test-time Override**: Inject dart-define values via `Defines.override` when `--dart-define` cannot be used freely
 
 ## Getting started
 
@@ -38,6 +39,7 @@ define:
 The above configuration generates the following files:
 
 **JSON File Example** (`secrets/dart-define/development.json`):
+
 ```json
 {
   "FLAVOR": "development",
@@ -46,6 +48,7 @@ The above configuration generates the following files:
 ```
 
 **Generated Defines Class Example**:
+
 ```dart
 final class Defines {
   static String get FLAVOR { ... }
@@ -76,16 +79,33 @@ void main() {
 }
 ```
 
+**Test-time Override (`Defines.override`)**:
+
+Use this when `--dart-define` cannot be used freely, such as Integration Tests (e.g. under VS Code). Existing keys are overwritten; unregistered keys are added.
+
+```dart
+import 'package:foundation_metadata/gen/defines.dart';
+
+void main() {
+  Defines.override({
+    'EXAMPLE_KEY_FOR_TESTING': 'true',
+  });
+
+  // ...
+}
+```
+
 ## Additional information
 
 This package is optimized for multi-flavor development of Flutter applications.
 It improves development efficiency and prevents human errors during release by providing type-safe management of environment-specific configuration values and automating build-time constant injection.
 
 **Special Features for Test Environment**:
-- Automatically searches workspace directory when running `flutter test`
-- Dynamically loads constants from test flavor JSON files
-- Transparently switches between build-time constants and test-time constants
+* Automatically searches workspace directory when running `flutter test`
+* Dynamically loads constants from test flavor JSON files
+* Transparently switches between build-time constants and test-time constants
+* Supports direct value injection via `Defines.override` for Integration Tests and similar cases
 
 **Directory Management**: The package automatically creates necessary directories when executing define tasks, ensuring proper file structure setup without manual operations.
 
-This enables consistent use of environment constants in unit tests and integration tests as well. 
+This enables consistent use of environment constants in unit tests and integration tests as well.
