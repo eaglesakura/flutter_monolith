@@ -17,6 +17,24 @@ final class Defines {
     }
 {{/keys}}
 
+  /// Overrides dart-define values at test time.
+  /// Use this to inject values directly when `--dart-define` cannot be used
+  /// freely, such as Integration Tests (e.g. under VS Code).
+  ///
+  /// [defines] is a map of keys to values. Existing keys are overwritten;
+  /// unregistered keys are added.
+  ///
+  /// Example:
+  /// ```dart
+  /// Defines.override({
+  ///   "EXAMPLE_KEY_FOR_TESTING": "true",
+  /// });
+  /// ```
+  @visibleForTesting
+  static void override(Map<String, String> defines) {
+    _defineList.addAll(defines);
+  }
+
   /// ワークスペースディレクトリを検索する.
   static Directory _getWorkspace() {
     var result = Directory.current;
@@ -51,6 +69,12 @@ final class Defines {
   }
 
   static String? _get(String key) {
+    /// 上書きされた値があればそれを返す
+    final value = _defineList[key];
+    if (value != null) {
+      return value;
+    }
+
     if (_isFlutterTesting) {
       _ensureInitialized();
       return _defineList[key];

@@ -8,6 +8,7 @@ Dart `--dart-define`コマンドに渡すためのJSONファイルと、プロ�
 * **JSONファイル自動生成**: `--dart-define-from-file`で利用可能なJSONファイルの出力
 * **型安全なアクセス**: 生成される`Defines`クラスによる実行時の定数アクセス
 * **ビルドツール連携**: Flutter/Dartビルドプロセスとの自動連携
+* **テスト時オーバーライド**: `--dart-define`を自由に使えない場合に `Defines.override` で定数を注入
 
 ## Getting started
 
@@ -39,6 +40,7 @@ define:
 上記設定により以下のファイルが生成される:
 
 **JSONファイル例** (`secrets/dart-define/development.json`):
+
 ```json
 {
   "FLAVOR": "development",
@@ -47,6 +49,7 @@ define:
 ```
 
 **生成される Defines クラス例**:
+
 ```dart
 final class Defines {
   static String get FLAVOR { ... }
@@ -77,6 +80,22 @@ void main() {
 }
 ```
 
+**テスト時オーバーライド（`Defines.override`）**:
+
+Integration Test（例: VS Code 上）など、`--dart-define` を自由に使えない場合に利用する。既存キーは上書きされ、未登録キーは追加される。
+
+```dart
+import 'package:foundation_metadata/gen/defines.dart';
+
+void main() {
+  Defines.override({
+    'EXAMPLE_KEY_FOR_TESTING': 'true',
+  });
+
+  // ...
+}
+```
+
 ## Additional information
 
 このパッケージはFlutterアプリケーションのマルチフレーバー開発に最適化されている。
@@ -84,9 +103,10 @@ void main() {
 開発効率の向上とリリース時のヒューマンエラーを防止する。
 
 **テスト環境での特別な機能**:
-- `flutter test`実行時にワークスペースディレクトリを自動検索
-- テスト用フレーバーのJSONファイルから動的に定数をロード
-- ビルド時定数とテスト時定数を透過的に切り替え
+* `flutter test`実行時にワークスペースディレクトリを自動検索
+* テスト用フレーバーのJSONファイルから動的に定数をロード
+* ビルド時定数とテスト時定数を透過的に切り替え
+* Integration Test 等向けに `Defines.override` による直接注入をサポート
 
 **ディレクトリ管理**: パッケージはdefineタスク実行時に必要なディレクトリを自動作成し、手動操作なしで適切なファイル構造の設定を保証する。
 
