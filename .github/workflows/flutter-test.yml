@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     strategy:
       matrix:
@@ -25,11 +25,19 @@ jobs:
     steps:
       # 最初にリポジトリをチェックアウトする
       - name: checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      # Flutterをインストールして依存関係を取得する
-      - name: install flutter(by fvm)
-        uses: ./.github/actions/install-flutter
+      # mise で .mise.toml のツール（Flutter 3.50.0）を入れる
+      - name: install tools (mise)
+        uses: jdx/mise-action@v5
+
+      # 導入された Flutter 版をログに残す（ローカルと CI の突合用）
+      - name: show flutter version
+        run: |
+          echo "flutter version: $(flutter --version)"
+          echo "flutter path: $(which flutter)"
+          echo "dart version: $(dart --version)"
+          echo "dart path: $(which dart)"
 
       # テスト
       - name: flutter test - ${{ matrix.package }}
