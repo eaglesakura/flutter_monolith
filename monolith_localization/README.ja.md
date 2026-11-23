@@ -9,6 +9,7 @@ Flutter標準では提供されていないモジュール単位でのローカ�
 * **統一言語管理**: プロジェクト全体で一貫した言語設定
 * **自動コード生成**: ARBファイルからDartコードの自動生成
 * **Mixin提供**: パッケージ間でのローカライズリソース共有機能
+* **テストヘルパー生成**: Unit Test / Widget Preview / Golden Test 向けに ARB JSON を埋め込む `StringsTestHelper`（任意）
 
 ## Getting started
 
@@ -39,6 +40,13 @@ localization:
     resources_path: res/
     module_helper_class_name: L10nStringsMixin
     module_helper_path: lib/gen/strings.dart
+
+  # 任意: Unit Test / Widget Preview / Golden Test 用ヘルパー
+  # 省略時は生成しない（後方互換）。
+  test_helper:
+    package_name: foundation_resources          # 必須: 出力先パッケージ
+    test_helper_class_name: StringsTestHelper   # 任意, デフォルト: StringsTestHelper
+    test_helper_path: lib/gen/strings_test_helper.dart  # 任意, デフォルト: lib/gen/strings_test_helper.dart
 ```
 
 ## Usage
@@ -136,6 +144,30 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
+
+
+**Unit Test / Widget Preview / Golden Test（`StringsTestHelper`）**:
+
+`localization.test_helper` を設定すると、`dart run monolith_runner:localization` 実行時に ARB 埋め込みヘルパー（Base64）が生成される。
+ファイル I/O なしで `LocalizeStringDelegate.injectDelegateForTest` に言語 getter を渡せる。
+
+```dart
+import 'package:foundation_resources/gen/strings_test_helper.dart';
+import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+
+setUpAll(() async {
+  await LocalizeStringDelegate.injectDelegateForTest(
+    arbJson: StringsTestHelper.ja,
+  );
+});
+
+tearDownAll(() async {
+  await LocalizeStringDelegate.resetDelegateForTest();
+});
+```
+
+* リリースビルドから `StringsTestHelper` を呼び出さないこと（`UnsupportedError` となる）
+* テスト / Preview 側パッケージは、生成先パッケージ（例: `foundation_resources`）と `monolith_localization_runtime` に依存する
 
 ## Additional information
 

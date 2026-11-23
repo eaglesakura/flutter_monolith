@@ -1,0 +1,28 @@
+{
+  "@@locale": "ja",
+  "no_argument": "OK",
+  "@no_argument": {
+    "description": "引数なし"
+  },
+  "one_argument": "こんにちは {name}",
+  "@one_argument": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    },
+    "description": "引数1"
+  },
+  "two_arguments": "{lastName}{firstName}さん",
+  "@two_arguments": {
+    "placeholders": {
+      "lastName": {
+        "type": "String"
+      },
+      "firstName": {
+        "type": "String"
+      }
+    },
+    "description": "引数2"
+  }
+}

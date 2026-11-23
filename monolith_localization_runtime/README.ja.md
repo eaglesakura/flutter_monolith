@@ -11,6 +11,7 @@
 - **Flutter 統合**: 標準の国際化機能との透過的な連携
 - **型安全アクセス**: 生成された Mixin クラスによる実行時型チェック
 - **カスタマイズ可能なテキスト最適化**: プロジェクト固有のテキスト整形処理をサポート
+- **テストサポート**: Unit Test / Golden Test 向けの delegate 注入 API
 
 ## Getting started
 
@@ -20,7 +21,7 @@
 ```yaml
 # pubspec.yaml
 dependencies:
-  monolith_localization_runtime: ^1.0.0
+  monolith_localization_runtime: ^1.1.0
 ```
 
 ## Usage
@@ -89,9 +90,40 @@ String _formatStringResource({
     required String originalFormattedText,
 }) {
   // 改行文字の変換例
-  return source.replaceAll(r'\n', '\n');
+  return originalFormattedText.replaceAll(r'\n', '\n');
 }
 ```
+
+**Unit Test / Golden Test サポート**:
+
+`StringsTestHelper` は `monolith_localization` が生成する ARB 埋め込みヘルパーである。
+テスト側の `pubspec.yaml` に生成先パッケージ（例: `foundation_resources`）への依存が必要である。
+
+```dart
+import 'package:foundation_resources/gen/strings_test_helper.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+
+void main() {
+  setUpAll(() async {
+    // monolith_localization が生成した StringsTestHelper を利用する例
+    await LocalizeStringDelegate.injectDelegateForTest(
+      arbJson: StringsTestHelper.ja,
+    );
+  });
+
+  tearDownAll(() async {
+    await LocalizeStringDelegate.resetDelegateForTest();
+  });
+
+  test('ARBからローカライズ文字列を解決する', () {
+    expect(LocalizeStringDelegate.get('some_message_id'), '期待する文言');
+  });
+}
+```
+
+代替として、ARB ファイルを `readAsString()` して渡すこともできる。
+Golden Test では引き続き `injectGoldenTestLocalization` も利用可能である。
 
 ## Additional information
 
