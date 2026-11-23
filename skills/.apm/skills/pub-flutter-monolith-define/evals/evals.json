@@ -1,0 +1,17 @@
+{
+  "skill_name": "pub-flutter-monolith-define",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "TODO アプリに FEATURE_DARK_MODE という dart-define を development / production / test に追加したい。monolith.yaml の追記と生成・ビルドコマンドを示して。",
+      "expected_output": "define.flavors へのキー追加、dart run monolith_runner:define、--dart-define-from-file の例。実シークレットなし。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Integration Test で API_URL だけ差し替えたい。Defines.override の使い方を。",
+      "expected_output": "Defines.override の Map 例とテスト用途であることの説明。",
+      "files": []
+    }
+  ]
+}

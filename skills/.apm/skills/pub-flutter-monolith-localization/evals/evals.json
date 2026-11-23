@@ -1,0 +1,23 @@
+{
+  "skill_name": "pub-flutter-monolith-localization",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "TODO アプリの packages/domain/todo に「保存に失敗しました」という日本語文言を追加したい。monolith の L10n のやり方で strings.csv の追記例と、生成コマンド、strings.dart での参照例を示して。",
+      "expected_output": "res/strings.csv への行追加、dart run monolith_runner:localization、L10nStringsMixin 経由の @internal strings 参照。プロダクト固有名なし。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Widget Preview で TODO 一覧の空状態文言を出したい。StringsTestHelper と LocalizeStringDelegate のセットアップ手順を教えて。",
+      "expected_output": "test_helper 設定の言及、injectDelegateForTest + StringsTestHelper.ja、リリースから呼ばない注意。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "foundation_resources の共通文言と screen_todo_list の文言を同じ strings から使いたい。mixin の書き方は？",
+      "expected_output": "複数 L10nStringsMixin の mixin、export しない、@internal。",
+      "files": []
+    }
+  ]
+}
