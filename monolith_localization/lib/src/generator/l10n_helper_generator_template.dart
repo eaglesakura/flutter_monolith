@@ -4,8 +4,7 @@ import 'package:meta/meta.dart';
 const l10nHelperMustache = '''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: depend_on_referenced_packages, implementation_imports, invalid_use_of_internal_member
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:monolith_localization_runtime/src/localize_string_delegate.dart';
 import 'package:monolith_localization_runtime/src/localize_string_source.dart';
 
@@ -14,9 +13,7 @@ import '{{{importL10n}}}';
 /// e.g.
 /// localizationsDelegates: [
 ///   {{className}}.delegate,
-///   GlobalMaterialLocalizations.delegate,
-///   GlobalCupertinoLocalizations.delegate,
-///   GlobalWidgetsLocalizations.delegate,
+///   ...GlobalMaterialLocalizations.delegates,
 /// ]
 final class {{className}} {
   const {{className}}._();
@@ -28,17 +25,14 @@ final class {{className}} {
   /// delegates.
   ///
   /// Returns a list of localizations delegates containing this delegate along with
-  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
-  /// and GlobalWidgetsLocalizations.delegate.
+  /// [GlobalMaterialLocalizations.delegates] (Material, Cupertino, and Widgets).
   ///
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
   static const localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
+    ...GlobalMaterialLocalizations.delegates,
   ];
 
   /// A list of this localizations delegate's supported locales.
@@ -87,7 +81,7 @@ class _{{className}}Delegate implements LocalizationsDelegate<L10n> {
   @override
   Future<L10n> load(Locale locale) async {
     final result = await delegate.load(locale);
-    L10nHelper.configure(result);
+    {{className}}.configure(result);
     return result;
   }
 

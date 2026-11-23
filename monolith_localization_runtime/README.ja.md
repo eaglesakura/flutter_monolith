@@ -55,7 +55,7 @@ class UserValidator {
 
 ```dart
 // app/lib/main.dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
 
 class MyApp extends StatelessWidget {

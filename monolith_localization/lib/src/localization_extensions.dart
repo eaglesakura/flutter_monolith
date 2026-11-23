@@ -36,6 +36,7 @@ extension MonolithLocalizationExtensions on Monolith {
   /// dependencies:
   ///   flutter_localizations:
   ///     sdk: flutter
+  ///   material_ui: any
   /// ```
   ///
   /// path/to/app/l10n.yaml

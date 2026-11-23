@@ -1,0 +1,85 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: depend_on_referenced_packages, implementation_imports, invalid_use_of_internal_member
+//
+// monolith_localization の L10nHelper テンプレート出力を模したビルド検証用フィクスチャ.
+import 'package:material_ui/material_ui.dart';
+import 'package:monolith_localization_runtime/src/localize_string_delegate.dart';
+import 'package:monolith_localization_runtime/src/localize_string_source.dart';
+
+import 'stub_l10n.dart';
+
+/// e.g.
+/// localizationsDelegates: [
+///   L10nHelper.delegate,
+///   ...GlobalMaterialLocalizations.delegates,
+/// ]
+final class L10nHelper {
+  const L10nHelper._();
+
+  /// L10n Delegate instance.
+  static const delegate = _L10nHelperDelegate();
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// [GlobalMaterialLocalizations.delegates] (Material, Cupertino, and Widgets).
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    ...GlobalMaterialLocalizations.delegates,
+  ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const supportedLocales = L10n.supportedLocales;
+
+  static void configure(L10n? l10n) {
+    if (l10n == null) {
+      return;
+    }
+    final table = <String, String Function(LocalizeStringSource source)>{
+      'hello': (source) {
+        // No Placeholders
+        return l10n.hello;
+      },
+      'greet': (source) {
+        // Has Placeholders
+        var index = 0;
+        String name = source.arguments[index];
+        index++;
+        return l10n.greet(name);
+      },
+    };
+
+    LocalizeStringDelegate.delegate = (source) {
+      final id = source.id;
+      final func = table[id]!;
+      return func(source);
+    };
+  }
+}
+
+class _L10nHelperDelegate implements LocalizationsDelegate<L10n> {
+  final delegate = L10n.delegate;
+
+  const _L10nHelperDelegate();
+
+  @override
+  Type get type => delegate.type;
+
+  @override
+  bool isSupported(Locale locale) => delegate.isSupported(locale);
+
+  @override
+  Future<L10n> load(Locale locale) async {
+    final result = await delegate.load(locale);
+    L10nHelper.configure(result);
+    return result;
+  }
+
+  @override
+  bool shouldReload(covariant LocalizationsDelegate<L10n> old) => false;
+}
