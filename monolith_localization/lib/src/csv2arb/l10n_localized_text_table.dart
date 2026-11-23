@@ -40,11 +40,12 @@ class L10nLocalizedTextTable {
     required File csvFile,
     required LocalizedTextFactory factory,
   }) {
-    final codec = CsvCodec(
-      eol: '\n',
+    final codec = Csv(
+      lineDelimiter: '\n',
     );
     final csv = csvFile.readAsStringSync();
-    final header = codec.decoder.convert<dynamic>(csv).map((e) {
+    final decoded = codec.decode(csv);
+    final header = decoded.map((e) {
       return e.map((e) => e.toString()).mapIndexed((index, token) {
         return MapEntry(index, token);
       }).toMap();
@@ -53,7 +54,7 @@ class L10nLocalizedTextTable {
       throw ArgumentError('Empty CSV: ${csvFile.path}');
     }
 
-    final rows = codec.decoder.convert<dynamic>(csv).skip(1).map((e) {
+    final rows = decoded.skip(1).map((e) {
       final keyValues = e.mapIndexed((index, token) {
         return MapEntry(header[index]!, token.toString());
       }).toMap();

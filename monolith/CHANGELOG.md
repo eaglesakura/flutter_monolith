@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Updated `csv` dependency from `^6.0.0` to `^8.0.0`
+
 ## 1.1.0
 
 - Changed the merging behavior of the `install` property to be handled per `path`.
