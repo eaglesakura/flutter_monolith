@@ -52,6 +52,18 @@ Large-scale Flutter projects face the following challenges:
 - **Environment Variable Injection**: Integration with secret management tools
 - **File Creation**: Pre-creation of files necessary for builds
 
+## 🛠 Development Environment (mise)
+
+Flutter is managed with **mise** via `.mise.toml` (FVM / `.fvmrc` are not used).
+
+```bash
+# Install mise first: https://mise.jdx.dev/
+mise install
+mise exec -- flutter --version   # expect Flutter 3.50.0.x
+mise exec -- dart pub get
+mise exec -- flutter test
+```
+
 ## 🚀 Quick Start
 
 ### Installation
@@ -109,6 +121,8 @@ install:
 ```
 
 ### Basic Usage
+
+Use the mise-managed Flutter/Dart from Development Environment (mise) above when running tools in this repository.
 
 ```bash
 # Inject secret data

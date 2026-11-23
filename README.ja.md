@@ -52,6 +52,18 @@ Flutterプロジェクトのモジュラーモノリス構造をサポートす�
 - **環境変数注入**: シークレット管理ツールとの連携
 - **ファイル作成**: ビルドに必要なファイルの事前作成
 
+## 🛠 開発環境（mise）
+
+本リポジトリの Flutter 版は **mise** で管理する（`.mise.toml`。FVM / `.fvmrc` は使用しない）。
+
+```bash
+# mise 自体は https://mise.jdx.dev/ の手順で導入する
+mise install
+mise exec -- flutter --version   # Flutter 3.50.0 系であること
+mise exec -- dart pub get
+mise exec -- flutter test
+```
+
 ## 🚀 クイックスタート
 
 ### インストール
@@ -109,6 +121,8 @@ install:
 ```
 
 ### 基本的な使用方法
+
+リポジトリ内の `dart` / `flutter` 実行は、上記「開発環境（mise）」に従い宣言版を使うこと。
 
 ```bash
 # シークレットデータの注入
