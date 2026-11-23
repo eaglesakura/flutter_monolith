@@ -1,3 +1,5 @@
+# monolith_localization
+
 Flutter標準では提供されていないモジュール単位でのローカライズリソース構築をサポートするパッケージである。
 大規模なFlutterプロジェクトにおいて、各パッケージが独立してローカライズリソースを管理できる仕組みを提供する。
 
@@ -51,7 +53,7 @@ localization:
 
 **パッケージ構造例**:
 
-```
+```text
 packages/
 ├── domain/
 │   └── user/
@@ -92,7 +94,6 @@ mixin L10nStringsMixin {
   String get validation_email_invalid;
 }
 
-
 ```
 
 **パッケージでの使用例**:
@@ -101,12 +102,10 @@ mixin L10nStringsMixin {
 // packages/domain/user/lib/src/user_validator.dart
 import '../gen/strings.dart';
 
-
 final class _Strings with L10nStringsMixin {}
 
 @internal
 final strings = _Strings();
-
 
 class UserValidator {
   String? validateEmail(String? email) {
@@ -124,7 +123,6 @@ class UserValidator {
   bool _isValidEmail(String email) {
     return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
   }
-
 }
 ```
 
@@ -132,7 +130,7 @@ class UserValidator {
 
 ```dart
 // app/lib/main.dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
@@ -146,6 +144,7 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
+
 
 **Unit Test / Widget Preview / Golden Test（`StringsTestHelper`）**:
 
@@ -162,24 +161,23 @@ setUpAll(() async {
   );
 });
 
-*earDownAll(() async {
-* await LocalizeStringDelegate.resetDelegateForTest();
+tearDownAll(() async {
+  await LocalizeStringDelegate.resetDelegateForTest();
 });
 ```
 
 * リリースビルドから `StringsTestHelper` を呼び出さないこと（`UnsupportedError` となる）
 * テスト / Preview 側パッケージは、生成先パッケージ（例: `foundation_resources`）と `monolith_localization_runtime` に依存する
 
-*# Additional information
-*
-*のパッケージはモジュラーモノリス構造を採用する大規模Flutterプロジェクトに最適化されている。
+## Additional information
+
+このパッケージはモジュラーモノリス構造を採用する大規模Flutterプロジェクトに最適化されている。
 
 **従来の課題**:
 
 * Flutter標準の国際化機能はアプリケーションレベルでのみサポート
 * 各パッケージが独立してローカライズリソースを管理できない
 * ドメインロジックとローカライズリソースの分離が困難
-*
 
 **本パッケージの解決策**:
 

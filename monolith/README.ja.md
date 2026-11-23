@@ -1,3 +1,4 @@
+# monolith
 
 Flutterプロジェクトのモジュラーモノリス構造をサポートするプロジェクト管理ライブラリである。
 `monolith.yaml`設定ファイルを用いて、Flutterアプリケーションの開発環境構築やタスク実行を自動化する。
@@ -66,7 +67,6 @@ localization:
     # optional, default: `lib/gen/strings.dart`
     module_helper_path: lib/gen/strings.dart
 
-
 xcodegen:
   package_name: app
   touch_files:
@@ -85,7 +85,5 @@ install:
 開発チーム間での設定共有や環境構築の自動化を実現する。
 
 詳細な設定項目や使用方法については、プロジェクトのドキュメントを参照すること。
-
-**FVMサポート**: プロジェクトルートに`.fvm`ディレクトリがあるかを確認してFlutter Version Management (FVM)を自動検出する。FVMが検出された場合は、すべてのFlutterとDartコマンドをFVM経由で実行し、バージョンの一貫性を保証する。
 
 **エラーハンドリング**: Shell実行エラーハンドリングを改善 - プロセス失敗時にエラー結果を返すのではなく、適切にエラーコード127で終了するよう修正し、CI/CDパイプラインでの適切な失敗検知を実現する。

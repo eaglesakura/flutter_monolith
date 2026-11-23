@@ -1,3 +1,5 @@
+# monolith_xcodegen
+
 A package that supports iOS project generation using `xcodegen`.
 Based on `monolith.yaml` configuration, it automates environment variable injection and file creation,
 providing Xcode project generation optimized for Flutter projects.
@@ -21,6 +23,7 @@ brew install xcodegen
 ## Usage
 
 **Basic Configuration Example** (`monolith.yaml`):
+
 ```yaml
 xcodegen:
   # Required: Target package name
@@ -38,6 +41,7 @@ xcodegen:
 ```
 
 **Integration with Secret Management Example**:
+
 ```yaml
 xcodegen:
   package_name: app
@@ -51,6 +55,7 @@ xcodegen:
 ```
 
 **Execution Example and Log Output**:
+
 ```bash
 $ dart run monolith:xcodegen
 
@@ -65,33 +70,38 @@ Running xcodegen in app/ios/
 ```
 
 **Generated Xcode Project Features**:
-- Proper integration settings with Flutter framework
-- Automatic recognition of environment-specific configuration files
-- Project settings using environment variables
+
+* Proper integration settings with Flutter framework
+* Automatic recognition of environment-specific configuration files
+* Project settings using environment variables
 
 ## Additional information
 
 This package supports the following workflows:
 
 **Benefits for Development Teams**:
-- **Environment Standardization**: All developers share identical Xcode project settings
-- **Environment Variable Injection**: Flexible configuration management through integration with external configuration tools
-- **Automation**: Automatic project generation in CI/CD environments
+
+* **Environment Standardization**: All developers share identical Xcode project settings
+* **Environment Variable Injection**: Flexible configuration management through integration with external configuration tools
+* **Automation**: Automatic project generation in CI/CD environments
 
 **Examples of Supported Environment Variables**:
-- `DEVELOPMENT_TEAM`: Apple Developer Team ID
-- `CODE_SIGN_IDENTITY`: Code signing identity
-- `BUNDLE_ID_SUFFIX`: Bundle Identifier suffix
-- Any other environment variables required for xcodegen execution
+
+* `DEVELOPMENT_TEAM`: Apple Developer Team ID
+* `CODE_SIGN_IDENTITY`: Code signing identity
+* `BUNDLE_ID_SUFFIX`: Bundle Identifier suffix
+* Any other environment variables required for xcodegen execution
 
 **Prerequisites**:
-- `xcodegen` tool must be installed on the system
-- `project.yml` file must exist in the target package
-- Appropriate `xcodegen` configuration must be described in `monolith.yaml`
+
+* `xcodegen` tool must be installed on the system
+* `project.yml` file must exist in the target package
+* Appropriate `xcodegen` configuration must be described in `monolith.yaml`
 
 **Troubleshooting**:
-- If files are not found: Check pre-creation with `touch_files` setting
-- If environment variables are not reflected: Check `env` setting in `monolith.yaml`
-- If project generation fails: Check syntax errors in `project.yml`
 
-It bridges Flutter and native platform development, significantly improving development efficiency by automating complex configuration management in iOS development. 
+* If files are not found: Check pre-creation with `touch_files` setting
+* If environment variables are not reflected: Check `env` setting in `monolith.yaml`
+* If project generation fails: Check syntax errors in `project.yml`
+
+It bridges Flutter and native platform development, significantly improving development efficiency by automating complex configuration management in iOS development.

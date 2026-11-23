@@ -1,3 +1,5 @@
+# monolith_install
+
 A package that safely deploys files to workspaces from data obtained from secret management tools like `op inject` command.
 It integrates with secret management tools such as 1Password and AWS Secrets Manager to automate distribution of confidential files.
 
@@ -24,6 +26,7 @@ dart run monolith_install
 ## Usage
 
 **Android Development File Deployment Example**:
+
 ```yaml
 # monolith.yaml
 install:
@@ -44,6 +47,7 @@ install:
 ```
 
 **iOS Development File Deployment Example**:
+
 ```yaml
 install:
   # Environment-specific GoogleService-Info.plist
@@ -59,14 +63,16 @@ install:
 This package is designed to safely share confidential files among development teams without including them in version control systems.
 
 **Supported Deployment Formats**:
-- `base64_file`: Base64 encoded binary files
-- `text_file`: Plain text files (with environment variable expansion support)
+
+* `base64_file`: Base64 encoded binary files
+* `text_file`: Plain text files (with environment variable expansion support)
 
 **Security Requirements**:
-- Deployed files should be excluded in `.gitignore`
-- Properly manage access permissions to secret management tools
-- Set appropriate authentication credentials in CI/CD environments
+
+* Deployed files should be excluded in `.gitignore`
+* Properly manage access permissions to secret management tools
+* Set appropriate authentication credentials in CI/CD environments
 
 It's optimized for distributing confidential files commonly used in mobile app development, such as Keystore files, certificates, and API configuration files.
 
-**Version Compatibility**: This package maintains compatibility with the latest monolith ecosystem and ensures reliable integration with all project management features. 
+**Version Compatibility**: This package maintains compatibility with the latest monolith ecosystem and ensures reliable integration with all project management features.

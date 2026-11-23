@@ -10,25 +10,25 @@ automating the entire process from development environment setup to production r
 
 Large-scale Flutter projects face the following challenges:
 
-**Complex Environment Management**
+### Complex Environment Management
 
 - Cumbersome configuration management for different flavors
 - Version control issues with confidential files
 - Inconsistent environment setup among developers
 
-**Localization Limitations**
+### Localization Limitations
 
 - Flutter's standard internationalization features are only at the application level
 - Difficult to implement independent localization per package
 - Cannot separate domain logic from translation resources
 
-**iOS Development Complexity**
+### iOS Development Complexity
 
 - Manual management of Xcode project settings
 - Distribution of certificates and provisioning profiles
 - Difficulty in sharing configurations between teams
 
-**Inefficient Project Management**
+### Inefficient Project Management
 
 - Tedious individual execution of each tool
 - Complex configuration in CI/CD environments
@@ -59,6 +59,18 @@ Large-scale Flutter projects face the following challenges:
 - **xcodegen Integration**: YAML-based Xcode project generation
 - **Environment Variable Injection**: Integration with secret management tools
 - **File Creation**: Pre-creation of files necessary for builds
+
+## 🛠 Development Environment (mise)
+
+Flutter is managed with **mise** via `.mise.toml`.
+
+```bash
+# Install mise first: https://mise.jdx.dev/
+mise install
+mise exec -- flutter --version   # expect Flutter 3.50.0.x
+mise exec -- dart pub get
+mise exec -- flutter test
+```
 
 ## 🚀 Quick Start
 
@@ -118,6 +130,8 @@ install:
 
 ### Basic Usage
 
+Use the mise-managed Flutter/Dart from Development Environment (mise) above when running tools in this repository.
+
 ```bash
 # Inject secret data
 op inject --force --in-file monolith.yaml --out-file secrets/monolith.yaml
@@ -136,15 +150,15 @@ flutter build ios --dart-define-from-file=secrets/dart-define/production.json
 
 ### Core Packages
 
-| Package | Description | Purpose |
-|---------|-------------|---------|
-| **monolith** | Main library | Project management and task execution control |
-| **monolith_runner** | Unified runner | Provides `dart run monolith_runner:*` commands |
+| Package             | Description     | Purpose                                              |
+| ------------------- | --------------- | ---------------------------------------------------- |
+| **monolith**        | Main library    | Project management and task execution control        |
+| **monolith_runner** | Unified runner  | Provides `dart run monolith_runner:*` commands       |
 
 ### Feature Packages
 
 | Package | Description | Key Features |
-|---------|-------------|--------------|
+| --------- | ------------- | -------------- |
 | **monolith_define** | Dart Define management | Flavor-specific environment constants and JSON file generation |
 | **monolith_install** | Secret file deployment | Safe distribution and deployment of confidential files |
 | **monolith_localization** | Module-level localization | Package-independent multi-language resource management |
@@ -153,7 +167,7 @@ flutter build ios --dart-define-from-file=secrets/dart-define/production.json
 
 ## 🏗️ Project Structure Example
 
-```
+```text
 my_flutter_app/
 ├── monolith.yaml                    # Integrated configuration file
 ├── secrets/

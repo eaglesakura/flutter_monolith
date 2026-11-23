@@ -1,3 +1,5 @@
+# monolith_localization
+
 A package that supports module-level localization resource construction, which is not provided by Flutter's standard features.
 It provides a mechanism for large-scale Flutter projects where each package can independently manage localization resources.
 
@@ -51,7 +53,7 @@ localization:
 
 **Package Structure Example**:
 
-```
+```text
 packages/
 ├── domain/
 │   └── user/
@@ -127,7 +129,7 @@ class UserValidator {
 
 ```dart
 // app/lib/main.dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
@@ -141,6 +143,7 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
+
 
 **Unit Test / Widget Preview / Golden Test (`StringsTestHelper`)**:
 
@@ -169,11 +172,13 @@ tearDownAll(() async {
 This package is optimized for large-scale Flutter projects that adopt modular monolith structures.
 
 **Traditional Challenges**:
+
 * Flutter's standard internationalization features only support application level
 * Each package cannot independently manage localization resources
 * Difficulty in separating domain logic from localization resources
 
 **Solutions by This Package**:
+
 * Independent localization resource management per package
 * Concise resource definition based on CSV files
 * Type-safe access through automatic code generation
