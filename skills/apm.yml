@@ -1,0 +1,14 @@
+name: flutter-monolith
+version: 0.1.0
+description: |
+  pub.dev flutter_monolith 系パッケージの利用方法 SKILL 集。
+  monolith.yaml、define、localization、install、xcodegen、runner をカバーする。
+author: "@eaglesakura"
+license: MIT
+type: skill
+includes: auto
+targets:
+  - cursor
+  - claude
+  - copilot
+  - codex
