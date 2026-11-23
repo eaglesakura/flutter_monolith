@@ -62,7 +62,7 @@ Flutterプロジェクトのモジュラーモノリス構造をサポートす�
 
 ## 🛠 開発環境（mise）
 
-本リポジトリの Flutter 版は **mise** で管理する（`.mise.toml`。FVM / `.fvmrc` は使用しない）。
+本リポジトリの Flutter 版は **mise** で管理する（`.mise.toml`）。
 
 ```bash
 # mise 自体は https://mise.jdx.dev/ の手順で導入する

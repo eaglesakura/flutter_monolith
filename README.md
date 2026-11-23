@@ -62,7 +62,7 @@ Large-scale Flutter projects face the following challenges:
 
 ## 🛠 Development Environment (mise)
 
-Flutter is managed with **mise** via `.mise.toml` (FVM / `.fvmrc` are not used).
+Flutter is managed with **mise** via `.mise.toml`.
 
 ```bash
 # Install mise first: https://mise.jdx.dev/
