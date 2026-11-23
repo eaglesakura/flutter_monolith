@@ -1,4 +1,60 @@
 {
     "version": "2.0.0",
-    "tasks": []
+    "inputs": [
+        {
+            "id": "package",
+            "description": "公開するパッケージを選択してください",
+            "type": "pickString",
+            "options": [
+                {
+                    "value": "monolith"
+                },
+                {
+                    "value": "monolith_define"
+                },
+                {
+                    "value": "monolith_install"
+                },
+                {
+                    "value": "monolith_localization"
+                },
+                {
+                    "value": "monolith_localization_runtime"
+                },
+                {
+                    "value": "monolith_runner"
+                },
+                {
+                    "value": "monolith_xcodegen"
+                }
+            ]
+        },
+        {
+            "id": "dryRun",
+            "description": "dry-run の有無を選択してください",
+            "type": "pickString",
+            "default": "--dry-run",
+            "options": [
+                {
+                    "label": "dry-run（検証のみ）",
+                    "value": "--dry-run"
+                },
+                {
+                    "label": "本番公開",
+                    "value": ""
+                }
+            ]
+        }
+    ],
+    "tasks": [
+        {
+            "label": "[monolith] mise run monolith:{package}:publish",
+            "type": "shell",
+            "command": "mise run monolith:${input:package}:publish ${input:dryRun}",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        }
+    ]
 }
