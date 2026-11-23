@@ -45,7 +45,7 @@ jobs:
           cp pubspec.yaml.template pubspec.yaml
           cd ${{ matrix.package }}
           dart pub get
-          dart analyze
+          dart analyze --fatal-infos --fatal-warnings
           dart format --set-exit-if-changed ./lib/
           dart format --set-exit-if-changed ./test/
           flutter test ./test/
