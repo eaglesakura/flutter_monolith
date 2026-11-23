@@ -1,3 +1,4 @@
+# monolith
 
 Flutterプロジェクトのモジュラーモノリス構造をサポートするプロジェクト管理ライブラリである。
 `monolith.yaml`設定ファイルを用いて、Flutterアプリケーションの開発環境構築やタスク実行を自動化する。
@@ -65,7 +66,6 @@ localization:
     module_helper_class_name: L10nStringsMixin
     # optional, default: `lib/gen/strings.dart`
     module_helper_path: lib/gen/strings.dart
-
 
 xcodegen:
   package_name: app

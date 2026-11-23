@@ -1,3 +1,5 @@
+# monolith_define
+
 A package that automatically generates JSON files for Dart `--dart-define` commands and type-safe `Defines` classes for programmatic access.
 It streamlines flavor-specific environment constant management and build-time constant injection.
 
@@ -38,6 +40,7 @@ define:
 The above configuration generates the following files:
 
 **JSON File Example** (`secrets/dart-define/development.json`):
+
 ```json
 {
   "FLAVOR": "development",
@@ -46,6 +49,7 @@ The above configuration generates the following files:
 ```
 
 **Generated Defines Class Example**:
+
 ```dart
 final class Defines {
   static String get FLAVOR { ... }
@@ -61,7 +65,7 @@ final class Defines {
 flutter build apk --dart-define-from-file=secrets/dart-define/production.json
 ```
 
-# Programmatic Access
+## Programmatic Access
 
 ```dart
 import 'package:foundation_metadata/gen/defines.dart';
@@ -82,10 +86,11 @@ This package is optimized for multi-flavor development of Flutter applications.
 It improves development efficiency and prevents human errors during release by providing type-safe management of environment-specific configuration values and automating build-time constant injection.
 
 **Special Features for Test Environment**:
-- Automatically searches workspace directory when running `flutter test`
-- Dynamically loads constants from test flavor JSON files
-- Transparently switches between build-time constants and test-time constants
+
+* Automatically searches workspace directory when running `flutter test`
+* Dynamically loads constants from test flavor JSON files
+* Transparently switches between build-time constants and test-time constants
 
 **Directory Management**: The package automatically creates necessary directories when executing define tasks, ensuring proper file structure setup without manual operations.
 
-This enables consistent use of environment constants in unit tests and integration tests as well. 
+This enables consistent use of environment constants in unit tests and integration tests as well.

@@ -1,3 +1,5 @@
+# monolith_localization_runtime
+
 `monolith_localization`が生成したコードを実行時にサポートするランタイムライブラリである。
 モジュール単位で管理されるローカライズリソースを Flutter アプリケーションで動的に読み込み、
 型安全なアクセスを提供する。

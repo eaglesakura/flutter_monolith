@@ -1,3 +1,4 @@
+# monolith_define
 
 Dart `--dart-define`コマンドに渡すためのJSONファイルと、プログラムから型安全にアクセスできる`Defines`クラスを自動生成するパッケージである。
 フレーバー別の環境定数管理とビルド時の定数注入を効率化する。
@@ -39,6 +40,7 @@ define:
 上記設定により以下のファイルが生成される:
 
 **JSONファイル例** (`secrets/dart-define/development.json`):
+
 ```json
 {
   "FLAVOR": "development",
@@ -47,6 +49,7 @@ define:
 ```
 
 **生成される Defines クラス例**:
+
 ```dart
 final class Defines {
   static String get FLAVOR { ... }
@@ -62,7 +65,7 @@ final class Defines {
 flutter build apk --dart-define-from-file=secrets/dart-define/production.json
 ```
 
-# プログラムからのアクセス
+## プログラムからのアクセス
 
 ```dart
 import 'package:foundation_metadata/gen/defines.dart';
@@ -84,9 +87,10 @@ void main() {
 開発効率の向上とリリース時のヒューマンエラーを防止する。
 
 **テスト環境での特別な機能**:
-- `flutter test`実行時にワークスペースディレクトリを自動検索
-- テスト用フレーバーのJSONファイルから動的に定数をロード
-- ビルド時定数とテスト時定数を透過的に切り替え
+
+* `flutter test`実行時にワークスペースディレクトリを自動検索
+* テスト用フレーバーのJSONファイルから動的に定数をロード
+* ビルド時定数とテスト時定数を透過的に切り替え
 
 **ディレクトリ管理**: パッケージはdefineタスク実行時に必要なディレクトリを自動作成し、手動操作なしで適切なファイル構造の設定を保証する。
 

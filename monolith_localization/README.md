@@ -1,3 +1,5 @@
+# monolith_localization
+
 A package that supports module-level localization resource construction, which is not provided by Flutter's standard features.
 It provides a mechanism for large-scale Flutter projects where each package can independently manage localization resources.
 
@@ -42,7 +44,8 @@ localization:
 ## Usage
 
 **Package Structure Example**:
-```
+
+```text
 packages/
 ├── domain/
 │   └── user/
@@ -61,6 +64,7 @@ packages/
 ```
 
 **CSV Resource File Example** (`packages/domain/user/res/strings.csv`):
+
 ```csv
 id,ja,en,description
 user_name,ユーザー名,User Name,ユーザー名
@@ -71,6 +75,7 @@ validation_email_invalid,有効なメールアドレスを入力してくださ�
 ```
 
 **Generated Dart Code Example**:
+
 ```dart
 // packages/domain/user/lib/gen/strings.dart
 mixin L10nStringsMixin {
@@ -83,6 +88,7 @@ mixin L10nStringsMixin {
 ```
 
 **Package Usage Example**:
+
 ```dart
 // packages/domain/user/lib/src/user_validator.dart
 import '../gen/strings.dart';
@@ -112,6 +118,7 @@ class UserValidator {
 ```
 
 **Application Integration Example**:
+
 ```dart
 // app/lib/main.dart
 import 'package:material_ui/material_ui.dart';
@@ -134,14 +141,16 @@ class MyApp extends StatelessWidget {
 This package is optimized for large-scale Flutter projects that adopt modular monolith structures.
 
 **Traditional Challenges**:
-- Flutter's standard internationalization features only support application level
-- Each package cannot independently manage localization resources
-- Difficulty in separating domain logic from localization resources
+
+* Flutter's standard internationalization features only support application level
+* Each package cannot independently manage localization resources
+* Difficulty in separating domain logic from localization resources
 
 **Solutions by This Package**:
-- Independent localization resource management per package
-- Concise resource definition based on CSV files
-- Type-safe access through automatic code generation
-- Consistent language settings across the entire project
 
-This enables domain packages and screen packages to have their own localization resources while achieving unified multi-language support across the entire application. 
+* Independent localization resource management per package
+* Concise resource definition based on CSV files
+* Type-safe access through automatic code generation
+* Consistent language settings across the entire project
+
+This enables domain packages and screen packages to have their own localization resources while achieving unified multi-language support across the entire application.
