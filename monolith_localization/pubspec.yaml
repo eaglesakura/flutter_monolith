@@ -1,6 +1,6 @@
 name: monolith_localization
 description: A package that supports building localization resources on a module basis, which is not provided by Flutter's standard features. It provides a mechanism for each package to independently manage localization resources in large-scale Flutter projects.
-version: 1.1.0
+version: 1.1.1
 resolution: workspace
 repository: https://github.com/eaglesakura/flutter_monolith
 
@@ -13,7 +13,7 @@ dependencies:
   meta: ^1.16.0
   armyknife_dartx: ^1.0.0
   armyknife_logger: ^1.0.1
-  csv: ^6.0.0
+  csv: ^8.0.0
   dartx: ^1.2.0
   path: ^1.9.1
   mustache_template: ^2.0.0

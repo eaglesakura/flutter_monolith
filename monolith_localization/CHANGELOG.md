@@ -1,3 +1,8 @@
+## 1.1.1
+
+- Updated `csv` dependency from `^6.0.0` to `^8.0.0`
+- Migrated CSV decoding from deprecated `CsvCodec` to `Csv` (`lineDelimiter` / `decode`)
+
 ## 1.1.0
 
 - Generated `L10nHelper` now imports `package:material_ui/material_ui.dart` instead of the deprecated `package:flutter/material.dart`
