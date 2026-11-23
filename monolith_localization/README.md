@@ -9,6 +9,7 @@ It provides a mechanism for large-scale Flutter projects where each package can 
 * **Unified Language Management**: Consistent language settings across the entire project
 * **Automatic Code Generation**: Automatic Dart code generation from ARB files
 * **Mixin Provision**: Localization resource sharing functionality between packages
+* **Test Helper Generation**: Optional `StringsTestHelper` that embeds ARB JSON for Unit Test / Widget Preview / Golden Test
 
 ## Getting started
 
@@ -39,6 +40,13 @@ localization:
     resources_path: res/
     module_helper_class_name: L10nStringsMixin
     module_helper_path: lib/gen/strings.dart
+
+  # Optional: Unit Test / Widget Preview / Golden Test helper
+  # Omit this section to skip generation (backward compatible).
+  test_helper:
+    package_name: foundation_resources          # required: output package
+    test_helper_class_name: StringsTestHelper   # optional, default: StringsTestHelper
+    test_helper_path: lib/gen/strings_test_helper.dart  # optional, default: lib/gen/strings_test_helper.dart
 ```
 
 ## Usage
@@ -135,6 +143,29 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
+
+
+**Unit Test / Widget Preview / Golden Test (`StringsTestHelper`)**:
+
+When `localization.test_helper` is configured, `dart run monolith_runner:localization` generates an ARB-embedded helper (Base64). Pass language getters to `LocalizeStringDelegate.injectDelegateForTest` without file I/O.
+
+```dart
+import 'package:foundation_resources/gen/strings_test_helper.dart';
+import 'package:monolith_localization_runtime/monolith_localization_runtime.dart';
+
+setUpAll(() async {
+  await LocalizeStringDelegate.injectDelegateForTest(
+    arbJson: StringsTestHelper.ja,
+  );
+});
+
+tearDownAll(() async {
+  await LocalizeStringDelegate.resetDelegateForTest();
+});
+```
+
+* Do not call `StringsTestHelper` in release builds (throws `UnsupportedError`)
+* Depend on the output package (e.g. `foundation_resources`) and `monolith_localization_runtime` from the test/preview package
 
 ## Additional information
 

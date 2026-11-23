@@ -3,6 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:monolith_localization/src/dto/monolith_localization_app_dto.dart';
 import 'package:monolith_localization/src/dto/monolith_localization_package_dto.dart';
+import 'package:monolith_localization/src/dto/monolith_localization_test_helper_dto.dart';
 
 part 'monolith_localization_dto.freezed.dart';
 part 'monolith_localization_dto.g.dart';
@@ -19,6 +20,9 @@ abstract class MonolithLocalizationDto with _$MonolithLocalizationDto {
 
     /// モジュールパッケージ
     @JsonKey(name: 'package') required MonolithLocalizationPackageDto package,
+
+    /// Unit Test 用ヘルパー生成設定. 省略時は生成しない.
+    @JsonKey(name: 'test_helper') MonolithLocalizationTestHelperDto? testHelper,
   }) = _MonolithLocalizationDto;
 
   factory MonolithLocalizationDto.fromJson(Map<String, dynamic> json) =>
