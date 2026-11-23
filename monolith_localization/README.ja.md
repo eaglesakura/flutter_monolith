@@ -1,3 +1,5 @@
+# monolith_localization
+
 Flutter標準では提供されていないモジュール単位でのローカライズリソース構築をサポートするパッケージである。
 大規模なFlutterプロジェクトにおいて、各パッケージが独立してローカライズリソースを管理できる仕組みを提供する。
 
@@ -42,7 +44,8 @@ localization:
 ## Usage
 
 **パッケージ構造例**:
-```
+
+```text
 packages/
 ├── domain/
 │   └── user/
@@ -61,6 +64,7 @@ packages/
 ```
 
 **CSVリソースファイル例** (`packages/domain/user/res/strings.csv`):
+
 ```csv
 id,ja,en,description
 user_name,ユーザー名,User Name,ユーザー名
@@ -71,6 +75,7 @@ validation_email_invalid,有効なメールアドレスを入力してくださ�
 ```
 
 **生成されるDartコード例**:
+
 ```dart
 // packages/domain/user/lib/gen/strings.dart
 mixin L10nStringsMixin {
@@ -84,16 +89,15 @@ mixin L10nStringsMixin {
 ```
 
 **パッケージでの使用例**:
+
 ```dart
 // packages/domain/user/lib/src/user_validator.dart
 import '../gen/strings.dart';
-
 
 final class _Strings with L10nStringsMixin {}
 
 @internal
 final strings = _Strings();
-
 
 class UserValidator {
   String? validateEmail(String? email) {
@@ -115,9 +119,10 @@ class UserValidator {
 ```
 
 **アプリケーションでの統合例**:
+
 ```dart
 // app/lib/main.dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
@@ -137,15 +142,17 @@ class MyApp extends StatelessWidget {
 このパッケージはモジュラーモノリス構造を採用する大規模Flutterプロジェクトに最適化されている。
 
 **従来の課題**:
-- Flutter標準の国際化機能はアプリケーションレベルでのみサポート
-- 各パッケージが独立してローカライズリソースを管理できない
-- ドメインロジックとローカライズリソースの分離が困難
+
+* Flutter標準の国際化機能はアプリケーションレベルでのみサポート
+* 各パッケージが独立してローカライズリソースを管理できない
+* ドメインロジックとローカライズリソースの分離が困難
 
 **本パッケージの解決策**:
-- パッケージ単位での独立したローカライズリソース管理
-- CSVファイルベースの簡潔なリソース定義
-- 自動コード生成による型安全なアクセス
-- プロジェクト全体での一貫した言語設定
+
+* パッケージ単位での独立したローカライズリソース管理
+* CSVファイルベースの簡潔なリソース定義
+* 自動コード生成による型安全なアクセス
+* プロジェクト全体での一貫した言語設定
 
 これにより、ドメインパッケージやスクリーンパッケージがそれぞれ独自のローカライズリソースを持ちながら、
 アプリケーション全体として統一された多言語対応を実現できる。

@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Updated monolith_localization dependency to ^1.1.0 (material_ui generated helpers)
+
 ## 1.0.2
 
 - Updated dependencies to monolith_define 1.0.2 and monolith_localization 1.0.2

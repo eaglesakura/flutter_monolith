@@ -1,3 +1,5 @@
+# monolith_runner
+
 A runner package for executing each function of monolith from a unified command line interface.
 By adding it to `dev_dependencies`, you can access all monolith features from `dart run monolith_runner:*` commands.
 
@@ -132,6 +134,7 @@ install:
 ```
 
 **1Password CLI Integration Example**:
+
 ```yaml
 # Production environment 1Password CLI usage example
 # Replace placeholders with actual 1Password references
@@ -160,6 +163,7 @@ install:
 ```
 
 **Available Commands List**:
+
 ```bash
 # Install secret files
 dart run monolith_runner:install
@@ -175,6 +179,7 @@ dart run monolith_runner:xcodegen
 ```
 
 **CI/CD Integration Example**:
+
 ```yaml
 # .github/workflows/build.yml
 name: Build
@@ -210,18 +215,21 @@ jobs:
 This runner package is designed to streamline development workflows:
 
 **Developer Experience Improvements**:
-- **Unified Command System**: Easy-to-remember and consistent command names
-- **Incremental Execution**: Individual execution of only necessary features
-- **Batch Execution**: Automation of development environment setup
+
+* **Unified Command System**: Easy-to-remember and consistent command names
+* **Incremental Execution**: Individual execution of only necessary features
+* **Batch Execution**: Automation of development environment setup
 
 **Benefits in CI/CD Environments**:
-- **Error Handling**: Appropriate error codes and messages on failure
-- **Log Output**: Clear display of progress and results
+
+* **Error Handling**: Appropriate error codes and messages on failure
+* **Log Output**: Clear display of progress and results
 
 **Project Integration**:
-- **Lightweight Integration**: Access to all features with only dev_dependencies
-- **Configuration File Sharing**: Common use of `monolith.yaml` in project root
-- **Version Management**: Centralized version management of monolith features
-- **Dependency Consistency**: Automatic maintenance of compatibility with latest monolith ecosystem packages
 
-It functions as a unified entry point to streamline all processes from development to release and maximize utilization of the monolith library suite. 
+* **Lightweight Integration**: Access to all features with only dev_dependencies
+* **Configuration File Sharing**: Common use of `monolith.yaml` in project root
+* **Version Management**: Centralized version management of monolith features
+* **Dependency Consistency**: Automatic maintenance of compatibility with latest monolith ecosystem packages
+
+It functions as a unified entry point to streamline all processes from development to release and maximize utilization of the monolith library suite.
