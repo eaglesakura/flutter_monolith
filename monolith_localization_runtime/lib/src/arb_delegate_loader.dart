@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 import 'package:monolith_localization_runtime/src/localize_string_source.dart';
 
-/// monolithが生成したARBから、[LocalizeStringDelegate.delegate] 用のlookup tableを構築する.
+/// monolithが生成したARBから、`LocalizeStringDelegate.delegate` 用のlookup tableを構築する.
 ///
 /// NOTE.
 /// `@@locale` および `@messageId` 形式のメタデータは登録対象外とする.
