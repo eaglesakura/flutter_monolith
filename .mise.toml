@@ -9,6 +9,10 @@ chmod +x scripts/setup.sh
 scripts/setup.sh
 """
 
+[tasks."monolith:apm:install"]
+description = "Install APM skills for Cursor (--refresh --force)"
+run = "apm install --refresh --force --target cursor"
+
 [tasks."monolith:monolith:publish"]
 description = "Publish monolith to pub.dev"
 usage = '''
