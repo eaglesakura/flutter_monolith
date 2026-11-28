@@ -1,11 +1,11 @@
 ---
-name: pub-flutter-monolith-xcodegen
+name: flutter-use-monolith-xcodegen
 description: >-
   monolith_xcodegen による xcodegen 実行・touch_files・環境変数注入の利用ガイド。
   iOS の project.yml から Xcode プロジェクトを再生成する、GoogleService-Info を
   事前作成する、「dart run monolith_runner:xcodegen」では必ず使う。
   project.yml 自体の Flavor 設計の詳細は flutter-xcodegen-ios 等と併用し、
-  シークレット展開は pub-flutter-monolith-install を使う。
+  シークレット展開は flutter-use-monolith-install を使う。
 ---
 # monolith_xcodegen / iOS プロジェクト生成
 
@@ -15,7 +15,7 @@ description: >-
 ## 使わないか
 
 * `project.yml` の Flavor / Signing 設計そのもの（専用の xcodegen SKILL があればそちら）
-* Keystore 等の中身の展開（→ `pub-flutter-monolith-install`）
+* Keystore 等の中身の展開（→ `flutter-use-monolith-install`）
 
 ## 前提
 

@@ -136,18 +136,18 @@ Located under `.apm/skills/`.
 
 | SKILL | Scope |
 | --- | --- |
-| `pub-flutter-monolith` | Overview, `monolith.yaml`, workflow |
-| `pub-flutter-monolith-runner` | `dart run monolith_runner:*` |
-| `pub-flutter-monolith-define` | Flavor / dart-define / `Defines` |
-| `pub-flutter-monolith-install` | Secret file deployment |
-| `pub-flutter-monolith-localization` | CSV → ARB / Mixin / StringsTestHelper |
-| `pub-flutter-monolith-localization-runtime` | Runtime and test injection APIs |
-| `pub-flutter-monolith-xcodegen` | xcodegen helpers |
+| `flutter-use-monolith` | Overview, `monolith.yaml`, workflow |
+| `flutter-use-monolith-runner` | `dart run monolith_runner:*` |
+| `flutter-use-monolith-define` | Flavor / dart-define / `Defines` |
+| `flutter-use-monolith-install` | Secret file deployment |
+| `flutter-use-monolith-localization` | CSV → ARB / Mixin / StringsTestHelper |
+| `flutter-use-monolith-localization-runtime` | Runtime and test injection APIs |
+| `flutter-use-monolith-xcodegen` | xcodegen helpers |
 
 Examples assume an Example TODO app. Do not include real product names or real secrets.
 
 The former `flutter-monolith-localization` SKILL in the `agent-skills` package has moved to
-`pub-flutter-monolith-localization` (and the runtime SKILL).
+`flutter-use-monolith-localization` (and the runtime SKILL).
 
 ## 🚀 Quick Start
 

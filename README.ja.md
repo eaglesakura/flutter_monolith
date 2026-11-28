@@ -136,18 +136,18 @@ apm install ./path/to/flutter_monolith
 
 | SKILL | 対象 |
 | --- | --- |
-| `pub-flutter-monolith` | 全体像・`monolith.yaml`・ワークフロー |
-| `pub-flutter-monolith-runner` | `dart run monolith_runner:*` |
-| `pub-flutter-monolith-define` | Flavor / dart-define / `Defines` |
-| `pub-flutter-monolith-install` | シークレットファイル展開 |
-| `pub-flutter-monolith-localization` | CSV → ARB / Mixin / StringsTestHelper |
-| `pub-flutter-monolith-localization-runtime` | 実行時・テスト注入 API |
-| `pub-flutter-monolith-xcodegen` | xcodegen 実行補助 |
+| `flutter-use-monolith` | 全体像・`monolith.yaml`・ワークフロー |
+| `flutter-use-monolith-runner` | `dart run monolith_runner:*` |
+| `flutter-use-monolith-define` | Flavor / dart-define / `Defines` |
+| `flutter-use-monolith-install` | シークレットファイル展開 |
+| `flutter-use-monolith-localization` | CSV → ARB / Mixin / StringsTestHelper |
+| `flutter-use-monolith-localization-runtime` | 実行時・テスト注入 API |
+| `flutter-use-monolith-xcodegen` | xcodegen 実行補助 |
 
 例示は Example TODO アプリを前提にする。実プロダクト名・実シークレットは含めない。
 
 旧 `agent-skills` パッケージ内の `flutter-monolith-localization` は、
-`pub-flutter-monolith-localization`（および runtime SKILL）へ移行した。
+`flutter-use-monolith-localization`（および runtime SKILL）へ移行した。
 
 ## 🚀 クイックスタート
 

@@ -1,11 +1,11 @@
 ---
-name: pub-flutter-monolith
+name: flutter-use-monolith
 description: >-
   flutter_monolith 全体（monolith.yaml・ワークフロー・パッケージ役割）の利用ガイド。
   monolith 導入、フレーバー／シークレット／L10n／xcodegen のどの機能を使うか迷うとき、
   「monolith.yaml を書いて」「開発環境セットアップを自動化して」では必ず使う。
   個別の define / localization / install / xcodegen / runner の細部は対応する
-  pub-flutter-monolith-* に委譲する。Flutter 標準 gen-l10n のみ、一般的な Dart 規約のみ、
+  flutter-use-monolith-* に委譲する。Flutter 標準 gen-l10n のみ、一般的な Dart 規約のみ、
   アプリ UI 実装のみでは使わない。
 ---
 # flutter_monolith / 全体ガイド
@@ -26,12 +26,12 @@ Flutter のモジュラーモノリス向けに、環境定数・ローカライ
 | パッケージ | 役割 | 詳細 SKILL |
 | --- | --- | --- |
 | monolith | 設定モデル・タスク統制 | 本 SKILL |
-| monolith_runner | `dart run monolith_runner:*` 入口 | `pub-flutter-monolith-runner` |
-| monolith_define | Flavor / dart-define / `Defines` | `pub-flutter-monolith-define` |
-| monolith_install | シークレットファイル展開 | `pub-flutter-monolith-install` |
-| monolith_localization | CSV → ARB / Mixin 生成 | `pub-flutter-monolith-localization` |
-| monolith_localization_runtime | 実行時・テスト注入 | `pub-flutter-monolith-localization-runtime` |
-| monolith_xcodegen | xcodegen 実行補助 | `pub-flutter-monolith-xcodegen` |
+| monolith_runner | `dart run monolith_runner:*` 入口 | `flutter-use-monolith-runner` |
+| monolith_define | Flavor / dart-define / `Defines` | `flutter-use-monolith-define` |
+| monolith_install | シークレットファイル展開 | `flutter-use-monolith-install` |
+| monolith_localization | CSV → ARB / Mixin 生成 | `flutter-use-monolith-localization` |
+| monolith_localization_runtime | 実行時・テスト注入 | `flutter-use-monolith-localization-runtime` |
+| monolith_xcodegen | xcodegen 実行補助 | `flutter-use-monolith-xcodegen` |
 
 ## 導入の最小手順
 

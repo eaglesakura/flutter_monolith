@@ -1,10 +1,10 @@
 ---
-name: pub-flutter-monolith-runner
+name: flutter-use-monolith-runner
 description: >-
   monolith_runner の統一 CLI（dart run monolith_runner:install / define /
   localization / xcodegen）の利用ガイド。開発環境セットアップ、CI での
   monolith タスク実行、「monolith_runner で生成して」では必ず使う。
-  monolith.yaml の各セクション詳細は pub-flutter-monolith-define 等へ委譲する。
+  monolith.yaml の各セクション詳細は flutter-use-monolith-define 等へ委譲する。
   Flutter 標準ビルドのみ、gen-l10n のみでは使わない。
 ---
 # monolith_runner / 統一 CLI
@@ -14,7 +14,7 @@ description: >-
 
 ## 使わないか
 
-* `monolith.yaml` の各キーの意味そのもの（→ 対応する `pub-flutter-monolith-*`）
+* `monolith.yaml` の各キーの意味そのもの（→ 対応する `flutter-use-monolith-*`）
 * Flutter / Dart の通常ビルド・テストだけ
 
 ## 導入
@@ -77,4 +77,4 @@ dart run monolith_runner:xcodegen
   run: flutter build apk --dart-define-from-file=.secrets/dart-define/production.json
 ```
 
-失敗時はプロセスが非ゼロで終了する想定でパイプラインを組む。詳細な YAML 骨格は `pub-flutter-monolith` の references を読む。
+失敗時はプロセスが非ゼロで終了する想定でパイプラインを組む。詳細な YAML 骨格は `flutter-use-monolith` の references を読む。

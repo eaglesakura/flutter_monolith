@@ -1,5 +1,5 @@
 ---
-name: pub-flutter-monolith-localization
+name: flutter-use-monolith-localization
 description: >-
   monolith_localization による Flutter 文字列外部リソース化・L10n
   （res/strings.csv → dart run monolith_runner:localization → L10nStringsMixin /
@@ -20,7 +20,7 @@ description: >-
 ## 使わないか
 
 * Flutter 標準 `gen-l10n` / ARB 手編集のみ（monolith を使わない場合）
-* 実行時の `LocalizeStringDelegate` API 詳細のみ（→ `pub-flutter-monolith-localization-runtime`）
+* 実行時の `LocalizeStringDelegate` API 詳細のみ（→ `flutter-use-monolith-localization-runtime`）
 * Dart の一般コーディング規約のみ
 
 ## データレイアウト（Example: TODO アプリ）

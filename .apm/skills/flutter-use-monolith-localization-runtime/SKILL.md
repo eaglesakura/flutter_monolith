@@ -1,21 +1,21 @@
 ---
-name: pub-flutter-monolith-localization-runtime
+name: flutter-use-monolith-localization-runtime
 description: >-
   monolith_localization_runtime の実行時 API（LocalizeStringDelegate、
   テキスト整形、injectDelegateForTest / resetDelegateForTest）の利用ガイド。
   テストや Widget Preview での文言注入、実行時の文字列整形カスタム、
   「LocalizeStringDelegate を設定して」では必ず使う。
-  CSV 編集・コード生成手順そのものは pub-flutter-monolith-localization を使う。
+  CSV 編集・コード生成手順そのものは flutter-use-monolith-localization を使う。
 ---
 # monolith_localization_runtime / 実行時
 
 `monolith_localization` が生成したコードを、アプリ実行時・テスト時に支えるランタイムである。
-文言の真実源や生成手順は `pub-flutter-monolith-localization` を正とする。
+文言の真実源や生成手順は `flutter-use-monolith-localization` を正とする。
 
 ## 使わないか
 
-* `strings.csv` の編集・生成コマンド（→ `pub-flutter-monolith-localization`）
-* Flavor / dart-define（→ `pub-flutter-monolith-define`）
+* `strings.csv` の編集・生成コマンド（→ `flutter-use-monolith-localization`）
+* Flavor / dart-define（→ `flutter-use-monolith-define`）
 
 ## 依存
 

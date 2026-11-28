@@ -1,10 +1,10 @@
 ---
-name: pub-flutter-monolith-install
+name: flutter-use-monolith-install
 description: >-
   monolith_install によるシークレット／設定ファイル展開の利用ガイド。
   Keystore、GoogleService-Info、android.properties、op inject 連携、
   「secrets を展開して」「install タスクを書いて」では必ず使う。
-  dart-define 生成や L10n・xcodegen 本体は他の pub-flutter-monolith-* を使う。
+  dart-define 生成や L10n・xcodegen 本体は他の flutter-use-monolith-* を使う。
 ---
 # monolith_install / ファイル展開
 
@@ -13,8 +13,8 @@ description: >-
 
 ## 使わないか
 
-* 環境定数 JSON / `Defines`（→ `pub-flutter-monolith-define`）
-* 文言リソース（→ `pub-flutter-monolith-localization`）
+* 環境定数 JSON / `Defines`（→ `flutter-use-monolith-define`）
+* 文言リソース（→ `flutter-use-monolith-localization`）
 
 ## 前提フロー
 
@@ -23,7 +23,7 @@ mkdir -p .secrets
 op inject --force --in-file monolith.yaml --out-file .secrets/monolith.secrets.yaml
 dart run monolith_runner:install
 ```
-`includes` で注入後 YAML を取り込む構成が多い。詳細は `pub-flutter-monolith` を参照する。
+`includes` で注入後 YAML を取り込む構成が多い。詳細は `flutter-use-monolith` を参照する。
 
 ## 設定（Example: TODO アプリ）
 

@@ -1,10 +1,10 @@
 ---
-name: pub-flutter-monolith-define
+name: flutter-use-monolith-define
 description: >-
   monolith_define による Flavor / --dart-define-from-file / Defines クラス生成の利用ガイド。
   環境定数の追加・変更、development／production／test フレーバー、Defines.override、
   「dart-define を生成して」「Defines.FLAVOR を読んで」では必ず使う。
-  L10n・シークレット展開・xcodegen 本体は他の pub-flutter-monolith-* を使う。
+  L10n・シークレット展開・xcodegen 本体は他の flutter-use-monolith-* を使う。
 ---
 # monolith_define / 環境定数
 
@@ -13,8 +13,8 @@ description: >-
 
 ## 使わないか
 
-* ローカライズ文言（→ `pub-flutter-monolith-localization`）
-* Keystore 等のファイル配布（→ `pub-flutter-monolith-install`）
+* ローカライズ文言（→ `flutter-use-monolith-localization`）
+* Keystore 等のファイル配布（→ `flutter-use-monolith-install`）
 
 ## 設定フィールド
 
