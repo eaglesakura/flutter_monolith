@@ -72,6 +72,83 @@ mise exec -- dart pub get
 mise exec -- flutter test
 ```
 
+## Installing APM SKILLs
+
+This repository root is an [APM (Agent Package Manager)](https://microsoft.github.io/apm/) package (`apm.yml` / `.apm/skills/`).
+It ships agent-facing SKILLs that document how to use the [flutter_monolith](https://github.com/eaglesakura/flutter_monolith) packages in a consuming project.
+
+APM CLI is required. If it is not installed yet, see [Installation](https://microsoft.github.io/apm/getting-started/installation/).
+
+```bash
+apm --version
+```
+
+From the consuming repository root, initialize once if needed:
+
+```bash
+apm init
+```
+
+Then add this package with either approach below. Pin a tag in production (recommended): `eaglesakura/flutter_monolith#v0.1.0`.
+
+### Declare in `apm.yml`, then install
+
+Edit the consuming project's `apm.yml` and list the package under `dependencies.apm`:
+
+```yaml
+name: my-app
+version: 0.1.0
+dependencies:
+  apm:
+    - eaglesakura/flutter_monolith#v0.1.0
+    # Local path (development):
+    # - ./path/to/flutter_monolith
+```
+
+Install (or restore after `git clone`):
+
+```bash
+apm install
+```
+
+### Install with a direct package argument
+
+Pass the package to `apm install`. APM resolves it and updates `apm.yml` / `apm.lock.yaml`:
+
+```bash
+# GitHub shorthand
+apm install eaglesakura/flutter_monolith
+
+# Pin a tag (recommended)
+apm install eaglesakura/flutter_monolith#v0.1.0
+
+# Local path (development)
+apm install ./path/to/flutter_monolith
+```
+
+### What to commit
+
+Commit `apm.yml`, `apm.lock.yaml`, and `.gitignore` (plus any authored `.apm/`). Do not commit `apm_modules/`. Teammates restore dependencies with `apm install` after `git clone`.
+
+### Shipped SKILLs
+
+Located under `.apm/skills/`.
+
+| SKILL | Scope |
+| --- | --- |
+| `pub-flutter-monolith` | Overview, `monolith.yaml`, workflow |
+| `pub-flutter-monolith-runner` | `dart run monolith_runner:*` |
+| `pub-flutter-monolith-define` | Flavor / dart-define / `Defines` |
+| `pub-flutter-monolith-install` | Secret file deployment |
+| `pub-flutter-monolith-localization` | CSV → ARB / Mixin / StringsTestHelper |
+| `pub-flutter-monolith-localization-runtime` | Runtime and test injection APIs |
+| `pub-flutter-monolith-xcodegen` | xcodegen helpers |
+
+Examples assume an Example TODO app. Do not include real product names or real secrets.
+
+The former `flutter-monolith-localization` SKILL in the `agent-skills` package has moved to
+`pub-flutter-monolith-localization` (and the runtime SKILL).
+
 ## 🚀 Quick Start
 
 ### Installation

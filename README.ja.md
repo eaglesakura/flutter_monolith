@@ -72,6 +72,83 @@ mise exec -- dart pub get
 mise exec -- flutter test
 ```
 
+## APM SKILL の導入
+
+本リポジトリルートは [APM (Agent Package Manager)](https://microsoft.github.io/apm/) パッケージである（`apm.yml` / `.apm/skills/`）。
+[flutter_monolith](https://github.com/eaglesakura/flutter_monolith) ライブラリ群の利用方法をまとめた Agent 向け SKILL を、利用側プロジェクトへ入れる。
+
+前提として APM CLI が必要である。未導入なら [Installation](https://microsoft.github.io/apm/getting-started/installation/) を参照する。
+
+```bash
+apm --version
+```
+
+利用側リポジトリのルートで、未初期化なら一度だけ初期化する:
+
+```bash
+apm init
+```
+
+その後、次のいずれかで本パッケージを追加する。本番ではタグ固定を推奨する: `eaglesakura/flutter_monolith#v0.1.0`。
+
+### `apm.yml` に記載してから install する
+
+利用側の `apm.yml` を編集し、`dependencies.apm` に本パッケージを列挙する:
+
+```yaml
+name: my-app
+version: 0.1.0
+dependencies:
+  apm:
+    - eaglesakura/flutter_monolith#v0.1.0
+    # ローカル path（開発時）:
+    # - ./path/to/flutter_monolith
+```
+
+インストール（または `git clone` 後の復元）:
+
+```bash
+apm install
+```
+
+### `apm install` でパッケージを直接指定する
+
+`apm install` にパッケージを渡す。APM が解決し、`apm.yml` / `apm.lock.yaml` を更新する:
+
+```bash
+# GitHub ショートハンド
+apm install eaglesakura/flutter_monolith
+
+# タグで固定する場合（推奨）
+apm install eaglesakura/flutter_monolith#v0.1.0
+
+# ローカル path（開発時）
+apm install ./path/to/flutter_monolith
+```
+
+### コミット対象
+
+コミットするのは `apm.yml`・`apm.lock.yaml`・`.gitignore`（および自作の `.apm/`）までとする。`apm_modules/` はコミットしない。チームは `git clone` 後に `apm install` で復元する。
+
+### 収録 SKILL
+
+※ `.apm/skills/` 配下。
+
+| SKILL | 対象 |
+| --- | --- |
+| `pub-flutter-monolith` | 全体像・`monolith.yaml`・ワークフロー |
+| `pub-flutter-monolith-runner` | `dart run monolith_runner:*` |
+| `pub-flutter-monolith-define` | Flavor / dart-define / `Defines` |
+| `pub-flutter-monolith-install` | シークレットファイル展開 |
+| `pub-flutter-monolith-localization` | CSV → ARB / Mixin / StringsTestHelper |
+| `pub-flutter-monolith-localization-runtime` | 実行時・テスト注入 API |
+| `pub-flutter-monolith-xcodegen` | xcodegen 実行補助 |
+
+例示は Example TODO アプリを前提にする。実プロダクト名・実シークレットは含めない。
+
+旧 `agent-skills` パッケージ内の `flutter-monolith-localization` は、
+`pub-flutter-monolith-localization`（および runtime SKILL）へ移行した。
+
 ## 🚀 クイックスタート
 
 ### インストール
